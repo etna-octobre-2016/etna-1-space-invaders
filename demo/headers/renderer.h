@@ -1,10 +1,9 @@
 #ifndef RENDERER_H
 #define RENDERER_H
-    #include    <stdio.h>
-    #include    <stdbool.h>
-    #include    <SDL2.framework/Headers/SDL.h>
+  #include  "includes.h"
+  #include  "main.h"
 
-    #define     RENDERER_FLAGS 0
+  #define   RENDERER_FLAGS 0
 
-    void        renderer_init(SDL_Window *, void (*)());
+  void      renderer_init(t_SDL_objects *, void (*)());
 #endif

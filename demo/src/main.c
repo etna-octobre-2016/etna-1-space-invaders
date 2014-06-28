@@ -1,10 +1,13 @@
-#include  "../headers/main.h"
+#include            "../headers/main.h"
+#include            "../headers/window.h"
 
-int       main()
+int                 main()
 {
+  t_SDL_objects     SDL;
+
   if (!(SDL_Init(SDL_INIT_VIDEO) < 0))
   {
-    window_init(&init_success);
+    window_init(&SDL, &init_success);
     SDL_Quit();
     exit(EXIT_SUCCESS);
   }
@@ -15,14 +18,14 @@ int       main()
   }
 }
 
-void      init_success(SDL_Window *window, SDL_Renderer *renderer)
+void                init_success(t_SDL_objects *SDL)
 {
-  SDL_RendererInfo renderer_info;
+  SDL_RendererInfo  renderer_info;
 
   printf("voici mon code une fois que tout est bon\n");
-  printf("title = %s\n", SDL_GetWindowTitle(window));
+  printf("title = %s\n", SDL_GetWindowTitle(SDL->window));
 
-  if (SDL_GetRendererInfo(renderer, &renderer_info) == 0)
+  if (SDL_GetRendererInfo(SDL->renderer, &renderer_info) == 0)
     printf("renderer = %s\n", renderer_info.name);
   else
     printf("error: %s\n", SDL_GetError());

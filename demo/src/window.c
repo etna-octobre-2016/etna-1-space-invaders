@@ -1,13 +1,13 @@
-#include      "../headers/window.h"
+#include        "../headers/window.h"
+#include        "../headers/renderer.h"
 
-void          window_init(void (*callback)())
+void            window_init(t_SDL_objects *SDL, void (*callback)())
 {
-  bool        opened;
-  SDL_Event   event;
-  SDL_Window  *window;
+  bool          opened;
+  SDL_Event     event;
 
-  window = SDL_CreateWindow(WINDOW_TITLE, WINDOW_POS_X, WINDOW_POS_Y, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_FLAGS);
-  if (window != NULL)
+  SDL->window = SDL_CreateWindow(WINDOW_TITLE, WINDOW_POS_X, WINDOW_POS_Y, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_FLAGS);
+  if (SDL->window != NULL)
   {
     opened = true;
     while (opened)
@@ -23,9 +23,9 @@ void          window_init(void (*callback)())
           break;
         }
       }
-      renderer_init(window, callback);
+      renderer_init(SDL, callback);
     }
-    SDL_DestroyWindow(window);
+    SDL_DestroyWindow(SDL->window);
   }
   else
   {
