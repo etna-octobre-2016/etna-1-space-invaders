@@ -11,7 +11,7 @@ all: clean $(NAME)
 
 # Compiling
 $(NAME):
-	$(CC) src/*.c $(SDLBIN) -o $(NAME)
+	$(CC) $(CFLAGS) src/*.c $(SDLBIN) -o $(NAME)
 
 # Object files removing
 clean:
