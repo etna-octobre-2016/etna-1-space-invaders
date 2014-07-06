@@ -8,7 +8,7 @@ int                 main()
   if (!(SDL_Init(SDL_INIT_VIDEO) < 0))
   {
     window_init(&SDL, &init_success);
-    SDL_Quit();
+    clear(&SDL);
     exit(EXIT_SUCCESS);
   }
   else
@@ -29,4 +29,17 @@ void                init_success(t_SDL_objects *SDL)
     printf("renderer = %s\n", renderer_info.name);
   else
     printf("error: %s\n", SDL_GetError());
+}
+
+void                clear(t_SDL_objects *SDL)
+{
+  if (SDL->renderer != NULL)
+  {
+    SDL_DestroyRenderer(SDL->renderer);
+  }
+  if (SDL->window != NULL)
+  {
+    SDL_DestroyWindow(SDL->window);
+  }
+  SDL_Quit();
 }

@@ -1,3 +1,4 @@
+#include        "../headers/main.h"
 #include        "../headers/window.h"
 #include        "../headers/renderer.h"
 
@@ -25,12 +26,11 @@ void            window_init(t_SDL_objects *SDL, void (*callback)())
       }
       renderer_init(SDL, callback);
     }
-    SDL_DestroyWindow(SDL->window);
   }
   else
   {
     printf("Window error: %s\n", SDL_GetError());
-    SDL_Quit();
+    clear(SDL);
     exit(EXIT_FAILURE);
   }
 }

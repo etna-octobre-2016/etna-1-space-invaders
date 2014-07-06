@@ -1,3 +1,4 @@
+#include      "../headers/main.h"
 #include      "../headers/renderer.h"
 
 void          renderer_init(t_SDL_objects *SDL, void (*callback)())
@@ -19,8 +20,7 @@ void          renderer_init(t_SDL_objects *SDL, void (*callback)())
     else
     {
         printf("Renderer error: %s\n", SDL_GetError());
-        SDL_DestroyWindow(SDL->window);
-        SDL_Quit();
+        clear(SDL);
         exit(EXIT_FAILURE);
     }
   }
