@@ -20,22 +20,15 @@ int                 main()
 
 void                init_success(t_SDL_objects *SDL)
 {
-  SDL_RendererInfo  renderer_info;
-
   printf("voici mon code une fois que tout est bon\n");
   printf("title = %s\n", SDL_GetWindowTitle(SDL->window));
-
-  if (SDL_GetRendererInfo(SDL->renderer, &renderer_info) == 0)
-    printf("renderer = %s\n", renderer_info.name);
-  else
-    printf("error: %s\n", SDL_GetError());
 }
 
 void                clear(t_SDL_objects *SDL)
 {
-  if (SDL->renderer != NULL)
+  if (SDL->surface != NULL)
   {
-    SDL_DestroyRenderer(SDL->renderer);
+    SDL_FreeSurface(SDL->surface);
   }
   if (SDL->window != NULL)
   {
