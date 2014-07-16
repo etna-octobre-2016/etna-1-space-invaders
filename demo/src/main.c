@@ -22,9 +22,8 @@ int                 main()
 
 void                init_success(t_SDL_objects *SDL)
 {
-  SDL_Surface *ship;
   SDL_Rect pos;
-  SDL_Texture *text;
+  SDL_Texture *texture;
 
   pos.x = SDL->ship->x;
   pos.y = SDL->ship->y;
@@ -33,18 +32,14 @@ void                init_success(t_SDL_objects *SDL)
 
   SDL_RenderClear(SDL->renderer);
 
-  ship = IMG_Load("assets/images/dracaufeu.png");
-  if(!ship) {
-    printf("Image non chargée");
-    exit(EXIT_FAILURE);
-  }
-
-  text = SDL_CreateTextureFromSurface(SDL->renderer,ship);
-  if (text < 0){
+  texture = SDL_CreateTextureFromSurface(SDL->renderer,SDL->ship->image);
+  if (texture < 0)
+  {
     printf("Texture non chargée");
     exit(EXIT_FAILURE);
   }
-  if (SDL_RenderCopy(SDL->renderer, text, NULL, &pos) < 0){
+  if (SDL_RenderCopy(SDL->renderer, texture, NULL, &pos) < 0)
+  {
     printf("RenderCopy non chargée");
     exit(EXIT_FAILURE);
   }
@@ -52,26 +47,13 @@ void                init_success(t_SDL_objects *SDL)
 
   SDL_Event     event;
   SDL_PollEvent(&event);
+
   if (event.type == SDL_KEYDOWN)
   {
-    switch (event.key.keysym.sym) {
-      case SDLK_DOWN:
-        SDL->ship->y += SDL->ship->height;
-        break;
-      case SDLK_UP:
-        SDL->ship->y -= SDL->ship->height;
-        break;
-      case SDLK_RIGHT:
-        SDL->ship->x += SDL->ship->width;
-        break;
-      case SDLK_LEFT:
-        SDL->ship->x -= SDL->ship->width;
-        break;
-    }
+    move(event.key.keysym.sym, SDL);
   }
 
   SDL_RenderPresent(SDL->renderer);
-  SDL_FreeSurface(ship);
   /*Fin*/
 
   
@@ -88,6 +70,10 @@ void                clear(t_SDL_objects *SDL)
   if (SDL->window != NULL)
   {
     SDL_DestroyWindow(SDL->window);
+  }
+  if (SDL->ship->image != NULL)
+  {
+    SDL_FreeSurface(SDL->ship->image);
   }
   SDL_Quit();
 }

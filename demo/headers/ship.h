@@ -1,14 +1,10 @@
 #ifndef SHIP_H
 #define SHIP_H
-  typedef		struct
-  {
-    int 		x;
-    int 		y;
-    int 		width;
-    int 		height;
 
-  } 			t_ship;
+  #include        "includes.h"
+  #include        "structures.h"
 
   void	init_ship();
+  void	move(int direction, t_SDL_objects *SDL);
 
 #endif
