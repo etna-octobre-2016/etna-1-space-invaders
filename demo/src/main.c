@@ -20,32 +20,22 @@ int                 main()
 
 void                init_success(t_SDL_objects *SDL)
 {
-  /*Test de chargement d'une image*/
-  SDL_Surface *hero = NULL;
+  SDL_RendererInfo  renderer_info;
 
-  hero = IMG_Load("assets/images/dracaufeu.png");
-  if(!hero) {
-    printf("Image non chargée");
-    exit(EXIT_FAILURE);
-  }
-
-  if (SDL_BlitSurface(hero, NULL, SDL->surface, NULL) < 0){
-    printf("echec %s", SDL_GetError());
-    exit(EXIT_FAILURE);
-  }
-
-  SDL_UpdateWindowSurface(SDL->window);
-  /*Fin*/
-  
   printf("voici mon code une fois que tout est bon\n");
   printf("title = %s\n", SDL_GetWindowTitle(SDL->window));
+
+  if (SDL_GetRendererInfo(SDL->renderer, &renderer_info) == 0)
+    printf("renderer = %s\n", renderer_info.name);
+  else
+    printf("error: %s\n", SDL_GetError());
 }
 
 void                clear(t_SDL_objects *SDL)
 {
-  if (SDL->surface != NULL)
+  if (SDL->renderer != NULL)
   {
-    SDL_FreeSurface(SDL->surface);
+    SDL_DestroyRenderer(SDL->renderer);
   }
   if (SDL->window != NULL)
   {

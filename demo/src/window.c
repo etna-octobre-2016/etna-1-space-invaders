@@ -1,6 +1,6 @@
 #include        "../headers/main.h"
 #include        "../headers/window.h"
-#include        "../headers/surface.h"
+#include        "../headers/renderer.h"
 
 void            window_init(t_SDL_objects *SDL, void (*callback)())
 {
@@ -24,7 +24,7 @@ void            window_init(t_SDL_objects *SDL, void (*callback)())
           break;
         }
       }
-      surface_init(SDL, callback);
+      renderer_init(SDL, callback);
     }
   }
   else

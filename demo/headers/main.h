@@ -5,7 +5,7 @@
   typedef         struct
   {
     SDL_Window    *window;
-    SDL_Surface   *surface;
+    SDL_Renderer  *renderer;
 
   }               t_SDL_objects;
 
