@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-07-17 21:12:10
+* @Last Modified time: 2014-07-17 21:20:11
 */
 
 #include        "../headers/ship.h"
@@ -32,16 +32,18 @@ void	init_ship(t_SDL_objects *SDL) {
 void	move_ship(int direction, t_SDL_objects *SDL){
 	switch (direction) {
     case SDLK_DOWN:
-    SDL->ship->y += SDL->ship->height;
+    SDL->ship->y += 50;
     break;
     case SDLK_UP:
-    SDL->ship->y -= SDL->ship->height;
+      if (SDL->ship->y - 50 >= 0)
+        SDL->ship->y -= 50;
     break;
     case SDLK_RIGHT:
-    SDL->ship->x += SDL->ship->width;
+    SDL->ship->x += 50;
     break;
     case SDLK_LEFT:
-    SDL->ship->x -= SDL->ship->width;
+      if (SDL->ship->x - 50 >= 0)
+        SDL->ship->x -= 50;
     break;
   }
 }
