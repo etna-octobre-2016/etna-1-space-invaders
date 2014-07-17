@@ -2,6 +2,8 @@
 #include        "../headers/window.h"
 #include        "../headers/renderer.h"
 
+const   int   FRAMES_PER_SECOND = 100;
+
 void            window_init(t_SDL_objects *SDL, void (*callback)())
 {
   bool          opened;
@@ -19,12 +21,16 @@ void            window_init(t_SDL_objects *SDL, void (*callback)())
         {
           opened = false;
         }
+        if (event.type == SDL_KEYDOWN){
+          move_ship(event.key.keysym.sym, SDL);
+        }
         if (opened == false)
         {
           break;
         }
       }
       renderer_init(SDL, callback);
+      SDL_Delay(FRAMES_PER_SECOND);
     }
   }
   else

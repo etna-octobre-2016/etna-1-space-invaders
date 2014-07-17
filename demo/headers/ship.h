@@ -5,6 +5,7 @@
   #include        "structures.h"
 
   void	init_ship();
-  void	move(int direction, t_SDL_objects *SDL);
+  void	move_ship(int direction, t_SDL_objects *SDL);
+  void  print_ship(t_SDL_objects *SDL);
 
 #endif
