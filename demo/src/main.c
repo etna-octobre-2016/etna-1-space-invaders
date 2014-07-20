@@ -85,9 +85,13 @@ void                draw(t_SDL_objects *SDL)
 void                listen_events(t_SDL_objects *SDL)
 {
   bool              opened;
+  Uint32            currentTime;
+  Uint32            previousTime;
+  Uint32            timeDiff;
   SDL_Event         event;
 
   opened = true;
+  previousTime = 0;
   while (opened)
   {
     while (SDL_PollEvent(&event))
@@ -105,7 +109,16 @@ void                listen_events(t_SDL_objects *SDL)
         break;
       }
     }
-    draw(SDL);
-    SDL_Delay(FRAMES_PER_SECOND);
+    currentTime = SDL_GetTicks();
+    timeDiff = (currentTime - previousTime);
+    if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
+    {
+      draw(SDL);
+      previousTime = currentTime;
+    }
+    else
+    {
+      SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
+    }
   }
 }
