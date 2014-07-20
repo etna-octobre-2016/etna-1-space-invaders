@@ -1,34 +1,57 @@
 #include            "../headers/main.h"
 #include            "../headers/window.h"
+#include            "../headers/renderer.h"
 
 int                 main()
 {
+  bool              error;
   t_SDL_objects     SDL;
 
+  error = false;
+  if (init(&SDL) == true)
+  {
+    listen_events(&SDL);
+  }
+  else
+  {
+    error = true;
+  }
+  clear(&SDL);
+  if (error == true)
+  {
+    exit(EXIT_FAILURE);
+  }
+  else
+  {
+    exit(EXIT_SUCCESS);
+  }
+}
+
+bool                init(t_SDL_objects *SDL)
+{
   if (!(SDL_Init(SDL_INIT_VIDEO) < 0))
   {
-    window_init(&SDL, &init_success);
-    clear(&SDL);
-    exit(EXIT_SUCCESS);
+    if (window_init(SDL) == true)
+    {
+      if (renderer_init(SDL) == true)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+    else
+    {
+      return false;
+    }
   }
   else
   {
     printf("SDL init error: %s\n", SDL_GetError());
-    exit(EXIT_FAILURE);
+    return false;
   }
-}
-
-void                init_success(t_SDL_objects *SDL)
-{
-  SDL_RendererInfo  renderer_info;
-
-  printf("voici mon code une fois que tout est bon\n");
-  printf("title = %s\n", SDL_GetWindowTitle(SDL->window));
-
-  if (SDL_GetRendererInfo(SDL->renderer, &renderer_info) == 0)
-    printf("renderer = %s\n", renderer_info.name);
-  else
-    printf("error: %s\n", SDL_GetError());
 }
 
 void                clear(t_SDL_objects *SDL)
@@ -42,4 +65,27 @@ void                clear(t_SDL_objects *SDL)
     SDL_DestroyWindow(SDL->window);
   }
   SDL_Quit();
+}
+
+void                listen_events(t_SDL_objects *SDL)
+{
+  bool              opened;
+  SDL_Event         event;
+
+  opened = true;
+  while (opened)
+  {
+    while (SDL_PollEvent(&event))
+    {
+      if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+      {
+        opened = false;
+      }
+      if (opened == false)
+      {
+        break;
+      }
+    }
+  }
+  printf("win closed = %s\n", SDL_GetWindowTitle(SDL->window));
 }

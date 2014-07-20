@@ -9,6 +9,7 @@
 
   }               t_SDL_objects;
 
+  bool            init(t_SDL_objects *);
   void            clear(t_SDL_objects *);
-  void            init_success(t_SDL_objects *);
+  void            listen_events(t_SDL_objects *);
 #endif

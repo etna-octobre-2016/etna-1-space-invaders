@@ -10,5 +10,5 @@
   #define   WINDOW_POS_Y    SDL_WINDOWPOS_UNDEFINED
   #define   WINDOW_FLAGS    SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL | SDL_WINDOW_INPUT_GRABBED
 
-  void      window_init(t_SDL_objects *, void (*)());
+  bool      window_init(t_SDL_objects *);
 #endif

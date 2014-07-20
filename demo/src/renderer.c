@@ -1,27 +1,15 @@
-#include      "../headers/main.h"
-#include      "../headers/renderer.h"
+#include  "../headers/renderer.h"
 
-void          renderer_init(t_SDL_objects *SDL, void (*callback)())
+bool      renderer_init(t_SDL_objects *SDL)
 {
-  static bool isRenderer = false;
-
-  if (isRenderer)
+  SDL->renderer = SDL_CreateRenderer(SDL->window, -1, RENDERER_FLAGS);
+  if (SDL->renderer != NULL)
   {
-    callback(SDL);
+    return true;
   }
   else
   {
-    SDL->renderer = SDL_CreateRenderer(SDL->window, -1, RENDERER_FLAGS);
-    if (SDL->renderer != NULL)
-    {
-        isRenderer = true;
-        callback(SDL);
-    }
-    else
-    {
-        printf("Renderer error: %s\n", SDL_GetError());
-        clear(SDL);
-        exit(EXIT_FAILURE);
-    }
+    printf("Renderer error: %s\n", SDL_GetError());
+    return false;
   }
 }

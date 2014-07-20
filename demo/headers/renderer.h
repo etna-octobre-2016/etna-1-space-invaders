@@ -5,5 +5,5 @@
 
   #define   RENDERER_FLAGS 0
 
-  void      renderer_init(t_SDL_objects *, void (*)());
+  bool      renderer_init(t_SDL_objects *);
 #endif
