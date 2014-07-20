@@ -1,6 +1,6 @@
 #include      "../headers/main.h"
 
-void          enemy_init(t_SDL_objects *SDL)
+bool          enemy_init(t_SDL_objects *SDL)
 {
   SDL->enemy = malloc(sizeof(t_enemy));
   SDL->enemy->x = 0;
@@ -11,8 +11,9 @@ void          enemy_init(t_SDL_objects *SDL)
   if (SDL->enemy->image == NULL)
   {
     printf("Enemy init error: %s\n", IMG_GetError());
-    exit(EXIT_FAILURE);
+    return false;
   }
+  return true;
 }
 
 void          enemy_draw(t_SDL_objects *SDL)
@@ -35,13 +36,13 @@ void          enemy_draw(t_SDL_objects *SDL)
 
   if (texture == 0)
   {
-    printf("Enemy error: %s\n", SDL_GetError());
+    printf("Enemy draw error: %s\n", SDL_GetError());
     exit(EXIT_FAILURE);
   }
 
   if (SDL_RenderCopy(SDL->renderer, texture, &src, &dest) < 0)
   {
-    printf("Enemy error: %s\n", SDL_GetError());
+    printf("Enemy draw error: %s\n", SDL_GetError());
     exit(EXIT_FAILURE);
   }
 }

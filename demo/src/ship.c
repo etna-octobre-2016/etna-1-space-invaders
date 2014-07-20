@@ -2,12 +2,12 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-20 20:18:05
+* @Last Modified time: 2014-07-20 20:23:50
 */
 
 #include      "../headers/main.h"
 
-void          ship_init(t_SDL_objects *SDL)
+bool          ship_init(t_SDL_objects *SDL)
 {
   SDL->ship = malloc(sizeof(t_ship));
 
@@ -20,16 +20,18 @@ void          ship_init(t_SDL_objects *SDL)
   SDL->ship->width	= 150;
   SDL->ship->height	= 121;
 
-  /*Config*/
-  SDL->ship->image = IMG_Load("assets/images/dracaufeu.png");
-  if(!SDL->ship->image)
-  {
-    printf("Image non chargée");
-    exit(EXIT_FAILURE);
-  }
-
   /*Animation*/
   SDL->ship->animation.nb_frames = 12;
+
+  /*Config*/
+  SDL->ship->image = IMG_Load("assets/images/dracaufeu.png");
+
+  if (SDL->ship->image == NULL)
+  {
+    printf("Ship init error: %s\n", IMG_GetError());
+    return false;
+  }
+  return true;
 }
 
 void          ship_move(int direction, t_SDL_objects *SDL)
@@ -80,13 +82,13 @@ void          ship_draw(t_SDL_objects *SDL)
 
   if (texture < 0)
   {
-    printf("Texture non chargée dans ship_draw");
+    printf("Ship draw error: %s\n", SDL_GetError());
     exit(EXIT_FAILURE);
   }
 
   if (SDL_RenderCopy(SDL->renderer, texture, &sourc, &dest) < 0)
   {
-    printf("RenderCopy non chargée dans ship_draw");
+    printf("Ship draw error: %s\n", SDL_GetError());
     exit(EXIT_FAILURE);
   }
 }

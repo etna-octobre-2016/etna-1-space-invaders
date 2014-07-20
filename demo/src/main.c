@@ -33,19 +33,16 @@ bool                init(t_SDL_objects *SDL)
     {
       if (renderer_init(SDL) == true)
       {
-        ship_init(SDL);
-        enemy_init(SDL);
-        return true;
-      }
-      else
-      {
-        return false;
+        if (ship_init(SDL) == true)
+        {
+          if (enemy_init(SDL) == true)
+          {
+            return true;
+          }
+        }
       }
     }
-    else
-    {
-      return false;
-    }
+    return false;
   }
   else
   {
@@ -79,8 +76,10 @@ void                clear(t_SDL_objects *SDL)
 
 void                draw(t_SDL_objects *SDL)
 {
+  SDL_RenderClear(SDL->renderer);
   ship_draw(SDL);
   enemy_draw(SDL);
+  SDL_RenderPresent(SDL->renderer);
 }
 
 void                listen_events(t_SDL_objects *SDL)
@@ -106,9 +105,7 @@ void                listen_events(t_SDL_objects *SDL)
         break;
       }
     }
-    SDL_RenderClear(SDL->renderer);
     draw(SDL);
-    SDL_RenderPresent(SDL->renderer);
     SDL_Delay(FRAMES_PER_SECOND);
   }
 }
