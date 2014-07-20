@@ -2,12 +2,12 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-20 20:06:17
+* @Last Modified time: 2014-07-20 20:18:05
 */
 
 #include      "../headers/main.h"
 
-void          init_ship(t_SDL_objects *SDL)
+void          ship_init(t_SDL_objects *SDL)
 {
   SDL->ship = malloc(sizeof(t_ship));
 
@@ -32,7 +32,7 @@ void          init_ship(t_SDL_objects *SDL)
   SDL->ship->animation.nb_frames = 12;
 }
 
-void          move_ship(int direction, t_SDL_objects *SDL)
+void          ship_move(int direction, t_SDL_objects *SDL)
 {
 	switch (direction)
   {
@@ -51,7 +51,7 @@ void          move_ship(int direction, t_SDL_objects *SDL)
   }
 }
 
-void          print_ship(t_SDL_objects *SDL)
+void          ship_draw(t_SDL_objects *SDL)
 {
   SDL_Rect    sourc;
   SDL_Rect    dest;
@@ -80,13 +80,13 @@ void          print_ship(t_SDL_objects *SDL)
 
   if (texture < 0)
   {
-    printf("Texture non chargée dans print_ship");
+    printf("Texture non chargée dans ship_draw");
     exit(EXIT_FAILURE);
   }
 
   if (SDL_RenderCopy(SDL->renderer, texture, &sourc, &dest) < 0)
   {
-    printf("RenderCopy non chargée dans print_ship");
+    printf("RenderCopy non chargée dans ship_draw");
     exit(EXIT_FAILURE);
   }
 }

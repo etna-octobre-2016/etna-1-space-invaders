@@ -33,7 +33,7 @@ bool                init(t_SDL_objects *SDL)
     {
       if (renderer_init(SDL) == true)
       {
-        init_ship(SDL);
+        ship_init(SDL);
         enemy_init(SDL);
         return true;
       }
@@ -79,7 +79,7 @@ void                clear(t_SDL_objects *SDL)
 
 void                draw(t_SDL_objects *SDL)
 {
-  print_ship(SDL);
+  ship_draw(SDL);
   enemy_draw(SDL);
 }
 
@@ -99,7 +99,7 @@ void                listen_events(t_SDL_objects *SDL)
       }
       if (event.type == SDL_KEYDOWN)
       {
-        move_ship(event.key.keysym.sym, SDL);
+        ship_move(event.key.keysym.sym, SDL);
       }
       if (opened == false)
       {
