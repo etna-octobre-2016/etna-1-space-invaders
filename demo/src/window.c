@@ -1,4 +1,4 @@
-#include  "../headers/window.h"
+#include  "../headers/main.h"
 
 bool      window_init(t_SDL_objects *SDL)
 {

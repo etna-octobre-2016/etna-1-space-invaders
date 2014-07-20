@@ -9,6 +9,9 @@
 
   }               t_SDL_objects;
 
+  #include        "window.h"
+  #include        "renderer.h"
+
   bool            init(t_SDL_objects *);
   void            clear(t_SDL_objects *);
   void            listen_events(t_SDL_objects *);

@@ -1,4 +1,4 @@
-#include  "../headers/renderer.h"
+#include  "../headers/main.h"
 
 bool      renderer_init(t_SDL_objects *SDL)
 {

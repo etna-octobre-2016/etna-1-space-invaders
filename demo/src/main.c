@@ -1,6 +1,4 @@
 #include            "../headers/main.h"
-#include            "../headers/window.h"
-#include            "../headers/renderer.h"
 
 int                 main()
 {

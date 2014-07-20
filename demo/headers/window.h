@@ -1,8 +1,5 @@
 #ifndef WINDOW_H
 #define WINDOW_H
-  #include  "includes.h"
-  #include  "main.h"
-
   #define   WINDOW_TITLE    ""
   #define   WINDOW_HEIGHT   0
   #define   WINDOW_WIDTH    0
