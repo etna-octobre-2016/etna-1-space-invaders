@@ -34,6 +34,7 @@ bool                init(t_SDL_objects *SDL)
       if (renderer_init(SDL) == true)
       {
         init_ship(SDL);
+        enemy_init(SDL);
         return true;
       }
       else
@@ -67,7 +68,19 @@ void                clear(t_SDL_objects *SDL)
   {
     SDL_FreeSurface(SDL->ship->image);
   }
+  if (SDL->enemy->image != NULL)
+  {
+    SDL_FreeSurface(SDL->enemy->image);
+  }
+  free(SDL->ship);
+  free(SDL->enemy);
   SDL_Quit();
+}
+
+void                draw(t_SDL_objects *SDL)
+{
+  print_ship(SDL);
+  enemy_draw(SDL);
 }
 
 void                listen_events(t_SDL_objects *SDL)
@@ -93,8 +106,9 @@ void                listen_events(t_SDL_objects *SDL)
         break;
       }
     }
-    print_ship(SDL);
+    SDL_RenderClear(SDL->renderer);
+    draw(SDL);
+    SDL_RenderPresent(SDL->renderer);
     SDL_Delay(FRAMES_PER_SECOND);
   }
-  printf("win closed = %s\n", SDL_GetWindowTitle(SDL->window));
 }

@@ -6,6 +6,7 @@
   #include  "window.h"
   #include  "renderer.h"
   #include  "ship.h"
+  #include  "enemy.h"
 
   #define   FRAMES_PER_SECOND 100
 

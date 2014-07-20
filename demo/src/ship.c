@@ -2,13 +2,15 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-20 13:26:19
+* @Last Modified time: 2014-07-20 20:06:17
 */
 
 #include      "../headers/main.h"
 
 void          init_ship(t_SDL_objects *SDL)
 {
+  SDL->ship = malloc(sizeof(t_ship));
+
 	/*Position de base*/
 	SDL->ship->x = 0;
   SDL->ship->y = 0;
@@ -74,8 +76,6 @@ void          print_ship(t_SDL_objects *SDL)
     SDL->ship->num_frame = 0;
   }
 
-  SDL_RenderClear(SDL->renderer);
-
   texture = SDL_CreateTextureFromSurface(SDL->renderer,SDL->ship->image);
 
   if (texture < 0)
@@ -89,6 +89,4 @@ void          print_ship(t_SDL_objects *SDL)
     printf("RenderCopy non chargée dans print_ship");
     exit(EXIT_FAILURE);
   }
-
-  SDL_RenderPresent(SDL->renderer);
 }
