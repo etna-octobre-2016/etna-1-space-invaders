@@ -1,9 +1,18 @@
-#include      "../headers/main.h"
+/*
+* @Author: ahemt_s
+* @Date:   2014-07-20 23:24:05
+* @Last Modified by:   ahemt_s
+* @Last Modified time: 2014-07-21 00:07:17
+*/
+#include          "../headers/main.h"
 
-bool          enemy_init(t_SDL_objects *SDL)
+bool              enemy_init(t_SDL_objects *SDL)
 {
+  SDL_DisplayMode displayMode;
+
+  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &displayMode);
   SDL->enemy = malloc(sizeof(t_enemy));
-  SDL->enemy->x = 0;
+  SDL->enemy->x = displayMode.w;
   SDL->enemy->y = 0;
   SDL->enemy->width = 32;
   SDL->enemy->height = 32;
@@ -16,33 +25,7 @@ bool          enemy_init(t_SDL_objects *SDL)
   return true;
 }
 
-void          enemy_draw(t_SDL_objects *SDL)
+void          enemy_move(t_SDL_objects *SDL)
 {
-  SDL_Rect    src;
-  SDL_Rect    dest;
-  SDL_Texture *texture;
-
-  src.x = SDL->enemy->x;
-  src.y = SDL->enemy->y;
-  src.w = SDL->enemy->width;
-  src.h = SDL->enemy->height;
-
-  dest.x = SDL->enemy->x;
-  dest.y = SDL->enemy->y;
-  dest.w = SDL->enemy->width;
-  dest.h = SDL->enemy->height;
-
-  texture = SDL_CreateTextureFromSurface(SDL->renderer, SDL->enemy->image);
-
-  if (texture == 0)
-  {
-    printf("Enemy draw error: %s\n", SDL_GetError());
-    exit(EXIT_FAILURE);
-  }
-
-  if (SDL_RenderCopy(SDL->renderer, texture, &src, &dest) < 0)
-  {
-    printf("Enemy draw error: %s\n", SDL_GetError());
-    exit(EXIT_FAILURE);
-  }
+  move_enemy_straight(SDL->enemy, SDL);
 }

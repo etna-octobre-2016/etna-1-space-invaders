@@ -74,11 +74,11 @@ void                clear(t_SDL_objects *SDL)
   SDL_Quit();
 }
 
-void                draw(t_SDL_objects *SDL)
+void                game_loop(t_SDL_objects *SDL)
 {
   SDL_RenderClear(SDL->renderer);
   ship_draw(SDL);
-  enemy_draw(SDL);
+  enemy_move(SDL);
   SDL_RenderPresent(SDL->renderer);
 }
 
@@ -113,7 +113,7 @@ void                listen_events(t_SDL_objects *SDL)
     timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
     {
-      draw(SDL);
+      game_loop(SDL);
       previousTime = currentTime;
     }
     else
