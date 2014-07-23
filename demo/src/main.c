@@ -5,6 +5,7 @@ int                 main()
   bool              error;
   t_SDL_objects     SDL;
 
+  srand(time(NULL));
   error = false;
   if (init(&SDL) == true)
   {
