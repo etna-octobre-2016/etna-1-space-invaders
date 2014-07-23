@@ -2,35 +2,45 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-23 15:11:09
+* @Last Modified time: 2014-07-23 22:53:05
 */
 #include          "../headers/main.h"
 
 bool              enemy_init(t_SDL_objects *SDL)
 {
   SDL_DisplayMode displayMode;
+  t_enemy         *next;
+  int             count;
 
   SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &displayMode);
-  SDL->enemy = malloc(sizeof(t_enemy));
-  SDL->enemy->x = displayMode.w;
-  SDL->enemy->y = enemy_get_random_y_pos(0, displayMode.h);
-  SDL->enemy->width = 32;
-  SDL->enemy->height = 32;
-  SDL->enemy->image = IMG_Load("assets/images/enemy_1.png");
-  if (SDL->enemy->image == NULL)
+  next = NULL;
+  for (count = 0; count < ENEMY_COUNT; count++)
   {
-    printf("Enemy init error: %s\n", IMG_GetError());
-    return false;
+    SDL->enemy = malloc(sizeof(t_enemy));
+    SDL->enemy->width = 49;
+    SDL->enemy->height = 49;
+    SDL->enemy->x = (displayMode.w - RAND_RANGE(0, 400));
+    SDL->enemy->y = RAND_RANGE(0, displayMode.h);
+    SDL->enemy->image = IMG_Load("assets/images/lunatone.png");
+    if (SDL->enemy->image == NULL)
+    {
+      printf("Enemy init error: %s\n", IMG_GetError());
+      return false;
+    }
+    SDL->enemy->next = next;
+    next = SDL->enemy;
   }
   return true;
 }
 
-void          enemy_move(t_SDL_objects *SDL)
+void              enemy_move(t_SDL_objects *SDL)
 {
-  move_enemy_straight(SDL->enemy, SDL);
-}
+  t_enemy         *enemy;
 
-int           enemy_get_random_y_pos(int rangeMin, int rangMax)
-{
-  return ((rand() % (rangMax - (rangeMin + 1))) + rangeMin);
+  enemy = SDL->enemy;
+  while (enemy != NULL)
+  {
+    move_enemy_straight(enemy, SDL);
+    enemy = enemy->next;
+  }
 }

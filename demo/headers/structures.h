@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-20 17:55:07
+* @Last Modified time: 2014-07-23 20:04:47
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -25,13 +25,14 @@
 
   }                 t_ship;
 
-  typedef           struct
+  typedef           struct s_enemy
   {
     int             x;
     int             y;
     int             width;
     int             height;
     SDL_Surface     *image;
+    struct s_enemy  *next;
 
   }                 t_enemy;
 

@@ -2,11 +2,11 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:40:56
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-20 23:53:19
+* @Last Modified time: 2014-07-23 22:15:31
 */
-#include "../headers/main.h"
+#include      "../headers/main.h"
 
-void move_enemy_straight(t_enemy *enemy, t_SDL_objects *SDL)
+void          move_enemy_straight(t_enemy *enemy, t_SDL_objects *SDL)
 {
   SDL_Rect    src;
   SDL_Rect    dest;
@@ -17,12 +17,12 @@ void move_enemy_straight(t_enemy *enemy, t_SDL_objects *SDL)
   src.w = enemy->width;
   src.h = enemy->height;
 
-  dest.x = enemy->x - 20;
+  dest.x = enemy->x - 10;
   dest.y = enemy->y;
   dest.w = enemy->width;
   dest.h = enemy->height;
 
-  texture = SDL_CreateTextureFromSurface(SDL->renderer, SDL->enemy->image);
+  texture = SDL_CreateTextureFromSurface(SDL->renderer, enemy->image);
 
   if (texture == 0)
   {
@@ -36,5 +36,5 @@ void move_enemy_straight(t_enemy *enemy, t_SDL_objects *SDL)
     exit(EXIT_FAILURE);
   }
 
-  SDL->enemy->x -= 20;
+  enemy->x -= 10;
 }
