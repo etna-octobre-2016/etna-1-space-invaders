@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-23 22:53:05
+* @Last Modified time: 2014-07-26 14:31:11
 */
 #include          "../headers/main.h"
 
@@ -21,6 +21,8 @@ bool              enemy_init(t_SDL_objects *SDL)
     SDL->enemy->height = 49;
     SDL->enemy->x = (displayMode.w - RAND_RANGE(0, 400));
     SDL->enemy->y = RAND_RANGE(0, displayMode.h);
+    SDL->enemy->num_frame = 0;
+    SDL->enemy->animation.nb_frames = 7;
     SDL->enemy->image = IMG_Load("assets/images/lunatone.png");
     if (SDL->enemy->image == NULL)
     {
