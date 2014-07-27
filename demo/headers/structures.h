@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-26 14:02:27
+* @Last Modified time: 2014-07-27 16:28:33
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -15,10 +15,10 @@
 
   typedef           struct
   {
-    int 		        x;
-    int 		        y;
-    int 		        width;
-    int 		        height;
+    int             x;
+    int             y;
+    int             width;
+    int             height;
     SDL_Surface     *image;
     t_animation     animation;
     int             num_frame;
@@ -40,9 +40,24 @@
 
   typedef           struct
   {
+    char            *type;
+    Uint32          timestamp;
+    t_enemy         *enemy;
+
+  }                 t_level_event;
+
+  typedef           struct
+  {
+    Uint32          timestamp;
+    t_level_event   **events;
+
+  }                 t_level;
+
+  typedef           struct
+  {
     SDL_Window      *window;
     SDL_Renderer    *renderer;
-    t_ship	  	    *ship;
+    t_ship          *ship;
     t_enemy         *enemy;
 
   }                 t_SDL_objects;
