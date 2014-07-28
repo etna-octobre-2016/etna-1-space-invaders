@@ -2,27 +2,19 @@
 
 int                 main()
 {
-  bool              error;
   t_SDL_objects     SDL;
 
   srand(time(NULL));
-  error = false;
   if (init(&SDL) == true)
   {
     listen_events(&SDL);
-  }
-  else
-  {
-    error = true;
-  }
-  clear(&SDL);
-  if (error == true)
-  {
-    exit(EXIT_FAILURE);
-  }
-  else
-  {
+    clear(&SDL);
     exit(EXIT_SUCCESS);
+  }
+  else
+  {
+    clear(&SDL);
+    exit(EXIT_FAILURE);
   }
 }
 
