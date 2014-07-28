@@ -38,7 +38,10 @@ bool                init(t_SDL_objects *SDL)
         {
           if (level_init(1, SDL) == true)
           {
-            return true;
+            if (enemy_init(SDL) == true)
+            {
+              return true;
+            }
           }
         }
       }
@@ -90,7 +93,7 @@ void                game_loop(t_SDL_objects *SDL)
       switch (SDL->level->events[i]->type)
       {
         case 'E':
-          enemy_init(&SDL->level->events[i]->enemies, SDL);
+          enemy_add(&SDL->level->events[i]->enemies, SDL);
           eventTriggered = true;
           break;
       }

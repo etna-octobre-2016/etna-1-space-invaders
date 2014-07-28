@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:40:56
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-26 14:35:01
+* @Last Modified time: 2014-07-28 20:30:13
 */
 #include      "../headers/main.h"
 
@@ -16,7 +16,7 @@ void          move_enemy_straight(t_enemy *enemy, t_SDL_objects *SDL)
   src.y = 0;
   src.w = enemy->width;
   src.h = enemy->height;
-  dest.x = enemy->x - 5;
+  dest.x = enemy->x - 10;
   dest.y = enemy->y;
   dest.w = enemy->width;
   dest.h = enemy->height;
@@ -39,5 +39,5 @@ void          move_enemy_straight(t_enemy *enemy, t_SDL_objects *SDL)
   {
     enemy->num_frame = 0;
   }
-  enemy->x -= 5;
+  enemy->x -= 10;
 }

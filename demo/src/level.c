@@ -34,7 +34,7 @@ bool      level_1_events_init(t_SDL_objects *SDL)
   int     i;
   int     timestamp;
 
-  SDL->level->eventsCount = 3;
+  SDL->level->eventsCount = 4;
   SDL->level->events = malloc(sizeof(t_level_event) * SDL->level->eventsCount);
   timestamp = SDL->level->timestamp;
   if (SDL->level->events != NULL)
@@ -51,23 +51,31 @@ bool      level_1_events_init(t_SDL_objects *SDL)
             timestamp += 1000;
             SDL->level->events[i]->type = 'E';
             SDL->level->events[i]->timestamp = timestamp;
-            SDL->level->events[i]->enemies.level1 = 5;
-            SDL->level->events[i]->enemies.level2 = 0;
-            SDL->level->events[i]->enemies.level3 = 0;
-            break;
-          case 1:
-            timestamp += 5000;
-            SDL->level->events[i]->type = 'E';
-            SDL->level->events[i]->timestamp = timestamp;
             SDL->level->events[i]->enemies.level1 = 10;
             SDL->level->events[i]->enemies.level2 = 0;
             SDL->level->events[i]->enemies.level3 = 0;
             break;
+          case 1:
+            timestamp += 1000;
+            SDL->level->events[i]->type = 'E';
+            SDL->level->events[i]->timestamp = timestamp;
+            SDL->level->events[i]->enemies.level1 = 5;
+            SDL->level->events[i]->enemies.level2 = 0;
+            SDL->level->events[i]->enemies.level3 = 0;
+            break;
           case 2:
+            timestamp += 5000;
+            SDL->level->events[i]->type = 'E';
+            SDL->level->events[i]->timestamp = timestamp;
+            SDL->level->events[i]->enemies.level1 = 15;
+            SDL->level->events[i]->enemies.level2 = 0;
+            SDL->level->events[i]->enemies.level3 = 0;
+            break;
+          case 3:
             timestamp += 8000;
             SDL->level->events[i]->type = 'E';
             SDL->level->events[i]->timestamp = timestamp;
-            SDL->level->events[i]->enemies.level1 = 20;
+            SDL->level->events[i]->enemies.level1 = 30;
             SDL->level->events[i]->enemies.level2 = 0;
             SDL->level->events[i]->enemies.level3 = 0;
             break;

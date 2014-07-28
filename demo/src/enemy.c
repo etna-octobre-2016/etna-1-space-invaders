@@ -2,46 +2,67 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-28 18:09:22
+* @Last Modified time: 2014-07-28 20:29:52
 */
 #include          "../headers/main.h"
 
-bool              enemy_init(t_level_event_enemies *enemies, t_SDL_objects *SDL)
+bool              enemy_init(t_SDL_objects *SDL)
 {
-  SDL_DisplayMode screen;
-
-  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
-  if (enemy_init_level_1(enemies->level1, &screen, SDL) == false)
+  SDL->enemy = malloc(sizeof(t_enemy));
+  if (SDL->enemy != NULL)
+  {
+    SDL->enemy->next = NULL;
+    return true;
+  }
+  else
   {
     return false;
   }
-  return true;
 }
 
-bool              enemy_init_level_1(int enemiesCount, SDL_DisplayMode *screen, t_SDL_objects *SDL)
+bool              enemy_add(t_level_event_enemies *enemies, t_SDL_objects *SDL)
+{
+  if (enemy_add_level_1(enemies->level1, SDL) == true)
+  {
+    return true;
+  }
+  return false;
+}
+
+bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
 {
   int             i;
-  t_enemy         *next;
+  t_enemy         *current;
+  t_enemy         *enemy;
+  SDL_DisplayMode screen;
 
-  next = NULL;
-  for (i = 0; i < enemiesCount; i++)
+  current = SDL->enemy;
+  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
+  for (i = 0; i < count; i++)
   {
-    SDL->enemy = malloc(sizeof(t_enemy));
-    SDL->enemy->level = 1;
-    SDL->enemy->width = 49;
-    SDL->enemy->height = 49;
-    SDL->enemy->x = (screen->w - RAND_RANGE(0, 400));
-    SDL->enemy->y = RAND_RANGE(0, screen->h);
-    SDL->enemy->num_frame = 0;
-    SDL->enemy->animation.nb_frames = 7;
-    SDL->enemy->image = IMG_Load("assets/images/lunatone.png");
-    if (SDL->enemy->image == NULL)
+    enemy = malloc(sizeof(t_enemy));
+    if (enemy != NULL)
     {
-      printf("Enemy init error: %s\n", IMG_GetError());
-      return false;
+      enemy->level = 1;
+      enemy->next = NULL;
+      enemy->width = 49;
+      enemy->height = 49;
+      enemy->x = screen.w + RAND_RANGE(0, 400);
+      enemy->y = RAND_RANGE(0, screen.h);
+      enemy->num_frame = 0;
+      enemy->animation.nb_frames = 7;
+      enemy->image = IMG_Load("assets/images/lunatone.png");
+      if (enemy->image == NULL)
+      {
+        printf("Enemy init error: %s\n", IMG_GetError());
+        return false;
+      }
+      while (current->next != NULL)
+      {
+        current = current->next;
+      }
+      current->next = enemy;
     }
-    SDL->enemy->next = next;
-    next = SDL->enemy;
   }
   return true;
 }
