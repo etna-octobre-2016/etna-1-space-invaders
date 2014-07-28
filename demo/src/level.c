@@ -95,3 +95,8 @@ bool      level_1_events_init(t_SDL_objects *SDL)
     return false;
   }
 }
+
+void      level_clear(t_SDL_objects *SDL)
+{
+
+}
