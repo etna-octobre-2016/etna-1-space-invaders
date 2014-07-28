@@ -2,64 +2,79 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-27 16:28:33
+* @Last Modified time: 2014-07-28 18:43:21
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
-  typedef           struct
+  typedef                 struct
   {
-    int             nb_frames;
+    int                   nb_frames;
 
-  }                 t_animation;
+  }                       t_animation;
 
-  typedef           struct
+  typedef                 struct
   {
-    int             x;
-    int             y;
-    int             width;
-    int             height;
-    SDL_Surface     *image;
-    t_animation     animation;
-    int             num_frame;
+    int                   x;
+    int                   y;
+    int                   width;
+    int                   height;
+    SDL_Surface           *image;
+    t_animation           animation;
+    int                   num_frame;
 
-  }                 t_ship;
+  }                       t_ship;
 
-  typedef           struct s_enemy
+  typedef                 struct s_enemy
   {
-    int             x;
-    int             y;
-    int             width;
-    int             height;
-    int             num_frame;
-    SDL_Surface     *image;
-    t_animation     animation;
-    struct s_enemy  *next;
+    int                   x;
+    int                   y;
+    int                   width;
+    int                   height;
+    int                   num_frame;
+    int                   level;
+    SDL_Surface           *image;
+    t_animation           animation;
+    struct s_enemy        *next;
 
-  }                 t_enemy;
+  }                       t_enemy;
 
-  typedef           struct
+  typedef                 struct
   {
-    char            *type;
-    Uint32          timestamp;
-    t_enemy         *enemy;
+    int                   level1;
+    int                   level2;
+    int                   level3;
 
-  }                 t_level_event;
+  }                       t_level_event_enemies;
 
-  typedef           struct
+  typedef                 struct
   {
-    Uint32          timestamp;
-    t_level_event   **events;
+    bool                  triggered;
+    char                  type;
+    Uint32                timestamp;
+    t_level_event_enemies enemies;
 
-  }                 t_level;
+  }                       t_level_event;
 
-  typedef           struct
+
+  typedef                 struct
   {
-    SDL_Window      *window;
-    SDL_Renderer    *renderer;
-    t_ship          *ship;
-    t_enemy         *enemy;
+    int                   eventsCount;
+    int                   number;
+    bool                  completed;
+    Uint32                timestamp;
+    t_level_event         **events;
 
-  }                 t_SDL_objects;
+  }                       t_level;
+
+  typedef                 struct
+  {
+    SDL_Window            *window;
+    SDL_Renderer          *renderer;
+    t_ship                *ship;
+    t_enemy               *enemy;
+    t_level               *level;
+
+  }                       t_SDL_objects;
 
 #endif

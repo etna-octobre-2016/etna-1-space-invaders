@@ -36,7 +36,7 @@ bool                init(t_SDL_objects *SDL)
       {
         if (ship_init(SDL) == true)
         {
-          if (enemy_init(SDL) == true)
+          if (level_init(1, SDL) == true)
           {
             return true;
           }
@@ -77,6 +77,29 @@ void                clear(t_SDL_objects *SDL)
 
 void                game_loop(t_SDL_objects *SDL)
 {
+  bool              eventTriggered;
+  int               i;
+  Uint32            timestamp;
+
+  eventTriggered = false;
+  timestamp = SDL_GetTicks();
+  for (i = 0; !eventTriggered && i < SDL->level->eventsCount; i++)
+  {
+    if (SDL->level->events[i]->triggered == false && timestamp > SDL->level->events[i]->timestamp)
+    {
+      switch (SDL->level->events[i]->type)
+      {
+        case 'E':
+          enemy_init(&SDL->level->events[i]->enemies, SDL);
+          eventTriggered = true;
+          break;
+      }
+      if (eventTriggered == true)
+      {
+        SDL->level->events[i]->triggered = true;
+      }
+    }
+  }
   ship_draw(SDL);
   enemy_move(SDL);
 }

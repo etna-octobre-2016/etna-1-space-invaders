@@ -2,25 +2,36 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-26 14:31:11
+* @Last Modified time: 2014-07-28 18:09:22
 */
 #include          "../headers/main.h"
 
-bool              enemy_init(t_SDL_objects *SDL)
+bool              enemy_init(t_level_event_enemies *enemies, t_SDL_objects *SDL)
 {
-  SDL_DisplayMode displayMode;
-  t_enemy         *next;
-  int             count;
+  SDL_DisplayMode screen;
 
-  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &displayMode);
+  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
+  if (enemy_init_level_1(enemies->level1, &screen, SDL) == false)
+  {
+    return false;
+  }
+  return true;
+}
+
+bool              enemy_init_level_1(int enemiesCount, SDL_DisplayMode *screen, t_SDL_objects *SDL)
+{
+  int             i;
+  t_enemy         *next;
+
   next = NULL;
-  for (count = 0; count < ENEMY_COUNT; count++)
+  for (i = 0; i < enemiesCount; i++)
   {
     SDL->enemy = malloc(sizeof(t_enemy));
+    SDL->enemy->level = 1;
     SDL->enemy->width = 49;
     SDL->enemy->height = 49;
-    SDL->enemy->x = (displayMode.w - RAND_RANGE(0, 400));
-    SDL->enemy->y = RAND_RANGE(0, displayMode.h);
+    SDL->enemy->x = (screen->w - RAND_RANGE(0, 400));
+    SDL->enemy->y = RAND_RANGE(0, screen->h);
     SDL->enemy->num_frame = 0;
     SDL->enemy->animation.nb_frames = 7;
     SDL->enemy->image = IMG_Load("assets/images/lunatone.png");
@@ -42,7 +53,12 @@ void              enemy_move(t_SDL_objects *SDL)
   enemy = SDL->enemy;
   while (enemy != NULL)
   {
-    move_enemy_straight(enemy, SDL);
+    switch (enemy->level)
+    {
+      case 1:
+        move_enemy_straight(enemy, SDL);
+        break;
+    }
     enemy = enemy->next;
   }
 }
