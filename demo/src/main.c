@@ -49,6 +49,8 @@ bool                init(t_SDL_objects *SDL)
 
 void                clear(t_SDL_objects *SDL)
 {
+  enemy_clear(SDL);
+
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
@@ -61,12 +63,7 @@ void                clear(t_SDL_objects *SDL)
   {
     SDL_FreeSurface(SDL->ship->image);
   }
-  if (SDL->enemy->image != NULL)
-  {
-    SDL_FreeSurface(SDL->enemy->image);
-  }
   free(SDL->ship);
-  free(SDL->enemy);
   SDL_Quit();
 }
 

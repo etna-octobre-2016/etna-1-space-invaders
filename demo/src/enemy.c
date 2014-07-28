@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-28 20:29:52
+* @Last Modified time: 2014-07-28 20:50:02
 */
 #include          "../headers/main.h"
 
@@ -65,6 +65,21 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
     }
   }
   return true;
+}
+
+void              enemy_clear(t_SDL_objects *SDL)
+{
+  t_enemy         *enemy;
+  t_enemy         *tmp;
+
+  enemy = SDL->enemy;
+  while (enemy->next != NULL)
+  {
+    tmp = enemy;
+    enemy = enemy->next;
+    SDL_FreeSurface(tmp->image);
+    free(tmp);
+  }
 }
 
 void              enemy_move(t_SDL_objects *SDL)
