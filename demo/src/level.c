@@ -98,5 +98,5 @@ bool      level_1_events_init(t_SDL_objects *SDL)
 
 void      level_clear(t_SDL_objects *SDL)
 {
-
+  printf("nettoyage du niveau numero %d\n", SDL->level->number);
 }
