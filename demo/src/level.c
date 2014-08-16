@@ -1,4 +1,4 @@
-#include  "../headers/main.h"
+!#include  "../headers/main.h"
 
 bool      level_init(int levelNumber, t_SDL_objects *SDL)
 {
@@ -16,7 +16,7 @@ bool      level_init(int levelNumber, t_SDL_objects *SDL)
     return false;
   }
 }
-
+/*azerty*/
 bool      level_events_init(t_SDL_objects *SDL)
 {
   switch (SDL->level->number)
