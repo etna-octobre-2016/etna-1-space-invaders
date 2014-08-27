@@ -67,6 +67,7 @@ void                game_loop(t_SDL_objects *SDL)
   bool              eventTriggered;
   int               i;
   Uint32            timestamp;
+  int               previous_state;
 
   eventTriggered = false;
   timestamp = SDL_GetTicks();
@@ -87,7 +88,9 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
-  ship_draw(SDL);
+  previous_state = SDL->ship->state;
+  ship_is_crash(SDL);
+  ship_draw(SDL, previous_state);
   enemy_move(SDL);
 }
 

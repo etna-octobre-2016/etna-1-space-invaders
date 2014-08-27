@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-27 15:04:04
+* @Last Modified time: 2014-08-27 15:09:42
 */
 
 #include      "../headers/main.h"
@@ -74,12 +74,11 @@ void          ship_move(int direction, t_SDL_objects *SDL)
   }
 }
 
-void          ship_draw(t_SDL_objects *SDL)
+void          ship_draw(t_SDL_objects *SDL, int previous_state)
 {
   SDL_Rect    sourc;
   SDL_Rect    dest;
   SDL_Texture *texture;
-  int         previous_state;
 
   sourc.x = SDL->ship->width * SDL->ship->num_frame;
   sourc.y = 0;
@@ -91,9 +90,6 @@ void          ship_draw(t_SDL_objects *SDL)
   dest.w = SDL->ship->width;
   dest.h = SDL->ship->height;
 
-  previous_state = SDL->ship->state;
-
-  ship_is_crash(SDL);
   ship_update_image(SDL, previous_state);
 
   if (SDL->ship->num_frame < SDL->ship->animation.nb_frames)
