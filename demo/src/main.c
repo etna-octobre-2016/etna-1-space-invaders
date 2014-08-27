@@ -124,6 +124,8 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
+      if (!ship_is_in_life(SDL))
+        opened = false;
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
     }
