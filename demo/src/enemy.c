@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-28 20:50:02
+* @Last Modified time: 2014-08-27 11:53:03
 */
 #include          "../headers/main.h"
 
@@ -45,8 +45,8 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
     {
       enemy->level = 1;
       enemy->next = NULL;
-      enemy->width = 49;
-      enemy->height = 49;
+      enemy->width = 50;
+      enemy->height = 50;
       enemy->x = screen.w + RAND_RANGE(0, 400);
       enemy->y = RAND_RANGE(0, screen.h);
       enemy->num_frame = 0;
