@@ -2,14 +2,15 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-30 17:06:29
+* @Last Modified time: 2014-08-30 20:18:18
 */
 
 #include      "../headers/main.h"
 
 bool          ship_init(t_SDL_objects *SDL)
 {
-  SDL->ship = malloc(sizeof(t_ship));
+  SDL->ship             = malloc(sizeof(t_ship));
+  SDL->ship->animation  = malloc(sizeof(t_animation));
 
   /*Position de base*/
   SDL->ship->x          = 0;
@@ -21,17 +22,16 @@ bool          ship_init(t_SDL_objects *SDL)
   SDL->ship->height     = 121;
 
   /*Animation*/
-  SDL->ship->previous_state       = 0;
-  SDL->ship->state                = STATE_NORMAL;
-  SDL->ship->animation.nb_frames  = 12;
+  SDL->ship->previous_animation   = 0;
+  SDL->ship->animation            = animation_get(SDL, STATE_NORMAL);
 
   /*Parametres generaux*/
   SDL->ship->life = 100;
 
   /*Config*/
-  SDL->ship->animation.image = IMG_Load("assets/images/dracaufeu.png");
+  SDL->ship->image = IMG_Load(SDL->ship->animation->url_image);
 
-  if (SDL->ship->animation.image == NULL)
+  if (SDL->ship->image == NULL)
   {
     printf("Ship init error: %s\n", IMG_GetError());
     return false;
@@ -46,14 +46,13 @@ bool          ship_init(t_SDL_objects *SDL)
 */
 void          ship_update_image(t_SDL_objects *SDL)
 {
-  if (SDL->ship->state != SDL->ship->previous_state)
+  if (SDL->ship->animation->id != SDL->ship->previous_animation)
   {
-    SDL_FreeSurface(SDL->ship->animation.image);
-    if (SDL->ship->state == STATE_CRASH)
-      SDL->ship->animation.image = IMG_Load("assets/images/dracaufeu_crash.png");
-    else if (SDL->ship->state == STATE_NORMAL)
-      SDL->ship->animation.image = IMG_Load("assets/images/dracaufeu.png");
-    if (SDL->ship->animation.image == NULL)
+    SDL_FreeSurface(SDL->ship->image);
+
+    SDL->ship->image = IMG_Load(SDL->ship->animation->url_image);
+
+    if (SDL->ship->image == NULL)
     {
       printf("Ship init error: %s\n", IMG_GetError());
       exit(EXIT_FAILURE);
@@ -109,12 +108,12 @@ void          ship_draw(t_SDL_objects *SDL)
 
   ship_update_image(SDL);
 
-  if (SDL->ship->num_frame < SDL->ship->animation.nb_frames)
+  if (SDL->ship->num_frame < SDL->ship->animation->nb_frames)
     SDL->ship->num_frame++;
   else
     SDL->ship->num_frame = 0;
 
-  texture = SDL_CreateTextureFromSurface(SDL->renderer,SDL->ship->animation.image);
+  texture = SDL_CreateTextureFromSurface(SDL->renderer,SDL->ship->image);
 
   if (texture < 0)
   {
@@ -151,14 +150,14 @@ bool           ship_is_crash(t_SDL_objects *SDL)
       if (enemy->y > SDL->ship->y && enemy->y < ship_y_max)
       {
         ship_update_life(SDL, -1);
-        SDL->ship->previous_state = SDL->ship->state;
-        SDL->ship->state          = STATE_CRASH;
+        SDL->ship->previous_animation = SDL->ship->animation->id;
+        SDL->ship->animation      = animation_get(SDL, STATE_CRASH);
         return true;
       }
     enemy = enemy->next;
   }
-  SDL->ship->previous_state = SDL->ship->state;
-  SDL->ship->state          = STATE_NORMAL;
+  SDL->ship->previous_animation = SDL->ship->animation->id;
+  SDL->ship->animation      = animation_get(SDL, STATE_NORMAL);
   return false;
 }
 
@@ -194,6 +193,7 @@ bool           ship_is_in_life(t_SDL_objects *SDL)
 */
 void          ship_clear(t_SDL_objects *SDL)
 {
-  SDL_FreeSurface(SDL->ship->animation.image);
+  SDL_FreeSurface(SDL->ship->image);
   free(SDL->ship);
+  free(SDL->ship->animation);
 }

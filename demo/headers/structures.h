@@ -2,17 +2,19 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-30 17:05:29
+* @Last Modified time: 2014-08-30 20:17:22
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
-  typedef                 struct
+  typedef struct s_animation t_animation;
+  struct                  s_animation
   {
-    int                   nb_frames;          /* Numéro de frames de l'animation */
-    SDL_Surface           *image;             /* Image */
-
-  }                       t_animation;
+    int                   id ;                 /* Identifiant de l'animation */
+    int                   nb_frames;           /* Numéro de frames de l'animation */
+    char                  *url_image;
+    t_animation           *next;               /*Suite de la liste chainée */
+  };
 
   typedef                 struct
   {
@@ -21,11 +23,11 @@
     int                   width;              /* Longueur */
     int                   height;             /* Hauteur */
     int                   life;               /* Vie */
-    int                   state;              /* Etat */
-    int                   previous_state;     /* Ancien etat */
     bool                  can_move;           /* Indique si le vaisseau peut bouger */
     bool                  can_shoot;          /* Indiaue si le vaisseau peut tirer */
-    t_animation           animation;          /* Animation */
+    t_animation           *animation;         /* Animation */
+    int                   previous_animation; /* ID de l'ancienne animation */
+    SDL_Surface           *image;             /* Image */
     int                   num_frame;          /* Numéro du frame en cours de l'image */
 
   }                       t_ship;
@@ -79,6 +81,7 @@
     t_ship                *ship;
     t_enemy               *enemy;
     t_level               *level;
+    t_animation           *list_animations;       /* Liste chainée des animations */
 
   }                       t_SDL_objects;
 
