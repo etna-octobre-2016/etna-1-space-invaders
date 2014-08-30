@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-27 15:09:42
+* @Last Modified time: 2014-08-30 16:49:30
 */
 
 #include      "../headers/main.h"
@@ -12,17 +12,18 @@ bool          ship_init(t_SDL_objects *SDL)
   SDL->ship = malloc(sizeof(t_ship));
 
   /*Position de base*/
-  SDL->ship->x = 0;
-  SDL->ship->y = 0;
-  SDL->ship->num_frame = 0;
+  SDL->ship->x          = 0;
+  SDL->ship->y          = 0;
+  SDL->ship->num_frame  = 0;
 
   /*Taille d'un déplacement*/
-  SDL->ship->width  = 150;
-  SDL->ship->height = 121;
+  SDL->ship->width      = 150;
+  SDL->ship->height     = 121;
 
   /*Animation*/
-  SDL->ship->state = STATE_NORMAL;
-  SDL->ship->animation.nb_frames = 12;
+  SDL->ship->previous_state       = 0;
+  SDL->ship->state                = STATE_NORMAL;
+  SDL->ship->animation.nb_frames  = 12;
 
   /*Parametres generaux*/
   SDL->ship->life = 100;
@@ -38,9 +39,14 @@ bool          ship_init(t_SDL_objects *SDL)
   return true;
 }
 
-void          ship_update_image(t_SDL_objects *SDL, int previous_state)
+/*
+* Mets à jour l'image du vaisseau
+* Params :
+*   - t_SDL_objects *SDL
+*/
+void          ship_update_image(t_SDL_objects *SDL)
 {
-  if (SDL->ship->state != previous_state)
+  if (SDL->ship->state != SDL->ship->previous_state)
   {
     SDL_FreeSurface(SDL->ship->image);
     if (SDL->ship->state == STATE_CRASH)
@@ -55,6 +61,12 @@ void          ship_update_image(t_SDL_objects *SDL, int previous_state)
   }
 }
 
+/*
+* Modifie les coordonnées du vaisseau
+* Params :
+*   - int direction Direction dans laquelle on veut faire bouger le vaisseau
+*   - t_SDL_objects *SDL
+*/
 void          ship_move(int direction, t_SDL_objects *SDL)
 {
   switch (direction)
@@ -74,7 +86,12 @@ void          ship_move(int direction, t_SDL_objects *SDL)
   }
 }
 
-void          ship_draw(t_SDL_objects *SDL, int previous_state)
+/*
+* Imprime le vaisseau sur l'écran
+* Params :
+*   - t_SDL_objects *SDL
+*/
+void          ship_draw(t_SDL_objects *SDL)
 {
   SDL_Rect    sourc;
   SDL_Rect    dest;
@@ -90,7 +107,7 @@ void          ship_draw(t_SDL_objects *SDL, int previous_state)
   dest.w = SDL->ship->width;
   dest.h = SDL->ship->height;
 
-  ship_update_image(SDL, previous_state);
+  ship_update_image(SDL);
 
   if (SDL->ship->num_frame < SDL->ship->animation.nb_frames)
     SDL->ship->num_frame++;
@@ -112,6 +129,13 @@ void          ship_draw(t_SDL_objects *SDL, int previous_state)
   }
 }
 
+/*
+* Indique si le vaisseau est en collision avec un ennemi
+* Params :
+*   - t_SDL_objects *SDL
+* 
+* Return bool
+*/
 bool           ship_is_crash(t_SDL_objects *SDL)
 {
   t_enemy *enemy;
@@ -127,20 +151,35 @@ bool           ship_is_crash(t_SDL_objects *SDL)
       if (enemy->y > SDL->ship->y && enemy->y < ship_y_max)
       {
         ship_update_life(SDL, -1);
-        SDL->ship->state = STATE_CRASH;
+        SDL->ship->previous_state = SDL->ship->state;
+        SDL->ship->state          = STATE_CRASH;
         return true;
       }
     enemy = enemy->next;
   }
-  SDL->ship->state = STATE_NORMAL;
+  SDL->ship->previous_state = SDL->ship->state;
+  SDL->ship->state          = STATE_NORMAL;
   return false;
 }
 
+/*
+* Mets à jour la vie du vaisseau
+* Params :
+*   - t_SDL_objects *SDL
+*   - int number Quantité de vie à ajouter (Mettre un nombre négatif si l'on veut faire baisser la vie)
+*/
 void           ship_update_life(t_SDL_objects *SDL, int number)
 {
   SDL->ship->life += number;
 } 
 
+/*
+* Indique si le vaisseau est en vie
+* Params :
+*   - t_SDL_objects *SDL
+*
+* Return bool
+*/
 bool           ship_is_in_life(t_SDL_objects *SDL)
 {
   if (SDL->ship->life > 0)
@@ -148,6 +187,11 @@ bool           ship_is_in_life(t_SDL_objects *SDL)
   return false;
 } 
 
+/*
+* Supprime le vaisseau de l'écran
+* Params :
+*   - t_SDL_objects *SDL
+*/
 void          ship_clear(t_SDL_objects *SDL)
 {
   SDL_FreeSurface(SDL->ship->image);

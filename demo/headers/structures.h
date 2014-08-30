@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-27 14:28:02
+* @Last Modified time: 2014-08-30 16:45:55
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -15,15 +15,16 @@
 
   typedef                 struct
   {
-    int                   x;
-    int                   y;
-    int                   width;
-    int                   height;
-    int                   life;
-    int                   state;
-    SDL_Surface           *image;
-    t_animation           animation;
-    int                   num_frame;
+    int                   x;                  /* Coordonnées x */
+    int                   y;                  /* Coordonnées y */
+    int                   width;              /* Longueur */
+    int                   height;             /* Hauteur */
+    int                   life;               /* Vie */
+    int                   state;              /* Etat */
+    int                   previous_state;     /* Ancien etat */
+    SDL_Surface           *image;             /* Image */
+    t_animation           animation;          /* Animation */
+    int                   num_frame;          /* Numéro du frame en cours de l'image */
 
   }                       t_ship;
 
