@@ -2,14 +2,15 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-30 16:45:55
+* @Last Modified time: 2014-08-30 17:05:29
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
   typedef                 struct
   {
-    int                   nb_frames;
+    int                   nb_frames;          /* Numéro de frames de l'animation */
+    SDL_Surface           *image;             /* Image */
 
   }                       t_animation;
 
@@ -22,7 +23,8 @@
     int                   life;               /* Vie */
     int                   state;              /* Etat */
     int                   previous_state;     /* Ancien etat */
-    SDL_Surface           *image;             /* Image */
+    bool                  can_move;           /* Indique si le vaisseau peut bouger */
+    bool                  can_shoot;          /* Indiaue si le vaisseau peut tirer */
     t_animation           animation;          /* Animation */
     int                   num_frame;          /* Numéro du frame en cours de l'image */
 

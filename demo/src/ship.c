@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-30 16:49:30
+* @Last Modified time: 2014-08-30 17:06:29
 */
 
 #include      "../headers/main.h"
@@ -29,9 +29,9 @@ bool          ship_init(t_SDL_objects *SDL)
   SDL->ship->life = 100;
 
   /*Config*/
-  SDL->ship->image = IMG_Load("assets/images/dracaufeu.png");
+  SDL->ship->animation.image = IMG_Load("assets/images/dracaufeu.png");
 
-  if (SDL->ship->image == NULL)
+  if (SDL->ship->animation.image == NULL)
   {
     printf("Ship init error: %s\n", IMG_GetError());
     return false;
@@ -48,12 +48,12 @@ void          ship_update_image(t_SDL_objects *SDL)
 {
   if (SDL->ship->state != SDL->ship->previous_state)
   {
-    SDL_FreeSurface(SDL->ship->image);
+    SDL_FreeSurface(SDL->ship->animation.image);
     if (SDL->ship->state == STATE_CRASH)
-      SDL->ship->image = IMG_Load("assets/images/dracaufeu_crash.png");
+      SDL->ship->animation.image = IMG_Load("assets/images/dracaufeu_crash.png");
     else if (SDL->ship->state == STATE_NORMAL)
-      SDL->ship->image = IMG_Load("assets/images/dracaufeu.png");
-    if (SDL->ship->image == NULL)
+      SDL->ship->animation.image = IMG_Load("assets/images/dracaufeu.png");
+    if (SDL->ship->animation.image == NULL)
     {
       printf("Ship init error: %s\n", IMG_GetError());
       exit(EXIT_FAILURE);
@@ -114,7 +114,7 @@ void          ship_draw(t_SDL_objects *SDL)
   else
     SDL->ship->num_frame = 0;
 
-  texture = SDL_CreateTextureFromSurface(SDL->renderer,SDL->ship->image);
+  texture = SDL_CreateTextureFromSurface(SDL->renderer,SDL->ship->animation.image);
 
   if (texture < 0)
   {
@@ -194,6 +194,6 @@ bool           ship_is_in_life(t_SDL_objects *SDL)
 */
 void          ship_clear(t_SDL_objects *SDL)
 {
-  SDL_FreeSurface(SDL->ship->image);
+  SDL_FreeSurface(SDL->ship->animation.image);
   free(SDL->ship);
 }
