@@ -7,8 +7,11 @@ int                 main()
   srand(time(NULL));
   if (init(&SDL) == true)
   {
+    printf("Initialisation principale : ok\n");
     listen_events(&SDL);
+    printf("Traitement des évênements : ok\n");
     clear(&SDL);
+    printf("clear géneral: ok\n");
     exit(EXIT_SUCCESS);
   }
   else
@@ -60,17 +63,23 @@ bool                init(t_SDL_objects *SDL)
 void                clear(t_SDL_objects *SDL)
 {
   ship_clear(SDL);
+  printf("ship_clear : ok\n");
   enemy_clear(SDL);
+  printf("enemy_clear : ok\n");
   animation_clear(SDL);
+  printf("animation_clear : ok\n");
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
+    printf("SDL_renderer clear : ok\n");
   }
   if (SDL->window != NULL)
   {
     SDL_DestroyWindow(SDL->window);
+    printf("SDL_window clear : ok\n");
   }
   SDL_Quit();
+  printf("SDL_Quit clear : ok\n");
 }
 
 void                game_loop(t_SDL_objects *SDL)
@@ -117,10 +126,11 @@ void                listen_events(t_SDL_objects *SDL)
 
   while (opened)
   {
-   
+    printf("Fenêtre ouverte !\n");
    /*SDL_PollEvent segfault...*/
     while (SDL_PollEvent(&event))
     {
+      printf("On attend un évênement !\n");
       if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
       {
         opened = false;
@@ -135,6 +145,7 @@ void                listen_events(t_SDL_objects *SDL)
       }
     }
 
+    printf("On traite le jeu\n");
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
