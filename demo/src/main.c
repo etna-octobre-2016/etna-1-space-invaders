@@ -22,18 +22,25 @@ bool                init(t_SDL_objects *SDL)
 {
   if (!(SDL_Init(SDL_INIT_VIDEO) < 0))
   {
+    printf("SDL_Init : ok\n");
     if (window_init(SDL) == true)
     {
+      printf("window_init : ok\n");
       if (renderer_init(SDL) == true)
       {
+        printf("renderer_init : ok\n");
         if (animation_init(SDL) == true)
         {
+          printf("animation_init : ok\n");
           if (ship_init(SDL) == true)
           {
+            printf("ship_init : ok\n");
             if (level_init(1, SDL) == true)
             {
+              printf("level_init : ok\n");
               if (enemy_init(SDL) == true)
               {
+                printf("enemy_init : ok\n");
                   return true;
               }
             }
@@ -74,6 +81,7 @@ void                game_loop(t_SDL_objects *SDL)
 
   eventTriggered = false;
   timestamp = SDL_GetTicks();
+
   for (i = 0; !eventTriggered && i < SDL->level->eventsCount; i++)
   {
     if (SDL->level->events[i]->triggered == false && timestamp > SDL->level->events[i]->timestamp)
@@ -106,8 +114,11 @@ void                listen_events(t_SDL_objects *SDL)
 
   opened = true;
   previousTime = 0;
+
   while (opened)
   {
+   
+   /*SDL_PollEvent segfault...*/
     while (SDL_PollEvent(&event))
     {
       if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
@@ -123,6 +134,7 @@ void                listen_events(t_SDL_objects *SDL)
         break;
       }
     }
+
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */

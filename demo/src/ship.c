@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 11:02:24
+* @Last Modified time: 2014-09-03 12:37:29
 */
 
 #include      "../headers/main.h"
@@ -11,6 +11,11 @@ bool          ship_init(t_SDL_objects *SDL)
 {
   SDL->ship             = malloc(sizeof(t_ship));
   SDL->ship->animation  = malloc(sizeof(t_animation));
+
+  if (SDL->ship == NULL || SDL->ship->animation == NULL)
+  {
+    return false;
+  }
 
   /*Position de base*/
   SDL->ship->x          = 0;
