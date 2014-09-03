@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-08-30 17:09:50
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 15:36:09
+* @Last Modified time: 2014-09-03 15:46:53
 */
 
 #include      "../headers/main.h"
@@ -39,7 +39,7 @@ bool 			animation_init(t_SDL_objects *SDL)
 }
 
 /*
-* Ajoute une structure en fin de liste
+* Prépare l'ajout une structure en fin de liste
 * Params :
 * 	- t_SDL_objects *SDL
 * 	- t_animation *animation
@@ -59,6 +59,12 @@ void 			animation_list_add_end(t_SDL_objects *SDL, t_animation *animation)
 	}
 }
 
+/*
+* Ajoute une structure en fin de liste de manière récursive
+* Params :
+* 	- t_animation *animation
+* 	- t_animation *animation_to_add
+*/
 t_animation 	*animation_list_add_end_recurs(t_animation *animation, t_animation *animation_to_add)
 {
 	if (animation->next != NULL)
@@ -71,7 +77,7 @@ t_animation 	*animation_list_add_end_recurs(t_animation *animation, t_animation 
 }
 
 /*
-* Renvoie l'animation correspondante au statut
+* Prépare le renvoi de l'animation correspondante au statut
 * Params :
 * 	- t_SDL_objects *SDL
 * 	- int state
@@ -81,21 +87,27 @@ t_animation 	*animation_get(t_SDL_objects *SDL, int state)
 	return animation_get_recurs(SDL->list_animations, state);
 }
 
+/*
+* Renvoie l'animation correspondante au statut de manière récursive
+* Params :
+* 	- t_animation *animation
+* 	- int state
+*/
 t_animation 	*animation_get_recurs(t_animation *animation, int state)
 {
+	if (animation == NULL)
+	{
+		return NULL;
+	}
 	if (animation->id == state)
 	{
 		return animation;
-	}
-	if (animation->next == NULL)
-	{
-		return NULL;
 	}
 	return animation_get_recurs(animation->next, state);
 }
 
 /*
-* Clear tout ce qui est en rapport avec les animations
+* Prépare le clear de tout ce qui est en rapport avec les animations
 * Params :
 * 	- t_SDL_objects *SDL
 */
@@ -104,6 +116,11 @@ void         	animation_clear(t_SDL_objects *SDL)
     animation_clear_recurs(SDL->list_animations);
 }
 
+/*
+* Clear tout ce qui est en rapport avec les animations de manière récursive
+* Params :
+* 	- t_animation *animation
+*/
 void 			animation_clear_recurs(t_animation *animation)
 {
 	if (animation->next != NULL)

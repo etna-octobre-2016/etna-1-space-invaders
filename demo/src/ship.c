@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 13:49:25
+* @Last Modified time: 2014-09-03 15:42:49
 */
 
 #include      "../headers/main.h"
@@ -201,5 +201,4 @@ void          ship_clear(t_SDL_objects *SDL)
 {
   SDL_FreeSurface(SDL->ship->image);
   free(SDL->ship);
-  free(SDL->ship->animation);
 }
