@@ -91,7 +91,7 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
-  ship_is_crash(SDL);
+  ship_is_crashed(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
 }

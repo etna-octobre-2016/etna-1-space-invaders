@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-30 20:18:18
+* @Last Modified time: 2014-09-03 11:02:24
 */
 
 #include      "../headers/main.h"
@@ -135,7 +135,7 @@ void          ship_draw(t_SDL_objects *SDL)
 * 
 * Return bool
 */
-bool           ship_is_crash(t_SDL_objects *SDL)
+bool           ship_is_crashed(t_SDL_objects *SDL)
 {
   t_enemy *enemy;
   int     ship_x_max;
