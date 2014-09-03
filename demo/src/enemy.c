@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 12:57:47
+* @Last Modified time: 2014-09-03 13:02:19
 */
 #include          "../headers/main.h"
 
@@ -76,7 +76,7 @@ void              enemy_clear(t_SDL_objects *SDL)
       if (SDL->enemy->image != NULL)
       {
         /* Seg fault pourquoi ?*/
-        SDL_FreeSurface(SDL->enemy->image);
+        /*SDL_FreeSurface(SDL->enemy->image);*/
       }
       temp = &SDL->enemy;
       SDL->enemy = SDL->enemy->next;
