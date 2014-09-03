@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-08-30 17:09:50
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-30 20:16:28
+* @Last Modified time: 2014-09-03 09:22:35
 */
 
 #include      "../headers/main.h"
@@ -32,6 +32,13 @@ bool 			animation_init(t_SDL_objects *SDL)
 	return true;
 }
 
+/*
+* (NE MARCHE PAS)
+* Ajoute une structure en fin de liste
+* Params :
+* 	- t_SDL_objects *SDL
+* 	- t_animation *animation
+*/
 void 			animation_list_add_end(t_SDL_objects *SDL, t_animation *animation)
 {
 	struct s_animation *temp;
@@ -52,6 +59,12 @@ void 			animation_list_add_end(t_SDL_objects *SDL, t_animation *animation)
 	printf("ok");
 }
 
+/*
+* Renvoie l'animation correspondante au statut
+* Params :
+* 	- t_SDL_objects *SDL
+* 	- int state
+*/
 t_animation 	*animation_get(t_SDL_objects *SDL, int state)
 {
 	t_animation *temp;
@@ -68,6 +81,11 @@ t_animation 	*animation_get(t_SDL_objects *SDL, int state)
 	return SDL->list_animations;
 }
 
+/*
+* Clear tout ce qui est en rapport avec les animations
+* Params :
+* 	- t_SDL_objects *SDL
+*/
 void          animation_clear(t_SDL_objects *SDL)
 {
   t_animation *temp;
