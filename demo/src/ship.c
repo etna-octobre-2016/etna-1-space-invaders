@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 12:37:29
+* @Last Modified time: 2014-09-03 13:49:25
 */
 
 #include      "../headers/main.h"
@@ -135,6 +135,7 @@ void          ship_draw(t_SDL_objects *SDL)
 
 /*
 * Indique si le vaisseau est en collision avec un ennemi
+* Met à jour le statut du vaisseau
 * Params :
 *   - t_SDL_objects *SDL
 * 

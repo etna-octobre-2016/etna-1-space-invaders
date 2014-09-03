@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-08-30 17:09:50
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 12:58:27
+* @Last Modified time: 2014-09-03 15:36:09
 */
 
 #include      "../headers/main.h"
@@ -23,11 +23,13 @@ bool 			animation_init(t_SDL_objects *SDL)
 		animation1->url_image	= "assets/images/dracaufeu.png";
 		animation1->next		= NULL;
     	animation_list_add_end(SDL, animation1);
+    	printf("On initialise la première animation id : %d\n", SDL->list_animations->id);
     	animation2->id 			= STATE_CRASH;
 		animation2->nb_frames 	= 12;
 		animation2->url_image	= "assets/images/dracaufeu_crash.png";
 		animation2->next		= NULL;
 		animation_list_add_end(SDL, animation2);
+		printf("On initialise la deuxième animation id : %d\n", SDL->list_animations->next->id);
     	return true;
   	}
   else
@@ -45,28 +47,27 @@ bool 			animation_init(t_SDL_objects *SDL)
 void 			animation_list_add_end(t_SDL_objects *SDL, t_animation *animation)
 {
 	t_animation        *current;
-	t_animation        *test;
 
 	current = SDL->list_animations;
-	test = SDL->list_animations;
 	if (current == NULL){
 		SDL->list_animations = animation;
-		test = SDL->list_animations;
-
+		SDL->list_animations->next = NULL;
 	}
-	else
+	else 
 	{
-    	while (current->next != NULL)
-    	{
-    		current = current->next;
-    	}
-		current->next = animation;
+		animation_list_add_end_recurs(SDL->list_animations, animation);
 	}
-	while (test->next != NULL)
-    {
-    	test = current->next;
-    }
+}
 
+t_animation 	*animation_list_add_end_recurs(t_animation *animation, t_animation *animation_to_add)
+{
+	if (animation->next != NULL)
+	{
+		animation_list_add_end_recurs(animation->next, animation_to_add);
+	}
+	animation->next 		= animation_to_add;
+	animation->next->next 	= NULL;
+	return NULL;
 }
 
 /*
@@ -77,20 +78,20 @@ void 			animation_list_add_end(t_SDL_objects *SDL, t_animation *animation)
 */
 t_animation 	*animation_get(t_SDL_objects *SDL, int state)
 {
-	t_animation        *current;
+	return animation_get_recurs(SDL->list_animations, state);
+}
 
-	current = SDL->list_animations;
-
-    while (current != NULL)
-    {
-    	if (current->id == state)
-		{
-			return current;
-		}
-		current = current->next;
-    }
-
-	return SDL->list_animations;
+t_animation 	*animation_get_recurs(t_animation *animation, int state)
+{
+	if (animation->id == state)
+	{
+		return animation;
+	}
+	if (animation->next == NULL)
+	{
+		return NULL;
+	}
+	return animation_get_recurs(animation->next, state);
 }
 
 /*
@@ -98,14 +99,17 @@ t_animation 	*animation_get(t_SDL_objects *SDL, int state)
 * Params :
 * 	- t_SDL_objects *SDL
 */
-void          animation_clear(t_SDL_objects *SDL)
+void         	animation_clear(t_SDL_objects *SDL)
 {
-	t_animation **temp;
+    animation_clear_recurs(SDL->list_animations);
+}
 
-	while (SDL->list_animations != NULL)
+void 			animation_clear_recurs(t_animation *animation)
+{
+	if (animation->next != NULL)
 	{
-		temp = &SDL->list_animations;
-		SDL->list_animations = SDL->list_animations->next;
-		free(*temp);
+		animation_clear_recurs(animation->next);
 	}
+	printf("on a free %d\n", animation->id);
+	free(animation->next);
 }
