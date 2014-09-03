@@ -1,8 +1,8 @@
 /*
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
-* @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-08-27 11:53:03
+* @Last Modified by:   BERTEAUX
+* @Last Modified time: 2014-09-03 12:57:47
 */
 #include          "../headers/main.h"
 
@@ -69,17 +69,19 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
 
 void              enemy_clear(t_SDL_objects *SDL)
 {
-  t_enemy         *enemy;
-  t_enemy         *tmp;
+  t_enemy         **temp;
 
-  enemy = SDL->enemy;
-  while (enemy->next != NULL)
-  {
-    tmp = enemy;
-    enemy = enemy->next;
-    SDL_FreeSurface(tmp->image);
-    free(tmp);
-  }
+  while (SDL->enemy != NULL)
+    {
+      if (SDL->enemy->image != NULL)
+      {
+        /* Seg fault pourquoi ?*/
+        SDL_FreeSurface(SDL->enemy->image);
+      }
+      temp = &SDL->enemy;
+      SDL->enemy = SDL->enemy->next;
+      free(*temp);
+    }
 }
 
 void              enemy_move(t_SDL_objects *SDL)
