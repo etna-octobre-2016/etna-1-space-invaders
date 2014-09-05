@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-05 14:39:30
+* @Last Modified time: 2014-09-05 14:48:45
 */
 
 #include      "../headers/main.h"
@@ -39,16 +39,20 @@ bool          ship_init(t_SDL_objects *SDL)
 
 void          ship_move(int direction, t_SDL_objects *SDL)
 {
+  SDL_DisplayMode screen;
+
+  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
+
   switch (direction)
   {
     case SDLK_DOWN:
-      SDL->ship->y += 20;
+      if (SDL->ship->y + 20 < screen.h - 140) SDL->ship->y += 20;
       break;
     case SDLK_UP:
       if (SDL->ship->y - 20 >= 0) SDL->ship->y -= 20;
       break;
     case SDLK_RIGHT:
-      SDL->ship->x += 20;
+      if (SDL->ship->x + 20 < screen.w - 140)SDL->ship->x += 20;
       break;
     case SDLK_LEFT:
       if (SDL->ship->x - 20 >= 0) SDL->ship->x -= 20;
