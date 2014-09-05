@@ -77,9 +77,9 @@ void                game_loop(t_SDL_objects *SDL)
       switch (SDL->level->events[i]->type)
       {
         case 'E':
-          enemy_add(&SDL->level->events[i]->enemies, SDL);
-          eventTriggered = true;
-          break;
+        enemy_add(&SDL->level->events[i]->enemies, SDL);
+        eventTriggered = true;
+        break;
       }
       if (eventTriggered == true)
       {
@@ -101,35 +101,51 @@ void                listen_events(t_SDL_objects *SDL)
 
   opened = true;
   previousTime = 0;
+
+  Input in;
+  /*init SDL, chargement, tout ce que vous faites avant la boucle.*/
+  memset(&in,0,sizeof(in));
+  
+  hash *key_event = NULL;
+
+  while(!in.key[SDLK_ESCAPE])
+  {
+    UpdateEvents(&in);
+    if (in.key[SDLK_UP])
+    {
+       /*si on appuie sur la touche pour monter*/
+    }
+    
+  }
   while (opened)
   {
-    while (SDL_PollEvent(&event))
-    {
-      if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
-      {
-        opened = false;
-      }
-      if (event.type == SDL_KEYDOWN)
-      {
-        ship_move(event.key.keysym.sym, SDL);
-      }
-      if (opened == false)
-      {
-        break;
-      }
-    }
-    currentTime = SDL_GetTicks();
-    timeDiff = (currentTime - previousTime);
+   while (SDL_PollEvent(&event))
+   {
+     if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+     {
+       opened = false;
+     }
+     if (event.type == SDL_KEYDOWN)
+     {
+       ship_move(event.key.keysym.sym, SDL);
+     }
+     if (opened == false)
+     {
+       break;
+     }
+   }
+   currentTime = SDL_GetTicks();
+   timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
-    {
-      SDL_RenderClear(SDL->renderer);
-      game_loop(SDL);
-      SDL_RenderPresent(SDL->renderer);
-      previousTime = currentTime;
-    }
-    else
-    {
-      SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
-    }
+   {
+    SDL_RenderClear(SDL->renderer);
+    game_loop(SDL);
+    SDL_RenderPresent(SDL->renderer);
+    previousTime = currentTime;
   }
+  else
+  {
+    SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
+  }
+}
 }
