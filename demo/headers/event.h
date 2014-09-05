@@ -17,10 +17,8 @@
 		UT_hash_handle hh; /* makes this structure hashable */
 	} hash;
 
-	typedef struct
-	{
-		hash tab;
-	} Input;
+	hash *find_key(int key);
+	void add_key(int key, int value);
 
-	void UpdateEvents(Input*);
+	void UpdateEvents();
 #endif

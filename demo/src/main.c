@@ -102,21 +102,30 @@ void                listen_events(t_SDL_objects *SDL)
   opened = true;
   previousTime = 0;
 
-  Input in;
+  /*Input in;*/
   /*init SDL, chargement, tout ce que vous faites avant la boucle.*/
-  memset(&in,0,sizeof(in));
-  
-  hash *key_event = NULL;
+  /*memset(&in,0,sizeof(in));*/
 
-  while(!in.key[SDLK_ESCAPE])
+  /*hash *key_event = NULL;*/
+
+  /*while(!in.key[SDLK_ESCAPE])*/
+  while(opened)
   {
-    UpdateEvents(&in);
-    if (in.key[SDLK_UP])
+    UpdateEvents(event);
+    hash *h;
+    h = malloc(sizeof(hash));
+    h = find_key(SDLK_ESCAPE);
+    if (h != NULL && h->value == 1)
     {
-       /*si on appuie sur la touche pour monter*/
+      opened = false;
+      free(h);
     }
+    /*if (in.key[SDLK_UP])
+    {*/
+       /*si on appuie sur la touche pour monter*/
+    /*}*/
     
-  }
+  /*}
   while (opened)
   {
    while (SDL_PollEvent(&event))
@@ -133,7 +142,7 @@ void                listen_events(t_SDL_objects *SDL)
      {
        break;
      }
-   }
+   }*/
    currentTime = SDL_GetTicks();
    timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
