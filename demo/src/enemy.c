@@ -77,7 +77,7 @@ void              enemy_clear(t_SDL_objects *SDL)
   {
     tmp = enemy;
     enemy = enemy->next;
-    SDL_FreeSurface(tmp->image);
+    /*SDL_FreeSurface(tmp->image);*/
     free(tmp);
   }
 }

@@ -40,13 +40,9 @@ void UpdateEvents(SDL_Event event)
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			/*in->tab.key = event.key.keysym.sym;
-			in->tab.value = 1;*/
 			add_key(event.key.keysym.sym, 1);
 			break;
 		case SDL_KEYUP:
-			/*in->tab.key = event.key.keysym.sym;
-			in->tab.value = 0 ;*/
 			add_key(event.key.keysym.sym, 0);
 			break;
 		default:
