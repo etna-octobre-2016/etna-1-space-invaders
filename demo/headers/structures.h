@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
-* @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-28 18:43:21
+* @Last Modified by:   BERTEAUX
+* @Last Modified time: 2014-09-05 14:08:31
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -19,7 +19,9 @@
     int                   y;
     int                   width;
     int                   height;
+    int                   life;
     SDL_Surface           *image;
+    SDL_Surface           *progress_bar;
     t_animation           animation;
     int                   num_frame;
 

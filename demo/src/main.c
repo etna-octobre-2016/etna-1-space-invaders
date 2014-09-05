@@ -124,6 +124,7 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
+      ship_update_bar(SDL);
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
     }
