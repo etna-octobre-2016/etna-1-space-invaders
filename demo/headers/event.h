@@ -19,6 +19,7 @@
 
 	hash *find_key(int key);
 	void add_key(int key, int value);
+	void delete_all();
 
 	void UpdateEvents();
 #endif

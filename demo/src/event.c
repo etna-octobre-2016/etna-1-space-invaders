@@ -10,6 +10,9 @@
 
 hash *key_event = NULL;
 
+/**
+*retrouve une structure en fonction de la clé entré en paramètre 
+*/
 hash *find_key(int key) {
     hash *h;
 
@@ -17,6 +20,9 @@ hash *find_key(int key) {
     return h;
 }
 
+/**
+*Ajoute une structure à la table de hash
+*/
 void add_key(int key_push, int value) {
     hash *h;
 
@@ -29,6 +35,17 @@ HASH_FIND_INT(key_event, &key_push, h);
     h->value = value;
 }
 
+/**
+*Supprime toutes les structures de la table de hash
+*/
+void delete_all() {
+  hash *current_key, *tmp;
+
+  HASH_ITER(hh, key_event, current_key, tmp) {
+    HASH_DEL(key_event,current_key);  
+    free(current_key);            
+  }
+}
 
 void UpdateEvents(SDL_Event event)
 {

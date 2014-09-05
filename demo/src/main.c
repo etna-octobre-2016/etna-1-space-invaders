@@ -105,51 +105,27 @@ void                listen_events(t_SDL_objects *SDL)
   while(opened)
   {
     UpdateEvents(event);
-    /*hash *h;
-    h = malloc(sizeof(hash));
-    h = find_key(SDLK_ESCAPE);*/
     if (find_key(SDLK_ESCAPE) != NULL && find_key(SDLK_ESCAPE)->value == 1)
     {
       opened = false;
-      /*free(h);*/
     }
-    ship_move2(SDL);
-  /*  if (event.type == SDL_KEYDOWN)
-     {
-       ship_move(event.key.keysym.sym, SDL);
-     }*/
 
-    
-  /*}
-  while (opened)
-  {
-   while (SDL_PollEvent(&event))
-   {
-     if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
-     {
-       opened = false;
-     }
-     if (event.type == SDL_KEYDOWN)
-     {
-       ship_move(event.key.keysym.sym, SDL);
-     }
-     if (opened == false)
-     {
-       break;
-     }
-   }*/
-   currentTime = SDL_GetTicks();
-   timeDiff = (currentTime - previousTime);
+    ship_move2(SDL); /*on surveille les déplacements du vaisseaux*/
+
+
+    currentTime = SDL_GetTicks();
+    timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
-   {
-    SDL_RenderClear(SDL->renderer);
-    game_loop(SDL);
-    SDL_RenderPresent(SDL->renderer);
-    previousTime = currentTime;
+    {
+      SDL_RenderClear(SDL->renderer);
+      game_loop(SDL);
+      SDL_RenderPresent(SDL->renderer);
+      previousTime = currentTime;
+    }
+    else
+    {
+      SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
+    }
+     /*delete_all();*/
   }
-  else
-  {
-    SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
-  }
-}
 }
