@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-05 14:48:45
+* @Last Modified time: 2014-09-05 14:57:29
 */
 
 #include      "../headers/main.h"
@@ -100,6 +100,10 @@ void          ship_draw(t_SDL_objects *SDL)
   }
 }
 
+/* Met à jour la barre de vie
+* Params :
+*   - t_SDL_objects *SDL
+*/
 void          ship_update_bar(t_SDL_objects *SDL)
 {
   SDL_Rect        sourc;
@@ -130,7 +134,6 @@ void          ship_update_bar(t_SDL_objects *SDL)
   sourc.w = 310;
   sourc.h = 26;
 
-  printf("%u\n", percent);
   dest.x = 0;
   dest.y = screen.h - 26;
   dest.w = 310;
