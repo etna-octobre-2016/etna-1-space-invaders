@@ -102,28 +102,23 @@ void                listen_events(t_SDL_objects *SDL)
   opened = true;
   previousTime = 0;
 
-  /*Input in;*/
-  /*init SDL, chargement, tout ce que vous faites avant la boucle.*/
-  /*memset(&in,0,sizeof(in));*/
-
-  /*hash *key_event = NULL;*/
-
-  /*while(!in.key[SDLK_ESCAPE])*/
   while(opened)
   {
     UpdateEvents(event);
-    hash *h;
+    /*hash *h;
     h = malloc(sizeof(hash));
-    h = find_key(SDLK_ESCAPE);
-    if (h != NULL && h->value == 1)
+    h = find_key(SDLK_ESCAPE);*/
+    if (find_key(SDLK_ESCAPE) != NULL && find_key(SDLK_ESCAPE)->value == 1)
     {
       opened = false;
-      free(h);
+      /*free(h);*/
     }
-    /*if (in.key[SDLK_UP])
-    {*/
-       /*si on appuie sur la touche pour monter*/
-    /*}*/
+    ship_move2(SDL);
+  /*  if (event.type == SDL_KEYDOWN)
+     {
+       ship_move(event.key.keysym.sym, SDL);
+     }*/
+
     
   /*}
   while (opened)

@@ -14,7 +14,7 @@
 	{
 		int key;
 		int value;
-		UT_hash_handle hh; /* makes this structure hashable */
+		UT_hash_handle hh; 
 	} hash;
 
 	hash *find_key(int key);

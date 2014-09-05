@@ -53,6 +53,18 @@ void          ship_move(int direction, t_SDL_objects *SDL)
   }
 }
 
+void  ship_move2(t_SDL_objects *SDL)
+{
+  if(find_key(SDLK_DOWN) != NULL && find_key(SDLK_DOWN)->value == 1)
+    SDL->ship->y += 13;
+  if(find_key(SDLK_UP) != NULL && find_key(SDLK_UP)->value == 1)
+    if (SDL->ship->y - 13 >= 0) SDL->ship->y -= 13;
+  if(find_key(SDLK_RIGHT) != NULL && find_key(SDLK_RIGHT)->value == 1)
+    SDL->ship->x += 13;
+  if(find_key(SDLK_LEFT) != NULL && find_key(SDLK_LEFT)->value == 1)
+    if (SDL->ship->x - 13 >= 0) SDL->ship->x -= 13;
+}
+
 void          ship_draw(t_SDL_objects *SDL)
 {
   SDL_Rect    sourc;
