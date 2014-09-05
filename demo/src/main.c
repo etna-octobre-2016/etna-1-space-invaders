@@ -62,12 +62,12 @@ bool                init(t_SDL_objects *SDL)
 
 void                clear(t_SDL_objects *SDL)
 {
+  animation_clear(SDL);
+  printf("animation_clear : ok\n");
   ship_clear(SDL);
   printf("ship_clear : ok\n");
   enemy_clear(SDL);
   printf("enemy_clear : ok\n");
-  animation_clear(SDL);
-  printf("animation_clear : ok\n");
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
@@ -152,8 +152,10 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
+      printf("Game Loop\n");
       if (!ship_is_in_life(SDL))
         opened = false;
+      printf("On a regardé si le vaisseau était en vie\n");
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
     }
