@@ -9,6 +9,7 @@
   #include  "enemy.h"
   #include  "moves.h"
   #include  "level.h"
+  #include  "status_bar.h"
 
   #define   FRAMES_PER_SECOND 12
   #define   MAX_TIME_DIFF(FRAMES_PER_SECOND) (1000 / FRAMES_PER_SECOND)

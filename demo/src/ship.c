@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-05 14:57:29
+* @Last Modified time: 2014-09-05 15:19:39
 */
 
 #include      "../headers/main.h"
@@ -96,60 +96,6 @@ void          ship_draw(t_SDL_objects *SDL)
   if (SDL_RenderCopy(SDL->renderer, texture, &sourc, &dest) < 0)
   {
     printf("Ship draw error: %s\n", SDL_GetError());
-    exit(EXIT_FAILURE);
-  }
-}
-
-/* Met à jour la barre de vie
-* Params :
-*   - t_SDL_objects *SDL
-*/
-void          ship_update_bar(t_SDL_objects *SDL)
-{
-  SDL_Rect        sourc;
-  SDL_Rect        dest;
-  SDL_Texture     *texture;
-  SDL_DisplayMode screen;
-  int             percent;
-
-  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
-
-  percent = 100 - (SDL->ship->life * 100) / MAX_LIFE;
-
-  if (percent < 15)
-    sourc.y = 0;
-  else if (percent < 30)
-    sourc.y = 26;
-  else if (percent < 45)
-    sourc.y = 52;
-  else if (percent < 60)
-    sourc.y = 78;
-  else if (percent < 75)
-    sourc.y = 104;
-  else if (percent < 90)
-    sourc.y = 130;
-  else
-    sourc.y = 156;
-  sourc.x = 0;
-  sourc.w = 310;
-  sourc.h = 26;
-
-  dest.x = 0;
-  dest.y = screen.h - 26;
-  dest.w = 310;
-  dest.h = 26;
-
-  texture = SDL_CreateTextureFromSurface(SDL->renderer,SDL->ship->progress_bar);
-
-  if (texture < 0)
-  {
-    printf("progress_bar draw error: %s\n", SDL_GetError());
-    exit(EXIT_FAILURE);
-  }
-
-  if (SDL_RenderCopy(SDL->renderer, texture, &sourc, &dest) < 0)
-  {
-    printf("progress_bar draw error: %s\n", SDL_GetError());
     exit(EXIT_FAILURE);
   }
 }
