@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
-* @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-08-30 20:17:22
+* @Last Modified by:   pakpak
+* @Last Modified time: 2014-09-06 14:09:35
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -46,6 +46,18 @@
 
   }                       t_enemy;
 
+  typedef                 struct s_rocket
+  {
+    int                   id;
+    int                   x;
+    int                   y;
+    int                   width;
+    int                   height;
+    SDL_Surface           *image;
+    struct s_rocket       *next;
+
+  }                       t_rocket;
+
   typedef                 struct
   {
     int                   level1;
@@ -80,6 +92,7 @@
     SDL_Renderer          *renderer;
     t_ship                *ship;
     t_enemy               *enemy;
+    t_rocket               *rocket;
     t_level               *level;
     t_animation           *list_animations;       /* Liste chainée des animations */
 

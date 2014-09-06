@@ -43,8 +43,12 @@ bool                init(t_SDL_objects *SDL)
               printf("level_init : ok\n");
               if (enemy_init(SDL) == true)
               {
+                printf("rocket_init : ok\n");
+                if (rocket_init(SDL) == true)
+                {
                 printf("enemy_init : ok\n");
                   return true;
+                }
               }
             }
           }
@@ -68,6 +72,8 @@ void                clear(t_SDL_objects *SDL)
   printf("enemy_clear : ok\n");
   animation_clear(SDL);
   printf("animation_clear : ok\n");
+  rocket_clear(SDL);
+  printf("rocket_clear : ok\n");
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
