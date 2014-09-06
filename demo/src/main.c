@@ -101,7 +101,7 @@ void                listen_events(t_SDL_objects *SDL)
 
   opened = true;
   previousTime = 0;
-
+ 
   while(opened)
   {
     UpdateEvents(event);
@@ -126,6 +126,6 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
     }
-     /*delete_all();*/
+     /*delete_all();*/ 
   }
 }
