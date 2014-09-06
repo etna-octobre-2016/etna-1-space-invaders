@@ -2,9 +2,8 @@
 * @Author: pakpak
 * @Date:   2014-07-26 22:04:29
 * @Last Modified by:   pakpak
-* @Last Modified time: 2014-09-06 15:10:45
+* @Last Modified time: 2014-09-06 21:36:18
 */
-
 #include          "../headers/main.h"
 
 bool              rocket_init(t_SDL_objects *SDL)
@@ -32,21 +31,21 @@ bool          rocket_manager(int event, t_SDL_objects *SDL)
 
 void          rocket_move(t_SDL_objects *SDL)
 {
-  SDL_Rect    src;
-  SDL_Rect    dest;
-  SDL_Texture *texture;
+  SDL_Rect    	src;
+  SDL_Rect    	dest;
+  SDL_Texture 	*texture;
 
-  src.x = SDL->rocket->x;
-  src.y = SDL->rocket->y;
-  src.w = SDL->rocket->width;
-  src.h = SDL->rocket->height;
+  src.x 		= SDL->rocket->x;
+  src.y 		= SDL->rocket->y;
+  src.w 		= SDL->rocket->width;
+  src.h 		= SDL->rocket->height;
 
-  dest.x = SDL->rocket->x;
-  dest.y = SDL->rocket->y;
-  dest.w = SDL->rocket->width;
-  dest.h = SDL->rocket->height;
+  dest.x 		= SDL->rocket->x;
+  dest.y 		= SDL->rocket->y;
+  dest.w 		= SDL->rocket->width;
+  dest.h 		= SDL->rocket->height;
 
-  texture = SDL_CreateTextureFromSurface(SDL->renderer, SDL->rocket->image);
+  texture 		= SDL_CreateTextureFromSurface(SDL->renderer, SDL->rocket->image);
 
   if (texture == 0)
   {
@@ -70,19 +69,19 @@ bool              rocket_add(int count, t_SDL_objects *SDL)
 
   current = SDL->rocket;
   SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
-  for (i = 0; i < count; i++)
-  {
+
     rocket_move(SDL);
     rocket = malloc(sizeof(t_rocket));
     if (rocket != NULL)
     {
-      rocket->next = NULL;
-      rocket->id +=1;
-      rocket->width = 49;
-      rocket->height = 49;
-      rocket->x = screen.w + RAND_RANGE(0, 400);
-      rocket->y = RAND_RANGE(0, screen.h);
-      rocket->image = IMG_Load("assets/images/flame.png");
+      rocket->next 		= NULL;
+      rocket->id 		+=1;
+      rocket->width 	= 49;
+      rocket->height 	= 49;
+      rocket->x 		= screen.w + RAND_RANGE(0, 400);
+      rocket->y 		= RAND_RANGE(0, screen.h);
+      rocket->image 	= IMG_Load("assets/images/flame.png");
+      
       if (rocket->image == NULL)
       {
         printf("rocket init error: %s\n", IMG_GetError());
@@ -94,7 +93,6 @@ bool              rocket_add(int count, t_SDL_objects *SDL)
       }
       current->next = rocket;
     }
-  }
   return true;
 }
 
