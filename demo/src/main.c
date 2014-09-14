@@ -44,7 +44,7 @@ bool                init(t_SDL_objects *SDL)
               if (enemy_init(SDL) == true)
               {
                 printf("enemy_init : ok\n");
-                if (rocket_init(SDL) == true)
+                if (rocket_init2(SDL) == true)
                 {
                   printf("rocket_init : ok\n");
                   return true;
@@ -114,6 +114,7 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
+  rocket_move2(SDL);
   ship_is_crashed(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
@@ -144,10 +145,6 @@ void                listen_events(t_SDL_objects *SDL)
       if (event.type == SDL_KEYDOWN)
       {
         ship_move(event.key.keysym.sym, SDL);
-      }
-      if (event.key.keysym.sym == SDLK_SPACE)
-      {
-        rocket_move(event.key.keysym.sym, SDL);
       }
       if (opened == false)
       {

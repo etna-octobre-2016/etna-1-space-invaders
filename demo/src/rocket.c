@@ -1,12 +1,12 @@
 /* 
 * @Author: pakpak
 * @Date:   2014-07-26 22:04:29
-* @Last Modified by:   pakpak
-* @Last Modified time: 2014-09-06 21:36:18
+* @Last Modified by:   alexlezard
+* @Last Modified time: 2014-09-07 18:17:16
 */
 #include          "../headers/main.h"
 
-bool              rocket_init(t_SDL_objects *SDL)
+bool          rocket_init(t_SDL_objects *SDL)
 {
   SDL->rocket = malloc(sizeof(t_rocket));
   if (SDL->rocket != NULL)
@@ -67,9 +67,12 @@ bool              rocket_add(int count, t_SDL_objects *SDL)
   	t_rocket         *rocket;
   	SDL_DisplayMode  screen;
 
+  rocket_move(SDL);
+
   current = SDL->rocket;
   SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
-
+  for (i = 0; i < count; i++)
+  {
     rocket_move(SDL);
     rocket = malloc(sizeof(t_rocket));
     if (rocket != NULL)
@@ -93,6 +96,7 @@ bool              rocket_add(int count, t_SDL_objects *SDL)
       }
       current->next = rocket;
     }
+  }
   return true;
 }
 
@@ -109,4 +113,65 @@ void              rocket_clear(t_SDL_objects *SDL)
     SDL_FreeSurface(tmp->image);
     free(tmp);
   }
+}
+
+/** shoot de merde qui fait chié **/
+
+bool              rocket_init2(t_SDL_objects *SDL)
+{
+  SDL_DisplayMode displayMode;
+  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &displayMode);
+  
+  /* allocation de la memoire */
+  SDL->rocket = malloc(sizeof(t_rocket));
+
+  /* Position de départ */
+  SDL->rocket->x = 20;
+  SDL->rocket->y = 50;
+  
+  /* config du sprite */
+  SDL->rocket->width = 32;
+  SDL->rocket->height = 32;
+  SDL->rocket->image = IMG_Load("assets/images/flame.png");
+  
+  if (SDL->rocket->image == NULL)
+  {
+    printf("Shoot init error: %s\n", IMG_GetError());
+    return false;
+  }
+  return true;
+}
+
+void          rocket_move2(t_SDL_objects *SDL)
+{
+
+  SDL_Rect    src;
+  SDL_Rect    dest;
+  SDL_Texture *texture;
+
+
+  src.x = 20;
+  src.y = 0;
+  src.w = SDL->rocket->width;
+  src.h = SDL->rocket->height;
+
+  dest.x = SDL->rocket->x;
+  dest.y = SDL->rocket->y;
+  dest.w = SDL->rocket->width;
+  dest.h = SDL->rocket->height;
+
+  texture = SDL_CreateTextureFromSurface(SDL->renderer, SDL->rocket->image);
+
+  if (texture == 0)
+  {
+    printf("rocket_move error: %s\n", SDL_GetError());
+    exit(EXIT_FAILURE);
+  }
+
+  if (SDL_RenderCopy(SDL->renderer, texture, &src, &dest) < 0)
+  {
+    printf("rocket_move error: %s\n", SDL_GetError());
+    exit(EXIT_FAILURE);
+  }
+  SDL->rocket->x += 40;
 }

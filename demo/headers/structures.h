@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
-* @Last Modified by:   pakpak
-* @Last Modified time: 2014-09-06 14:09:35
+* @Last Modified by:   alexlezard
+* @Last Modified time: 2014-09-07 19:17:16
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -24,7 +24,7 @@
     int                   height;             /* Hauteur */
     int                   life;               /* Vie */
     bool                  can_move;           /* Indique si le vaisseau peut bouger */
-    bool                  can_shoot;          /* Indiaue si le vaisseau peut tirer */
+    bool                  can_shoot;          /* Indique si le vaisseau peut tirer */
     t_animation           *animation;         /* Animation */
     int                   previous_animation; /* ID de l'ancienne animation */
     SDL_Surface           *image;             /* Image */
@@ -75,7 +75,6 @@
 
   }                       t_level_event;
 
-
   typedef                 struct
   {
     int                   eventsCount;
@@ -92,7 +91,7 @@
     SDL_Renderer          *renderer;
     t_ship                *ship;
     t_enemy               *enemy;
-    t_rocket               *rocket;
+    t_rocket              *rocket;
     t_level               *level;
     t_animation           *list_animations;       /* Liste chainée des animations */
 

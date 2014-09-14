@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
-* @Last Modified by:   pakpak
-* @Last Modified time: 2014-09-06 19:34:26
+* @Last Modified by:   alexlezard
+* @Last Modified time: 2014-09-07 13:29:29
 */
 
 #include      "../headers/main.h"
@@ -110,7 +110,7 @@ void          ship_draw(t_SDL_objects *SDL)
   dest.y = SDL->ship->y;
   dest.w = SDL->ship->width;
   dest.h = SDL->ship->height;
-
+  
   ship_update_image(SDL);
 
   if (SDL->ship->num_frame < SDL->ship->animation->nb_frames)
