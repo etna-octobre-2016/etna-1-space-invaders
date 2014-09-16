@@ -11,7 +11,7 @@
   #include  "level.h"
   #include  "event.h"
 
-  #define   FRAMES_PER_SECOND 12
+  #define   FRAMES_PER_SECOND 14
   #define   MAX_TIME_DIFF(FRAMES_PER_SECOND) (1000 / FRAMES_PER_SECOND)
   #define   RAND_RANGE(min, max) ((rand() % (max - (min + 1))) + min)
 

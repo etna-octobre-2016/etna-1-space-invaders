@@ -87,6 +87,7 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
+  ship_move2(SDL); /*on surveille les déplacements du vaisseaux*/
   ship_draw(SDL);
   enemy_move(SDL);
 }
@@ -101,7 +102,7 @@ void                listen_events(t_SDL_objects *SDL)
 
   opened = true;
   previousTime = 0;
- 
+
   while(opened)
   {
     UpdateEvents(event);
@@ -109,10 +110,6 @@ void                listen_events(t_SDL_objects *SDL)
     {
       opened = false;
     }
-
-    ship_move2(SDL); /*on surveille les déplacements du vaisseaux*/
-
-
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
@@ -126,6 +123,6 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
     }
-     /*delete_all();*/ 
+     /*delete_all();*/
   }
 }
