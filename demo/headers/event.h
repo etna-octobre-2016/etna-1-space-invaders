@@ -1,25 +1,22 @@
 /*
 * @Author: Bernar_s
 * @Date:   2014-09-03 15:45:05
-* @Last Modified by:   Bernar_s
-* @Last Modified time: 2014-09-03 15:45:10
+* @Last Modified by:   ahemt_s
+* @Last Modified time: 2014-09-18 01:41:30
 */
-
-#include "uthash.h"
-
 #ifndef EVENT_H
 #define EVENT_H
 
-	typedef struct 
-	{
-		int key;
-		int value;
-		UT_hash_handle hh; 
-	} hash;
+  typedef           struct
+  {
+    int             key;
+    int             value;
+    UT_hash_handle  hh;
 
-	hash *find_key(int key);
-	void add_key(int key, int value);
-	void delete_all();
+  }                 t_events_hash;
 
-	void UpdateEvents();
+  t_events_hash     *events_find_key(int key);
+  void              events_add_key(int key, int value);
+  void              events_clear();
+  void              events_update();
 #endif

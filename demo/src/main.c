@@ -51,6 +51,7 @@ void                clear(t_SDL_objects *SDL)
 {
   ship_clear(SDL);
   enemy_clear(SDL);
+  events_clear();
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
@@ -87,7 +88,7 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
-  ship_move2(SDL); /*on surveille les déplacements du vaisseaux*/
+  ship_move(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
 }
@@ -102,11 +103,10 @@ void                listen_events(t_SDL_objects *SDL)
 
   opened = true;
   previousTime = 0;
-
   while(opened)
   {
-    UpdateEvents(event);
-    if (find_key(SDLK_ESCAPE) != NULL && find_key(SDLK_ESCAPE)->value == 1)
+    events_update(event);
+    if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
     {
       opened = false;
     }
@@ -123,6 +123,5 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
     }
-     /*delete_all();*/
   }
 }
