@@ -17,7 +17,7 @@ hash 		*find_key(int key)
 {
     hash 	*h;
 
-    HASH_FIND_INT( key_event, &key, h ); 
+    HASH_FIND_INT(key_event, &key, h ); 
     return h;
 }
 
@@ -31,9 +31,9 @@ void 		add_key(int key_push, int value)
 	HASH_FIND_INT(key_event, &key_push, h); 
     if (h==NULL) 
     {
-    	h = malloc(sizeof(hash));
+    	h = malloc (sizeof(hash));
     	h->key = key_push;  
-    	HASH_ADD_INT( key_event, key, h);   
+    	HASH_ADD_INT(key_event, key, h);   
     } 
     h->value = value;
 }
@@ -48,8 +48,8 @@ void		delete_all()
 
   HASH_ITER(hh, key_event, current_key, tmp) 
   {
-    HASH_DEL(key_event,current_key);  
-    free(current_key);            
+    HASH_DEL(key_event, current_key);  
+    free (current_key);            
   }
 }
 
@@ -58,7 +58,7 @@ void	UpdateEvents(SDL_Event event)
    	/*SDL_Event event;*/
 	
 
-	while(SDL_PollEvent(&event))
+	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
 		{
