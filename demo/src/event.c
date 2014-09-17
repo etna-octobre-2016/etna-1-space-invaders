@@ -8,13 +8,14 @@
 #include            "../headers/main.h"
 
 
-hash *key_event = NULL;
+hash 	*key_event = NULL;
 
 /**
 *retrouve une structure en fonction de la clé entré en paramètre 
 */
-hash *find_key(int key) {
-    hash *h;
+hash 		*find_key(int key) 
+{
+    hash 	*h;
 
     HASH_FIND_INT( key_event, &key, h ); 
     return h;
@@ -23,11 +24,13 @@ hash *find_key(int key) {
 /**
 *Ajoute une structure à la table de hash
 */
-void add_key(int key_push, int value) {
-    hash *h;
+void 		add_key(int key_push, int value) 
+{
+    hash 	*h;
 
-HASH_FIND_INT(key_event, &key_push, h); 
-    if (h==NULL) {
+	HASH_FIND_INT(key_event, &key_push, h); 
+    if (h==NULL) 
+    {
     	h = malloc(sizeof(hash));
     	h->key = key_push;  
     	HASH_ADD_INT( key_event, key, h);   
@@ -38,16 +41,19 @@ HASH_FIND_INT(key_event, &key_push, h);
 /**
 *Supprime toutes les structures de la table de hash
 */
-void delete_all() {
-  hash *current_key, *tmp;
+void		delete_all() 
+{
+  	hash 	*current_key 
+  	hash 	*tmp;
 
-  HASH_ITER(hh, key_event, current_key, tmp) {
+  HASH_ITER(hh, key_event, current_key, tmp) 
+  {
     HASH_DEL(key_event,current_key);  
     free(current_key);            
   }
 }
 
-void UpdateEvents(SDL_Event event)
+void	UpdateEvents(SDL_Event event)
 {
    	/*SDL_Event event;*/
 	
