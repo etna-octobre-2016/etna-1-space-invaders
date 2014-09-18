@@ -18,6 +18,11 @@ int                 main()
   }
 }
 
+/**
+ * Fonction d'initialisation du programme
+ * @param   {t_SDL_objects} SDL la structure principale du programme
+ * @return  {bool} renvoie true en cas de succès, ou false en cas d'erreur
+ */
 bool                init(t_SDL_objects *SDL)
 {
   if (!(SDL_Init(SDL_INIT_VIDEO) < 0))
@@ -50,6 +55,10 @@ bool                init(t_SDL_objects *SDL)
   }
 }
 
+/**
+ * Fonction de nettoyage du programme
+ * @param {t_SDL_objects}  SDL la structure principale du programme
+ */
 void                clear(t_SDL_objects *SDL)
 {
   animation_clear(SDL);
@@ -66,6 +75,12 @@ void                clear(t_SDL_objects *SDL)
   SDL_Quit();
 }
 
+/**
+ * Fonction principale appellée à la fréquence de FRAMES_PER_SECOND images/seconde (cf. main.h)
+ * @param {t_SDL_objects}  SDL la structure principale du programme
+ *
+ * @note: C'est dans cette fonction que le code du jeu sera executé
+ */
 void                game_loop(t_SDL_objects *SDL)
 {
   bool              eventTriggered;
@@ -107,7 +122,6 @@ void                listen_events(t_SDL_objects *SDL)
 
   opened = true;
   previousTime = 0;
-
   while (opened)
   {
     while (SDL_PollEvent(&event))
@@ -125,7 +139,6 @@ void                listen_events(t_SDL_objects *SDL)
         break;
       }
     }
-
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
@@ -133,7 +146,9 @@ void                listen_events(t_SDL_objects *SDL)
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
       if (!ship_is_in_life(SDL))
+      {
         opened = false;
+      }
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
     }
