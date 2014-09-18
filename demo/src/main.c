@@ -32,11 +32,10 @@ bool                init(t_SDL_objects *SDL)
           {
             if (enemy_init(SDL) == true)
             {
-              if(TTF_Init() >= 0)
+              if (TTF_Init() == 0)
               {
-                if(status_bar_init(SDL) == true)
+                if (status_bar_init(SDL) == true)
                 {
-
                   return true;
                 }
               }
@@ -67,8 +66,8 @@ void                clear(t_SDL_objects *SDL)
   {
     SDL_DestroyWindow(SDL->window);
   }
-  SDL_Quit();
   TTF_Quit();
+  SDL_Quit();
 }
 
 void                game_loop(t_SDL_objects *SDL)

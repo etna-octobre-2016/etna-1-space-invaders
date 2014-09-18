@@ -24,16 +24,15 @@ bool          ship_init(t_SDL_objects *SDL)
   SDL->ship->animation.nb_frames = 12;
 
   /*Config*/
-  SDL->ship->life         = MAX_LIFE;
-  SDL->ship->image        = IMG_Load("assets/images/dracaufeu.png");
-  SDL->ship->progress_bar = IMG_Load("assets/images/barre.png");
+  SDL->ship->life     = SHIP_MAX_LIFE;
+  SDL->ship->image    = IMG_Load("assets/images/dracaufeu.png");
+  SDL->ship->life_bar = IMG_Load("assets/images/barre.png");
 
-  if (SDL->ship->image == NULL || SDL->ship->progress_bar == NULL)
+  if (SDL->ship->image == NULL || SDL->ship->life_bar == NULL)
   {
     printf("Ship init error: %s\n", IMG_GetError());
     return false;
   }
-
   return true;
 }
 
@@ -103,6 +102,6 @@ void          ship_draw(t_SDL_objects *SDL)
 void          ship_clear(t_SDL_objects *SDL)
 {
   SDL_FreeSurface(SDL->ship->image);
-  SDL_FreeSurface(SDL->ship->progress_bar);
+  SDL_FreeSurface(SDL->ship->life_bar);
   free(SDL->ship);
 }
