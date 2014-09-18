@@ -34,7 +34,7 @@ bool                init(t_SDL_objects *SDL)
             {
               if (enemy_init(SDL) == true)
               {
-                  return true;
+                return true;
               }
             }
           }
@@ -110,7 +110,6 @@ void                listen_events(t_SDL_objects *SDL)
 
   while (opened)
   {
-   /*SDL_PollEvent segfault...*/
     while (SDL_PollEvent(&event))
     {
       if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
