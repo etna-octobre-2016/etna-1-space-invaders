@@ -62,7 +62,7 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
       enemy->width = 50;
       enemy->height = 50;
       enemy->x = screen.w + RAND_RANGE(0, 400);
-      enemy->y = RAND_RANGE(0, screen.h);
+      enemy->y = RAND_RANGE(0, (screen.h - STATUS_BAR_HEIGHT - enemy->height));
       enemy->num_frame = 0;
       enemy->animation.nb_frames = 7;
       enemy->image = IMG_Load("assets/images/lunatone.png");
