@@ -28,7 +28,7 @@ bool          ship_init(t_SDL_objects *SDL)
 
   /*Animation*/
   SDL->ship->previous_animation   = 0;
-  SDL->ship->animation            = animation_get(SDL, STATE_NORMAL);
+  SDL->ship->animation            = animation_get(SDL, SHIP_STATE_NORMAL);
 
   /*Parametres generaux*/
   SDL->ship->life = 100;
@@ -157,13 +157,13 @@ bool           ship_is_crashed(t_SDL_objects *SDL)
       {
         ship_update_life(SDL, -1);
         SDL->ship->previous_animation = SDL->ship->animation->id;
-        SDL->ship->animation      = animation_get(SDL, STATE_CRASH);
+        SDL->ship->animation      = animation_get(SDL, SHIP_STATE_CRASH);
         return true;
       }
     enemy = enemy->next;
   }
   SDL->ship->previous_animation = SDL->ship->animation->id;
-  SDL->ship->animation      = animation_get(SDL, STATE_NORMAL);
+  SDL->ship->animation      = animation_get(SDL, SHIP_STATE_NORMAL);
   return false;
 }
 

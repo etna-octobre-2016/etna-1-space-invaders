@@ -18,13 +18,13 @@ bool 			animation_init(t_SDL_objects *SDL)
   	if (SDL->list_animations != NULL || animation1 == NULL || animation2 == NULL)
   	{
     	SDL->list_animations 	= NULL;
-		animation1->id 			= STATE_NORMAL;
+		animation1->id 			= SHIP_STATE_NORMAL;
 		animation1->nb_frames 	= 12;
 		animation1->url_image	= "assets/images/dracaufeu.png";
 		animation1->next		= NULL;
     	animation_list_add_end(SDL, animation1);
     	printf("On initialise la première animation id : %d\n", SDL->list_animations->id);
-    	animation2->id 			= STATE_CRASH;
+    	animation2->id 			= SHIP_STATE_CRASH;
 		animation2->nb_frames 	= 12;
 		animation2->url_image	= "assets/images/dracaufeu_crash.png";
 		animation2->next		= NULL;
