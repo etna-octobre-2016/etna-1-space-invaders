@@ -91,6 +91,7 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
+  background_draw(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
 }
