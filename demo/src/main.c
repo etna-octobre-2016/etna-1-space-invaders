@@ -96,6 +96,8 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
+  status_bar_update_life(SDL);
+  status_bar_update_scores(SDL);
   ship_move(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
@@ -124,8 +126,6 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
-      status_bar_update_life(SDL);
-      status_bar_update_scores(SDL);
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
     }
