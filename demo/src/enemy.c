@@ -20,6 +20,13 @@ bool              enemy_init(t_SDL_objects *SDL)
   }
 }
 
+/**
+ * Crée pour chaque type d'ennemi, le nombre d'ennemis associés dans une structure t_level_event_enemies
+ * @param   {t_level_event_enemies}   enemies La structure contenant le nombre d'ennemis par type
+ * @param   {t_SDL_objects}           SDL     La structure principale du programme
+ *
+ * @return  {bool}  Renvoie true en cas de succès, ou false en cas d'erreur
+ */
 bool              enemy_add(t_level_event_enemies *enemies, t_SDL_objects *SDL)
 {
   if (enemy_add_level_1(enemies->level1, SDL) == true)
@@ -29,6 +36,13 @@ bool              enemy_add(t_level_event_enemies *enemies, t_SDL_objects *SDL)
   return false;
 }
 
+/**
+ * Crée un nombre défini d'ennemis de niveau 1
+ * @param   {int}            count   Le nombre d'ennemis à créer
+ * @param   {t_SDL_objects}  SDL     La structure principale du programme
+ *
+ * @return  {bool}  Renvoie true en cas de succès, ou false en cas d'erreur
+ */
 bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
 {
   int             i;
@@ -67,6 +81,10 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
   return true;
 }
 
+/**
+ * Détruit tous les ennemis créés (fonction de nettoyage)
+ * @param   {t_SDL_objects}   SDL   La structure principale du programme
+ */
 void              enemy_clear(t_SDL_objects *SDL)
 {
   t_enemy         **temp;
@@ -84,6 +102,10 @@ void              enemy_clear(t_SDL_objects *SDL)
     }
 }
 
+/**
+ * Définit la trajectoire de chaque ennemi créé, selon son niveau
+ * @param   {t_SDL_objects}   SDL   La structure principale du programme
+ */
 void              enemy_move(t_SDL_objects *SDL)
 {
   t_enemy         *enemy;
