@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
-* @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-28 18:43:21
+* @Last Modified by:   BERTEAUX
+* @Last Modified time: 2014-09-18 18:28:18
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -69,11 +69,21 @@
 
   typedef                 struct
   {
+    SDL_Surface           *image;
+    int                   width;
+    int                   height;
+    int                   x;
+    
+  }                       t_background;
+
+  typedef                 struct
+  {
     SDL_Window            *window;
     SDL_Renderer          *renderer;
     t_ship                *ship;
     t_enemy               *enemy;
     t_level               *level;
+    t_background          *background;
 
   }                       t_SDL_objects;
 

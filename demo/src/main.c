@@ -26,13 +26,16 @@ bool                init(t_SDL_objects *SDL)
     {
       if (renderer_init(SDL) == true)
       {
-        if (ship_init(SDL) == true)
+        if (background_init(SDL) == true)
         {
-          if (level_init(1, SDL) == true)
+          if (ship_init(SDL) == true)
           {
-            if (enemy_init(SDL) == true)
+            if (level_init(1, SDL) == true)
             {
-              return true;
+              if (enemy_init(SDL) == true)
+              {
+                return true;
+              }
             }
           }
         }
@@ -51,6 +54,7 @@ void                clear(t_SDL_objects *SDL)
 {
   ship_clear(SDL);
   enemy_clear(SDL);
+  background_clear(SDL);
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
