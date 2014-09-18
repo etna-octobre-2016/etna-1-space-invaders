@@ -10,6 +10,7 @@
   #include  "moves.h"
   #include  "level.h"
   #include  "event.h"
+  #include  "status_bar.h"
 
   #define   FRAMES_PER_SECOND 14
   #define   MAX_TIME_DIFF(FRAMES_PER_SECOND) (1000 / FRAMES_PER_SECOND)

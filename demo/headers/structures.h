@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-28 18:43:21
+* @Last Modified time: 2014-09-18 13:27:41
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -19,7 +19,9 @@
     int                   y;
     int                   width;
     int                   height;
+    int                   life;
     SDL_Surface           *image;
+    SDL_Surface           *life_bar;
     t_animation           animation;
     int                   num_frame;
 
@@ -69,11 +71,18 @@
 
   typedef                 struct
   {
+    TTF_Font              *scores;
+
+  }                       t_status_bar;
+
+  typedef                 struct
+  {
     SDL_Window            *window;
     SDL_Renderer          *renderer;
     t_ship                *ship;
     t_enemy               *enemy;
     t_level               *level;
+    t_status_bar          *status_bar;
 
   }                       t_SDL_objects;
 

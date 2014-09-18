@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
-* @Last Modified by:   Bernar_s
-* @Last Modified time: 2014-09-05 16:26:14
+* @Last Modified by:   BERTEAUX
+* @Last Modified time: 2014-09-05 15:19:39
 */
 
 #include      "../headers/main.h"
@@ -24,9 +24,11 @@ bool          ship_init(t_SDL_objects *SDL)
   SDL->ship->animation.nb_frames = 12;
 
   /*Config*/
-  SDL->ship->image = IMG_Load("assets/images/dracaufeu.png");
+  SDL->ship->life     = SHIP_MAX_LIFE;
+  SDL->ship->image    = IMG_Load("assets/images/dracaufeu.png");
+  SDL->ship->life_bar = IMG_Load("assets/images/barre.png");
 
-  if (SDL->ship->image == NULL)
+  if (SDL->ship->image == NULL || SDL->ship->life_bar == NULL)
   {
     printf("Ship init error: %s\n", IMG_GetError());
     return false;
@@ -69,7 +71,6 @@ void              ship_move(t_SDL_objects *SDL)
     }
   }
 }
-
 
 void          ship_draw(t_SDL_objects *SDL)
 {
@@ -114,5 +115,6 @@ void          ship_draw(t_SDL_objects *SDL)
 void          ship_clear(t_SDL_objects *SDL)
 {
   SDL_FreeSurface(SDL->ship->image);
+  SDL_FreeSurface(SDL->ship->life_bar);
   free(SDL->ship);
 }

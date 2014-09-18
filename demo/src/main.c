@@ -32,7 +32,13 @@ bool                init(t_SDL_objects *SDL)
           {
             if (enemy_init(SDL) == true)
             {
-              return true;
+              if (TTF_Init() == 0)
+              {
+                if (status_bar_init(SDL) == true)
+                {
+                  return true;
+                }
+              }
             }
           }
         }
@@ -49,6 +55,7 @@ bool                init(t_SDL_objects *SDL)
 
 void                clear(t_SDL_objects *SDL)
 {
+  status_bar_clear_scores(SDL);
   ship_clear(SDL);
   enemy_clear(SDL);
   events_clear();
@@ -60,6 +67,7 @@ void                clear(t_SDL_objects *SDL)
   {
     SDL_DestroyWindow(SDL->window);
   }
+  TTF_Quit();
   SDL_Quit();
 }
 
@@ -116,6 +124,8 @@ void                listen_events(t_SDL_objects *SDL)
     {
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
+      status_bar_update_life(SDL);
+      status_bar_update_scores(SDL);
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
     }
