@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
-* @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-07-28 21:09:14
+* @Last Modified by:   Bernar_s
+* @Last Modified time: 2014-09-05 16:26:14
 */
 
 #include      "../headers/main.h"
@@ -34,24 +34,42 @@ bool          ship_init(t_SDL_objects *SDL)
   return true;
 }
 
-void          ship_move(int direction, t_SDL_objects *SDL)
+void              ship_move(t_SDL_objects *SDL)
 {
-  switch (direction)
+  SDL_DisplayMode screen;
+
+  SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
+
+  if (events_find_key(SDLK_DOWN) != NULL && events_find_key(SDLK_DOWN)->value == 1)
   {
-    case SDLK_DOWN:
-      SDL->ship->y += 20;
-      break;
-    case SDLK_UP:
-      if (SDL->ship->y - 20 >= 0) SDL->ship->y -= 20;
-      break;
-    case SDLK_RIGHT:
-      SDL->ship->x += 20;
-      break;
-    case SDLK_LEFT:
-      if (SDL->ship->x - 20 >= 0) SDL->ship->x -= 20;
-      break;
+    if ((SDL->ship->y + 13) < (screen.h - 140))
+    {
+      SDL->ship->y += 13;
+    }
+  }
+  if (events_find_key(SDLK_UP) != NULL && events_find_key(SDLK_UP)->value == 1)
+  {
+    if ((SDL->ship->y - 13) >= 0)
+    {
+      SDL->ship->y -= 13;
+    }
+  }
+  if (events_find_key(SDLK_RIGHT) != NULL && events_find_key(SDLK_RIGHT)->value == 1)
+  {
+    if ((SDL->ship->x + 13) < (screen.w - 140))
+    {
+      SDL->ship->x += 13;
+    }
+  }
+  if (events_find_key(SDLK_LEFT) != NULL && events_find_key(SDLK_LEFT)->value == 1)
+  {
+    if ((SDL->ship->x - 13) >= 0)
+    {
+      SDL->ship->x -= 13;
+    }
   }
 }
+
 
 void          ship_draw(t_SDL_objects *SDL)
 {

@@ -51,6 +51,7 @@ void                clear(t_SDL_objects *SDL)
 {
   ship_clear(SDL);
   enemy_clear(SDL);
+  events_clear();
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
@@ -77,9 +78,9 @@ void                game_loop(t_SDL_objects *SDL)
       switch (SDL->level->events[i]->type)
       {
         case 'E':
-          enemy_add(&SDL->level->events[i]->enemies, SDL);
-          eventTriggered = true;
-          break;
+        enemy_add(&SDL->level->events[i]->enemies, SDL);
+        eventTriggered = true;
+        break;
       }
       if (eventTriggered == true)
       {
@@ -87,6 +88,7 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
+  ship_move(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
 }
@@ -101,22 +103,12 @@ void                listen_events(t_SDL_objects *SDL)
 
   opened = true;
   previousTime = 0;
-  while (opened)
+  while(opened)
   {
-    while (SDL_PollEvent(&event))
+    events_update(event);
+    if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
     {
-      if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
-      {
-        opened = false;
-      }
-      if (event.type == SDL_KEYDOWN)
-      {
-        ship_move(event.key.keysym.sym, SDL);
-      }
-      if (opened == false)
-      {
-        break;
-      }
+      opened = false;
     }
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
