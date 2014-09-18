@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-18 18:28:18
+* @Last Modified time: 2014-09-18 19:22:19
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -84,6 +84,7 @@
     t_enemy               *enemy;
     t_level               *level;
     t_background          *background;
+    Mix_Music             *music;
 
   }                       t_SDL_objects;
 
