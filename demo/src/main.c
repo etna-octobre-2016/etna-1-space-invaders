@@ -18,31 +18,43 @@ int                 main()
   }
 }
 
+/**
+ * Fonction d'initialisation du programme
+ * @param   {t_SDL_objects} SDL la structure principale du programme
+ * @return  {bool} renvoie true en cas de succès, ou false en cas d'erreur
+ */
 bool                init(t_SDL_objects *SDL)
 {
   if (!(SDL_Init(SDL_INIT_VIDEO) < 0))
   {
-    if (window_init(SDL) == true)
+    if (TTF_Init() == 0)
     {
-      if (renderer_init(SDL) == true)
+      if (window_init(SDL) == true)
       {
-        if (ship_init(SDL) == true)
+        if (renderer_init(SDL) == true)
         {
-          if (level_init(1, SDL) == true)
+          if (animation_init(SDL) == true)
           {
-            if (enemy_init(SDL) == true)
+            if (ship_init(SDL) == true)
             {
-              if (TTF_Init() == 0)
+              if (level_init(1, SDL) == true)
               {
-                if (status_bar_init(SDL) == true)
+                if (enemy_init(SDL) == true)
                 {
-                  return true;
+                  if (status_bar_init(SDL) == true)
+                  {
+                    return true;
+                  }
                 }
               }
             }
           }
         }
       }
+    }
+    else
+    {
+      printf("TTF init error\n");
     }
     return false;
   }
@@ -53,9 +65,14 @@ bool                init(t_SDL_objects *SDL)
   }
 }
 
+/**
+ * Fonction de nettoyage du programme
+ * @param {t_SDL_objects}  SDL la structure principale du programme
+ */
 void                clear(t_SDL_objects *SDL)
 {
   status_bar_clear_scores(SDL);
+  animation_clear(SDL);
   ship_clear(SDL);
   enemy_clear(SDL);
   events_clear();
@@ -71,6 +88,12 @@ void                clear(t_SDL_objects *SDL)
   SDL_Quit();
 }
 
+/**
+ * Fonction principale appellée à la fréquence de FRAMES_PER_SECOND images/seconde (cf. main.h)
+ * @param {t_SDL_objects}  SDL la structure principale du programme
+ *
+ * @note: C'est dans cette fonction que le code du jeu sera executé
+ */
 void                game_loop(t_SDL_objects *SDL)
 {
   bool              eventTriggered;
@@ -99,6 +122,7 @@ void                game_loop(t_SDL_objects *SDL)
   status_bar_update_life(SDL);
   status_bar_update_scores(SDL);
   ship_move(SDL);
+  ship_is_crashed(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
 }
@@ -115,15 +139,19 @@ void                listen_events(t_SDL_objects *SDL)
   previousTime = 0;
   while(opened)
   {
-    events_update(event);
-    if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
-    {
-      opened = false;
-    }
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
     {
+      events_update(event);
+      if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
+      {
+        opened = false;
+      }
+      if (!ship_is_in_life(SDL))
+      {
+        opened = false;
+      }
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
       SDL_RenderPresent(SDL->renderer);

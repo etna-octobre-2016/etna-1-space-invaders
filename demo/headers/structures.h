@@ -2,28 +2,34 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-18 13:27:41
+* @Last Modified time: 2014-09-18 20:05:45
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
+  typedef struct s_animation t_animation;
+  struct                  s_animation
+  {
+    int                   id ;                 /* Identifiant de l'animation */
+    int                   nb_frames;           /* Numéro de frames de l'animation */
+    char                  *url_image;
+    t_animation           *next;               /*Suite de la liste chainée */
+  };
+
   typedef                 struct
   {
-    int                   nb_frames;
-
-  }                       t_animation;
-
-  typedef                 struct
-  {
-    int                   x;
-    int                   y;
-    int                   width;
-    int                   height;
-    int                   life;
-    SDL_Surface           *image;
+    int                   x;                  /* Coordonnées x */
+    int                   y;                  /* Coordonnées y */
+    int                   width;              /* Longueur */
+    int                   height;             /* Hauteur */
+    int                   life;               /* Vie */
+    bool                  can_move;           /* Indique si le vaisseau peut bouger */
+    bool                  can_shoot;          /* Indiaue si le vaisseau peut tirer */
+    t_animation           *animation;         /* Animation */
+    int                   previous_animation; /* ID de l'ancienne animation */
+    SDL_Surface           *image;             /* Image */
     SDL_Surface           *life_bar;
-    t_animation           animation;
-    int                   num_frame;
+    int                   num_frame;          /* Numéro du frame en cours de l'image */
 
   }                       t_ship;
 
@@ -83,6 +89,7 @@
     t_enemy               *enemy;
     t_level               *level;
     t_status_bar          *status_bar;
+    t_animation           *list_animations;       /* Liste chainée des animations */
 
   }                       t_SDL_objects;
 
