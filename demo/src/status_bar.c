@@ -116,7 +116,7 @@ void              status_bar_update_scores(t_SDL_objects *SDL)
 
   if (text_to_print != NULL)
   {
-    snprintf(text_to_print, 100, "Scores : %d", SDL->ship->life); /* @todo: Remplacer SDl->ship->life par le score du niveau */
+    snprintf(text_to_print, 100, "Scores : %d", SDL->level->score);
 
     color_text.r = 255;
     color_text.g = 255;

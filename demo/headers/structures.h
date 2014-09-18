@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-18 20:05:45
+* @Last Modified time: 2014-09-18 21:56:17
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -69,6 +69,7 @@
   {
     int                   eventsCount;
     int                   number;
+    int                   score;
     bool                  completed;
     Uint32                timestamp;
     t_level_event         **events;

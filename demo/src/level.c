@@ -7,6 +7,7 @@ bool      level_init(int levelNumber, t_SDL_objects *SDL)
   {
     SDL->level->completed = false;
     SDL->level->number = levelNumber;
+    SDL->level->score = 0;
     SDL->level->timestamp = SDL_GetTicks();
     return level_events_init(SDL);
   }
