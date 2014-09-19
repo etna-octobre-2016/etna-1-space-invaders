@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 15:42:49
+* @Last Modified time: 2014-09-19 18:30:32
 */
 #include          "../headers/main.h"
 
@@ -170,6 +170,7 @@ bool              ship_is_crashed(t_SDL_objects *SDL)
         ship_update_life(SDL, -1); /* @todo: remplacer -1 par une constante */
         SDL->ship->previous_animation = SDL->ship->animation->id;
         SDL->ship->animation = animation_get(SDL, SHIP_STATE_CRASH);
+        SDL->level->score += enemy->max_life;
         return true;
       }
     }
