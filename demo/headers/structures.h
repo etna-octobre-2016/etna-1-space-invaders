@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-18 21:56:17
+* @Last Modified time: 2014-09-20 18:13:59
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -15,6 +15,17 @@
     char                  *url_image;
     t_animation           *next;               /*Suite de la liste chainée */
   };
+
+  typedef                 struct s_shoot
+  {
+    int                   x;
+    int                   y;
+    int                   height;
+    int                   width;
+    SDL_Surface           *image;
+    struct s_shoot        *next;
+
+  }                       t_shoot;
 
   typedef                 struct
   {
@@ -43,6 +54,7 @@
     int                   level;
     SDL_Surface           *image;
     t_animation           animation;
+    t_shoot               *shoot;
     struct s_enemy        *next;
 
   }                       t_enemy;
