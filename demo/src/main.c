@@ -7,7 +7,7 @@ int                 main()
   srand(time(NULL));
   if (init(&SDL) == true)
   {
-    listen_events(&SDL);
+    main_loop(&SDL);
     clear(&SDL);
     exit(EXIT_SUCCESS);
   }
@@ -98,10 +98,22 @@ void                game_loop(t_SDL_objects *SDL)
 {
   bool              eventTriggered;
   int               i;
+  SDL_Event         event;
   Uint32            timestamp;
 
   eventTriggered = false;
   timestamp = SDL_GetTicks();
+
+  events_update(&event);
+  if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
+  {
+    SDL->isOpened = false;
+  }
+  if (!ship_is_in_life(SDL))
+  {
+    SDL->isOpened = false;
+  }
+
   for (i = 0; !eventTriggered && i < SDL->level->eventsCount; i++)
   {
     if (SDL->level->events[i]->triggered == false && timestamp > SDL->level->events[i]->timestamp)
@@ -127,31 +139,20 @@ void                game_loop(t_SDL_objects *SDL)
   enemy_move(SDL);
 }
 
-void                listen_events(t_SDL_objects *SDL)
+void                main_loop(t_SDL_objects *SDL)
 {
-  bool              opened;
   Uint32            currentTime;
   Uint32            previousTime;
   Uint32            timeDiff;
-  SDL_Event         event;
 
-  opened = true;
+  SDL->isOpened = true;
   previousTime = 0;
-  while(opened)
+  while(SDL->isOpened)
   {
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
     {
-      events_update(event);
-      if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
-      {
-        opened = false;
-      }
-      if (!ship_is_in_life(SDL))
-      {
-        opened = false;
-      }
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);
       SDL_RenderPresent(SDL->renderer);

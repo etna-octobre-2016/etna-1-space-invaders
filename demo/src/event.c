@@ -52,17 +52,17 @@ void            events_clear()
   }
 }
 
-void            events_update(SDL_Event event)
+void            events_update(SDL_Event *event)
 {
-  while (SDL_PollEvent(&event))
+  while (SDL_PollEvent(event))
   {
-    switch (event.type)
+    switch (event->type)
     {
       case SDL_KEYDOWN:
-        events_add_key(event.key.keysym.sym, 1);
+        events_add_key(event->key.keysym.sym, 1);
         break;
       case SDL_KEYUP:
-        events_add_key(event.key.keysym.sym, 0);
+        events_add_key(event->key.keysym.sym, 0);
         break;
       default:
         break;
