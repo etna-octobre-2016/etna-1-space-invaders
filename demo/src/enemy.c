@@ -3,6 +3,13 @@
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   BERTEAUX
 * @Last Modified time: 2014-09-03 13:02:19
+*
+* @todo:
+*   - ajouter une fonction enemy_each pour parcourir tous les ennemis
+*   - changer le prototype de enemy_clear() pour supprimer 1 ennemi lorsqu'il depasse l'ecran
+*   - changer le prototype de enemy_move() pour déplacer 1 ennemi
+*   - changer le prototype de enemy_shoot() pour faire tirer 1 ennemi
+*   - ajouter une fonction enenmy_clear_all() qui servira de fonction de nettoyage
 */
 #include          "../headers/main.h"
 
@@ -95,7 +102,7 @@ void              enemy_clear(t_SDL_objects *SDL)
   {
     tmp = enemy;
     enemy = enemy->next;
-    /*SDL_FreeSurface(tmp->image);*/
+    /*SDL_FreeSurface(tmp->image); @todo: vérifier s'il y a toujours un segfault ici*/
     free(tmp);
   }
 }
