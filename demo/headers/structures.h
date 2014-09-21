@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-20 18:13:59
+* @Last Modified time: 2014-09-21 21:16:17
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -10,10 +10,10 @@
   typedef struct s_animation t_animation;
   struct                  s_animation
   {
-    int                   id ;                 /* Identifiant de l'animation */
+    int                   id;                  /* Identifiant de l'animation */
     int                   nb_frames;           /* Numéro de frames de l'animation */
     char                  *url_image;
-    t_animation           *next;               /*Suite de la liste chainée */
+    t_animation           *next;               /* Suite de la liste chainée */
   };
 
   typedef                 struct s_shoot

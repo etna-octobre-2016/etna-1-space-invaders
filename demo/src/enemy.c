@@ -1,8 +1,8 @@
 /*
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
-* @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 13:02:19
+* @Last Modified by:   ahemt_s
+* @Last Modified time: 2014-09-21 21:30:43
 *
 * @todo:
 *   - ajouter une fonction enemy_each pour parcourir tous les ennemis
@@ -73,6 +73,7 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
       enemy->num_frame = 0;
       enemy->animation.nb_frames = 7;
       enemy->image = IMG_Load("assets/images/lunatone.png");
+      enemy->shoot = NULL;
       if (enemy->image == NULL)
       {
         printf("Enemy init error: %s\n", IMG_GetError());
@@ -123,6 +124,36 @@ void              enemy_move(t_SDL_objects *SDL)
       case 1:
         move_enemy_straight(enemy, SDL);
         break;
+    }
+    enemy = enemy->next;
+  }
+}
+
+/**
+ * Lance un tir pour chaque ennemi
+ * @param   {t_SDL_objects}   SDL   La structure principale du programme
+ */
+void              enemy_shoot_launch(t_SDL_objects *SDL)
+{
+  t_enemy         *enemy;
+  t_shoot         *shoot;
+
+  enemy = SDL->enemy;
+  shoot = enemy->shoot;
+  while (enemy != NULL)
+  {
+    if (shoot != NULL)
+    {
+      while (shoot != NULL)
+      {
+        shoot = shoot->next;
+      }
+      shoot->next = shoot_enemy_init(enemy);
+      printf("position x: %d - position y: %d\n", shoot->next->x, shoot->next->y);
+    }
+    else
+    {
+      shoot = shoot_enemy_init(enemy);
     }
     enemy = enemy->next;
   }
