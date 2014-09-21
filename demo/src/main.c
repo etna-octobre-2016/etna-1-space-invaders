@@ -25,42 +25,35 @@ int                 main()
  */
 bool                init(t_SDL_objects *SDL)
 {
-  if (!(SDL_Init(SDL_INIT_VIDEO) < 0))
-  {
-    if (TTF_Init() == 0)
-    {
-      if (window_init(SDL) == true)
-      {
-        if (renderer_init(SDL) == true)
-        {
-          if (animation_init(SDL) == true)
-          {
-            if (ship_init(SDL) == true)
-            {
-              if (level_init(1, SDL) == true)
-              {
-                if (enemy_init(SDL) == true)
-                {
-                  if (status_bar_init(SDL) == true)
-                  {
-                    return true;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    else
-    {
-      printf("TTF init error\n");
-    }
-    return false;
+  int               init_sdl;
+  int               init_ttf;
+
+  init_sdl = SDL_Init(SDL_INIT_VIDEO);
+  init_ttf = TTF_Init();
+  if (
+    init_sdl == 0
+    && init_ttf == 0
+    && window_init(SDL) == true
+    && renderer_init(SDL) == true
+    && animation_init(SDL) == true
+    && ship_init(SDL) == true
+    && level_init(1, SDL) == true
+    && enemy_init(SDL) == true
+    && status_bar_init(SDL) == true
+  ){
+    return true;
   }
   else
   {
-    printf("SDL init error: %s\n", SDL_GetError());
+    if (init_sdl < 0)
+    {
+      printf("SDL_Init error: %s\n", SDL_GetError());
+    }
+    if (init_ttf < 0)
+    {
+      printf("TTF_Init error: %s\n", TTF_GetError());
+    }
+    puts("an error occured during initialization");
     return false;
   }
 }
