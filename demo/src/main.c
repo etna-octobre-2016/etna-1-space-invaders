@@ -125,6 +125,7 @@ void                game_loop(t_SDL_objects *SDL)
   ship_is_crashed(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
+  enemy_shoot_launch(SDL);
 }
 
 void                listen_events(t_SDL_objects *SDL)

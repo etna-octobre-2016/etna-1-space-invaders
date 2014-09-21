@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-21 21:30:43
+* @Last Modified time: 2014-09-21 22:27:24
 *
 * @todo:
 *   - ajouter une fonction enemy_each pour parcourir tous les ennemis
@@ -136,25 +136,40 @@ void              enemy_move(t_SDL_objects *SDL)
 void              enemy_shoot_launch(t_SDL_objects *SDL)
 {
   t_enemy         *enemy;
-  t_shoot         *shoot;
+  t_shoot         *enemy_shoot;
+  t_shoot         *new_shoot;
 
-  enemy = SDL->enemy;
-  shoot = enemy->shoot;
-  while (enemy != NULL)
+  new_shoot = malloc(sizeof(t_shoot));
+  if (new_shoot != NULL)
   {
-    if (shoot != NULL)
+    enemy = SDL->enemy;
+    enemy_shoot = enemy->shoot;
+    while (enemy != NULL)
     {
-      while (shoot != NULL)
+      if (shoot_enemy_init(new_shoot, enemy) == true)
       {
-        shoot = shoot->next;
+        if (enemy_shoot != NULL)
+        {
+          while (enemy_shoot != NULL)
+          {
+            enemy_shoot = enemy_shoot->next;
+          }
+          enemy_shoot = new_shoot;
+        }
+        else
+        {
+          enemy_shoot = new_shoot;
+        }
+        enemy = enemy->next;
       }
-      shoot->next = shoot_enemy_init(enemy);
-      printf("position x: %d - position y: %d\n", shoot->next->x, shoot->next->y);
+      else
+      {
+        puts("enemy_shoot_launch error: new_shoot init failed");
+      }
     }
-    else
-    {
-      shoot = shoot_enemy_init(enemy);
-    }
-    enemy = enemy->next;
+  }
+  else
+  {
+    puts("enemy_shoot_launch error: new_shoot malloc failed");
   }
 }
