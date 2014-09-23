@@ -3,6 +3,7 @@
 CC = gcc
 CFLAGS = -W -Wall -Werror -std=c89
 NAME = SpaceInvaders
+PROJETPATH = /Users/ahemt_s/Documents/etna/projets/spaceinvader/demo
 RM = rm -f
 SDLBIN = ./libs/sdl2-image/SDL2_image \
 	./libs/sdl2-ttf/SDL2_ttf
@@ -22,8 +23,5 @@ clean:
 install: sdl-install
 
 # Installs SDL lib
-sdl-install: sdl-build sdl-copy
-
-# Builds SDL lib
-sdl-build:
-	mkdir -p libs/sdl2 && cd vendors/sdl && ./configure --prefix=../../libs/sdl2 && make && echo "SDL build completed."
+sdl-install:
+	mkdir -p libs/sdl2 && cd vendors/sdl && ./configure --prefix=$(PROJETPATH)/libs/sdl2 && make && make install && echo "SDL build completed." && cd ../../
