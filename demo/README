@@ -1,0 +1,6 @@
+Avant de faire votre premier make executez les commandes suivantes :
+====================================================================
+
+$> brew update freetype (ou brew install freetype)
+$> export C_INCLUDE_PATH=/usr/local/include (le mieux serait de définir cette variable d'environnement dans le .bash_profile par exemple)
+$> make install
