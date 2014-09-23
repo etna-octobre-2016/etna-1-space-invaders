@@ -1,8 +1,8 @@
 /*
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
-* @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 13:02:19
+* @Last Modified by:   sebastien
+* @Last Modified time: 2014-09-22 22:38:31
 */
 #include          "../headers/main.h"
 
@@ -11,7 +11,7 @@ bool              enemy_init(t_SDL_objects *SDL)
   SDL->enemy = malloc(sizeof(t_enemy));
   if (SDL->enemy != NULL)
   {
-    SDL->enemy->next = NULL;
+    SDL->enemy->next = NULL; 
     return true;
   }
   else

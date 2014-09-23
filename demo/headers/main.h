@@ -21,4 +21,5 @@
   void      clear(t_SDL_objects *);
   void      game_loop(t_SDL_objects *);
   void      listen_events(t_SDL_objects *);
+  void      end_game(t_SDL_objects *);
 #endif
