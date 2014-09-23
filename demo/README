@@ -1,6 +1,7 @@
-Avant de faire votre premier make executez les commandes suivantes :
-====================================================================
+Si vous avez besoin de recompiler les libs :
+============================================
 
-$> brew update freetype (ou brew install freetype)
+$> brew update
+$> brew upgrade freetype (ou brew install freetype si le package n'est pas visible avec "brew list")
 $> export C_INCLUDE_PATH=/usr/local/include (le mieux serait de définir cette variable d'environnement dans le .bash_profile par exemple)
 $> make install
