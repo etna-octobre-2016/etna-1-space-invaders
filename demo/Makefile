@@ -15,7 +15,7 @@ all: clean $(NAME)
 
 # Compiling
 $(NAME):
-	$(CC) $(CFLAGS) -I$(LSDL)/include/SDL2 -L$(LSDL)/lib -lSDL2 src/*.c -o $(NAME)
+	$(CC) $(CFLAGS) -I$(LSDL)/include/SDL2 -I$(LSDL_IMAGE)/include/SDL2 -I$(LSDL_TTF)/include/SDL2 -L$(LSDL)/lib -L$(LSDL_IMAGE)/lib -L$(LSDL_TTF)/lib -lSDL2 -lSDL2_image -lSDL2_ttf src/*.c -o $(NAME)
 
 # Object files removing
 clean:
