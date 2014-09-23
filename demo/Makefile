@@ -26,8 +26,4 @@ sdl-install: sdl-build sdl-copy
 
 # Builds SDL lib
 sdl-build:
-	cd vendors/sdl && ./configure && make && echo "SDL build completed."
-
-# Creates symbolik links in libs/sdl2
-sdl-copy:
-	mkdir -p libs/sdl2/headers
+	mkdir -p libs/sdl2 && cd vendors/sdl && ./configure --prefix=../../libs/sdl2 && make && echo "SDL build completed."
