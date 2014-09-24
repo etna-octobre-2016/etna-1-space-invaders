@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-21 21:16:17
+* @Last Modified time: 2014-09-24 21:10:23
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -96,6 +96,7 @@
 
   typedef                 struct
   {
+    bool                  isOpened;
     SDL_Window            *window;
     SDL_Renderer          *renderer;
     t_ship                *ship;
