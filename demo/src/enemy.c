@@ -1,8 +1,15 @@
 /*
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
-* @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 13:02:19
+* @Last Modified by:   ahemt_s
+* @Last Modified time: 2014-09-21 22:27:24
+*
+* @todo:
+*   - ajouter une fonction enemy_each pour parcourir tous les ennemis
+*   - changer le prototype de enemy_clear() pour supprimer 1 ennemi lorsqu'il depasse l'ecran
+*   - changer le prototype de enemy_move() pour déplacer 1 ennemi
+*   - changer le prototype de enemy_shoot() pour faire tirer 1 ennemi
+*   - ajouter une fonction enenmy_clear_all() qui servira de fonction de nettoyage
 */
 #include          "../headers/main.h"
 
@@ -66,6 +73,7 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
       enemy->num_frame = 0;
       enemy->animation.nb_frames = 7;
       enemy->image = IMG_Load("assets/images/lunatone.png");
+      enemy->shoot = NULL;
       if (enemy->image == NULL)
       {
         printf("Enemy init error: %s\n", IMG_GetError());
@@ -95,7 +103,7 @@ void              enemy_clear(t_SDL_objects *SDL)
   {
     tmp = enemy;
     enemy = enemy->next;
-    /*SDL_FreeSurface(tmp->image);*/
+    /*SDL_FreeSurface(tmp->image); @todo: vérifier s'il y a toujours un segfault ici*/
     free(tmp);
   }
 }
@@ -118,5 +126,50 @@ void              enemy_move(t_SDL_objects *SDL)
         break;
     }
     enemy = enemy->next;
+  }
+}
+
+/**
+ * Lance un tir pour chaque ennemi
+ * @param   {t_SDL_objects}   SDL   La structure principale du programme
+ */
+void              enemy_shoot_launch(t_SDL_objects *SDL)
+{
+  t_enemy         *enemy;
+  t_shoot         *enemy_shoot;
+  t_shoot         *new_shoot;
+
+  new_shoot = malloc(sizeof(t_shoot));
+  if (new_shoot != NULL)
+  {
+    enemy = SDL->enemy;
+    enemy_shoot = enemy->shoot;
+    while (enemy != NULL)
+    {
+      if (shoot_enemy_init(new_shoot, enemy) == true)
+      {
+        if (enemy_shoot != NULL)
+        {
+          while (enemy_shoot != NULL)
+          {
+            enemy_shoot = enemy_shoot->next;
+          }
+          enemy_shoot = new_shoot;
+        }
+        else
+        {
+          enemy_shoot = new_shoot;
+        }
+        enemy = enemy->next;
+      }
+      else
+      {
+        puts("enemy_shoot_launch error: new_shoot init failed");
+      }
+    }
+  }
+  else
+  {
+    puts("enemy_shoot_launch error: new_shoot malloc failed");
   }
 }
