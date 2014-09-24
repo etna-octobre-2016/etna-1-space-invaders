@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-24 21:10:23
+* @Last Modified time: 2014-09-24 23:21:00
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -103,7 +103,7 @@
     t_enemy               *enemy;
     t_level               *level;
     t_status_bar          *status_bar;
-    t_animation           *list_animations;       /* Liste chainée des animations */
+    t_animation           *animation;       /* Liste chainée des animations */
 
   }                       t_SDL_objects;
 

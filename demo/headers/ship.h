@@ -2,6 +2,7 @@
 #define SHIP_H
 
   #define SHIP_MAX_LIFE 100
+  #define SHIP_STATE_UNDEFINED 0
   #define SHIP_STATE_NORMAL 1
   #define SHIP_STATE_CRASH 2
 

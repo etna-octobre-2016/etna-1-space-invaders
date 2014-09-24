@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
-* @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 15:42:49
+* @Last Modified by:   ahemt_s
+* @Last Modified time: 2014-09-25 00:02:23
 */
 #include          "../headers/main.h"
 
@@ -27,7 +27,7 @@ bool              ship_init(t_SDL_objects *SDL)
 
   /*Animation*/
   SDL->ship->previous_animation = 0;
-  SDL->ship->animation = animation_get(SDL, SHIP_STATE_NORMAL);
+  /*SDL->ship->animation = animation_get(SDL, SHIP_STATE_NORMAL);*/
 
   /*Parametres generaux*/
   SDL->ship->life = SHIP_MAX_LIFE;
@@ -169,14 +169,14 @@ bool              ship_is_crashed(t_SDL_objects *SDL)
       {
         ship_update_life(SDL, -1); /* @todo: remplacer -1 par une constante */
         SDL->ship->previous_animation = SDL->ship->animation->id;
-        SDL->ship->animation = animation_get(SDL, SHIP_STATE_CRASH);
+        /*SDL->ship->animation = animation_get(SDL, SHIP_STATE_CRASH);*/
         return true;
       }
     }
     enemy = enemy->next;
   }
   SDL->ship->previous_animation = SDL->ship->animation->id;
-  SDL->ship->animation = animation_get(SDL, SHIP_STATE_NORMAL);
+  /*SDL->ship->animation = animation_get(SDL, SHIP_STATE_NORMAL);*/
   return false;
 }
 
