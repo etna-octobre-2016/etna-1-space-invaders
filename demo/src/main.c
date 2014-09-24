@@ -2,7 +2,7 @@
 * @Author: sebastien
 * @Date:   2014-09-21 20:02:13
 * @Last Modified by:   sebastien
-* @Last Modified time: 2014-09-23 23:07:47
+* @Last Modified time: 2014-09-24 20:55:46
 */
 #include            "../headers/main.h"
 
@@ -160,11 +160,13 @@ void                listen_events(t_SDL_objects *SDL)
       }
       if (!ship_is_in_life(SDL))
       {
-        opened = false;
+        /*opened = false;*/
+        end_game(SDL, 1);
+
       }
       SDL_RenderClear(SDL->renderer);
       if(SDL->level->completed)
-        end_game(SDL);
+        end_game(SDL, 2);
       else
         game_loop(SDL);
       SDL_RenderPresent(SDL->renderer);
@@ -182,7 +184,7 @@ void                listen_events(t_SDL_objects *SDL)
  * Params :
  *   - t_SDL_objects *SDL
  */
-void                 end_game(t_SDL_objects *SDL)
+void                 end_game(t_SDL_objects *SDL, int fin)
 {
   static bool       is_clear = true;
   SDL_Surface       *text;
@@ -206,7 +208,10 @@ void                 end_game(t_SDL_objects *SDL)
 
   if (text_to_print != NULL)
   {
-    snprintf(text_to_print, 100, "Score final : %d", SDL->level->score);
+    if(fin == 2)
+      snprintf(text_to_print, 100, "Score final : %d", SDL->level->score);
+    else if(fin == 1)
+      snprintf(text_to_print, 100, "Game Over \nScore final : %d", SDL->level->score);
 
     color_text.r = 255;
     color_text.g = 255;
