@@ -2,7 +2,7 @@
 * @Author: sebastien
 * @Date:   2014-09-21 19:59:39
 * @Last Modified by:   sebastien
-* @Last Modified time: 2014-09-23 22:07:00
+* @Last Modified time: 2014-09-24 21:44:18
 */
 #include  "../headers/main.h"
 
@@ -87,7 +87,7 @@ bool      level_1_events_init(t_SDL_objects *SDL)
             SDL->level->events[i]->enemies.level3 = 0;
             break;
           default :
-            timestamp += 10000;
+            timestamp += 12000;
             SDL->level->events[i]->type = 'F';
             SDL->level->events[i]->timestamp = timestamp;
             SDL->level->events[i]->enemies.level1 = 0;
