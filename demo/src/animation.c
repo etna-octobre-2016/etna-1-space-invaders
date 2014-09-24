@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-08-30 17:09:50
-* @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-03 15:46:53
+* @Last Modified by:   ahemt_s
+* @Last Modified time: 2014-09-24 23:01:22
 */
 #include      "../headers/main.h"
 
@@ -16,7 +16,7 @@ bool          animation_init(t_SDL_objects *SDL)
   animation2 = malloc(sizeof(animation2));
   if (SDL->list_animations != NULL || animation1 == NULL || animation2 == NULL)
   {
-    SDL->list_animations = NULL;
+    SDL->list_animations->next = NULL;
     animation1->id = SHIP_STATE_NORMAL;
     animation1->nb_frames = 12;
     animation1->url_image = "assets/images/dracaufeu.png";
