@@ -2,7 +2,7 @@
 * @Author: sebastien
 * @Date:   2014-09-21 20:02:13
 * @Last Modified by:   sebastien
-* @Last Modified time: 2014-09-24 20:55:46
+* @Last Modified time: 2014-09-24 21:04:04
 */
 #include            "../headers/main.h"
 
@@ -208,9 +208,9 @@ void                 end_game(t_SDL_objects *SDL, int fin)
 
   if (text_to_print != NULL)
   {
-    if(fin == 2)
+    if (fin == 2)
       snprintf(text_to_print, 100, "Score final : %d", SDL->level->score);
-    else if(fin == 1)
+    else if (fin == 1)
       snprintf(text_to_print, 100, "Game Over \nScore final : %d", SDL->level->score);
 
     color_text.r = 255;
