@@ -2,7 +2,7 @@
 * @Author: Bernar_s
 * @Date:   2014-09-03 15:45:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-24 22:51:02
+* @Last Modified time: 2014-09-25 00:27:44
 */
 
 #include      "../headers/main.h"
@@ -61,12 +61,10 @@ void            events_update()
     switch (event.type)
     {
       case SDL_KEYDOWN:
-        /*events_add_key(event.key.keysym.sym, 1);*/
-        puts("keydown");
+        events_add_key(event.key.keysym.sym, 1);
         break;
       case SDL_KEYUP:
-        /*events_add_key(event.key.keysym.sym, 0);*/
-        puts("keyup");
+        events_add_key(event.key.keysym.sym, 0);
         break;
       default:
         break;

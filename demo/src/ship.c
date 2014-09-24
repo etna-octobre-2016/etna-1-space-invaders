@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 00:22:06
+* @Last Modified time: 2014-09-25 00:30:51
 */
 #include          "../headers/main.h"
 
@@ -202,7 +202,7 @@ void           ship_update_life(t_SDL_objects *SDL, int number)
  *
  * Return bool
  */
-bool           ship_is_in_life(t_SDL_objects *SDL)
+bool           ship_is_alive(t_SDL_objects *SDL)
 {
   if (SDL->ship->life > 0)
   {

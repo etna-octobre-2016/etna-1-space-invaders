@@ -9,13 +9,11 @@ int                 main()
   {
     main_loop(&SDL);
     /*clear(&SDL);*/
-    puts("dans le if");
     exit(EXIT_SUCCESS);
   }
   else
   {
     /*clear(&SDL);*/
-    puts("dans le else");
     exit(EXIT_FAILURE);
   }
 }
@@ -92,24 +90,21 @@ bool                init(t_SDL_objects *SDL)
 void                game_loop(t_SDL_objects *SDL)
 {
   bool              eventTriggered;
-  /*int               i;*/
+  int               i;
   Uint32            timestamp;
 
   eventTriggered = false;
   timestamp = SDL_GetTicks();
-
-  printf("level: %d\n", SDL->level->number);
   events_update();
-  /*if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
-  {
-    SDL->isOpened = false;
-  }*/
-  /*if (!ship_is_in_life(SDL))
+  if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
   {
     SDL->isOpened = false;
   }
-*/
-  /*for (i = 0; !eventTriggered && i < SDL->level->eventsCount; i++)
+  if (!ship_is_alive(SDL))
+  {
+    SDL->isOpened = false;
+  }
+  for (i = 0; !eventTriggered && i < SDL->level->eventsCount; i++)
   {
     if (SDL->level->events[i]->triggered == false && timestamp > SDL->level->events[i]->timestamp)
     {
@@ -132,7 +127,7 @@ void                game_loop(t_SDL_objects *SDL)
   ship_is_crashed(SDL);
   ship_draw(SDL);
   enemy_move(SDL);
-  enemy_shoot_launch(SDL);*/
+  /*enemy_shoot_launch(SDL);*/
 }
 
 void                main_loop(t_SDL_objects *SDL)
