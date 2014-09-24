@@ -3,33 +3,16 @@
 CC = gcc
 CFLAGS = -W -Wall -Werror -std=c89
 NAME = SpaceInvaders
-WORKSPACE = /Users/ahemt_s/Documents/etna/projets/spaceinvader/demo
-LIBS = $(WORKSPACE)/libs
-LSDL = $(LIBS)/sdl2
-LSDL_IMAGE = $(LIBS)/sdl2-image
-LSDL_TTF = $(LIBS)/sdl2-ttf
 RM = rm -f
+SDLBIN = ~/Library/Frameworks/SDL2.framework/SDL2 ~/Library/Frameworks/SDL2_image.framework/SDL2_image ~/Library/Frameworks/SDL2_ttf.framework/SDL2_ttf
 
 # Default rule
 all: clean $(NAME)
 
 # Compiling
 $(NAME):
-	$(CC) $(CFLAGS) -I$(LSDL)/include/SDL2 -I$(LSDL_IMAGE)/include/SDL2 -I$(LSDL_TTF)/include/SDL2 -L$(LSDL)/lib -L$(LSDL_IMAGE)/lib -L$(LSDL_TTF)/lib -lSDL2 -lSDL2_image -lSDL2_ttf src/*.c -o $(NAME)
+	$(CC) $(CFLAGS) src/*.c $(SDLBIN) -o $(NAME)
 
 # Object files removing
 clean:
 	$(RM) $(NAME)
-
-# Installs dependencies
-install: install-sdl install-sdl-image install-sdl-ttf
-
-# Installs SDL lib
-install-sdl:
-	mkdir -p $(LSDL) && cd vendors/sdl2 && ./configure --prefix=$(LSDL) && make && make install && ln -s $(LSDL)/bin/sdl2-config /usr/local/bin && echo "SDL build completed." && cd ../../
-
-install-sdl-image:
-	mkdir -p $(LSDL_IMAGE) && cd vendors/sdl2-image && ./configure --prefix=$(LSDL_IMAGE) && make && make install && echo "SDL_image build completed." && cd ../../
-
-install-sdl-ttf:
-	mkdir -p $(LSDL_TTF) && cd vendors/sdl2-ttf && ./configure --prefix=$(LSDL_TTF) && make && make install && echo "SDL_ttf build completed." && cd ../../
