@@ -38,7 +38,7 @@ bool                init(t_SDL_objects *SDL)
     && window_init(SDL) == true
     && renderer_init(SDL) == true
     && animation_init(SDL) == true
-    /*&& ship_init(SDL) == true*/
+    && ship_init(SDL) == true
     && level_init(1, SDL) == true
     && enemy_init(SDL) == true
     && status_bar_init(SDL) == true

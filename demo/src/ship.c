@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 00:02:23
+* @Last Modified time: 2014-09-25 00:22:06
 */
 #include          "../headers/main.h"
 
@@ -27,7 +27,11 @@ bool              ship_init(t_SDL_objects *SDL)
 
   /*Animation*/
   SDL->ship->previous_animation = 0;
-  /*SDL->ship->animation = animation_get(SDL, SHIP_STATE_NORMAL);*/
+  SDL->ship->animation = animation_get(SHIP_STATE_NORMAL, SDL);
+  if (SDL->ship->animation == NULL)
+  {
+    return false;
+  }
 
   /*Parametres generaux*/
   SDL->ship->life = SHIP_MAX_LIFE;

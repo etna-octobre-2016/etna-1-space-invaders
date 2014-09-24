@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-08-30 17:09:50
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 00:00:53
+* @Last Modified time: 2014-09-25 00:23:53
 */
 #include      "../headers/main.h"
 
@@ -57,56 +57,17 @@ void          animation_add(t_animation *animation, t_animation *animation_list)
   }
 }
 
-/**
- * Prépare le renvoi de l'animation correspondante au statut
- * Params :
- *   - t_SDL_objects *SDL
- *   - int state
- */
-/*t_animation   *animation_get(t_SDL_objects *SDL, int state)
+t_animation   *animation_get(int id, t_SDL_objects *SDL)
 {
-  return animation_get_recurs(SDL->list_animations, state);
+  t_animation *current;
+
+  current = SDL->animation;
+  while (current->next != NULL)
+  {
+    if (current->id == id)
+    {
+      return current;
+    }
+  }
+  return NULL;
 }
-*/
-/**
- * Renvoie l'animation correspondante au statut de manière récursive
- * Params :
- *   - t_animation *animation
- *   - int state
- */
-/*t_animation   *animation_get_recurs(t_animation *animation, int state)
-{
-  if (animation == NULL)
-  {
-    return NULL;
-  }
-  if (animation->id == state)
-  {
-    return animation;
-  }
-  return animation_get_recurs(animation->next, state);
-}*/
-
-/**
- * Prépare le clear de tout ce qui est en rapport avec les animations
- * Params :
- *   - t_SDL_objects *SDL
- */
-/*void          animation_clear(t_SDL_objects *SDL)
-{
-  animation_clear_recurs(SDL->list_animations);
-}*/
-
-/**
- * Clear tout ce qui est en rapport avec les animations de manière récursive
- * Params :
- *   - t_animation *animation
- */
-/*void          animation_clear_recurs(t_animation *animation)
-{
-  if (animation->next != NULL)
-  {
-    animation_clear_recurs(animation->next);
-  }
-  free(animation->next);
-}*/
