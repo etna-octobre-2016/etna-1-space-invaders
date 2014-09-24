@@ -2,7 +2,7 @@
 * @Author: sebastien
 * @Date:   2014-09-21 20:02:13
 * @Last Modified by:   sebastien
-* @Last Modified time: 2014-09-24 21:04:04
+* @Last Modified time: 2014-09-24 21:12:18
 */
 #include            "../headers/main.h"
 
@@ -201,7 +201,9 @@ void                 end_game(t_SDL_objects *SDL, int fin)
   printf("%d\n",SDL->level->score);
   if (is_clear)
   {
+    printf("test");
     ship_clear(SDL);
+    printf("test2");
     SDL->status_bar->scores = TTF_OpenFont("assets/font/truelies.ttf", 30);
     is_clear = false;
   }
