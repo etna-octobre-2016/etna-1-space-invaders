@@ -147,17 +147,17 @@ void                main_loop(t_SDL_objects *SDL)
     {
       SDL_RenderClear(SDL->renderer);
       /*game_loop(SDL);*/
-      if(SDL->level->completed)
+      if (ship_is_alive(SDL) && !SDL->level->completed)
+      {
+        game_loop(SDL);
+      }
+      else if(ship_is_alive(SDL) && SDL->level->completed)
       {
         end_game(SDL, true);
       }
-      else if (!ship_is_alive(SDL))
-      {
-        end_game(SDL, false);
-      }
       else
       {
-        game_loop(SDL);
+        end_game(SDL, false);
       }
 
       SDL_RenderPresent(SDL->renderer);
@@ -178,15 +178,18 @@ void                main_loop(t_SDL_objects *SDL)
 void                 end_game(t_SDL_objects *SDL, bool end)
 {
   static bool       is_clear = true;
-  SDL_Surface       *text;
+ /* SDL_Surface       *text;
   SDL_Color         color_text;
   SDL_Rect          sourc;
   SDL_Rect          dest;
   SDL_Texture       *texture;
-  SDL_DisplayMode   screen;
+  SDL_DisplayMode   screen;*/
   char              *text_to_print;
 
-  text = NULL;
+if(!end)
+{
+  SDL->isOpened = false;
+}
   text_to_print = malloc(sizeof(char *));
 
   events_update();
@@ -194,14 +197,15 @@ void                 end_game(t_SDL_objects *SDL, bool end)
   {
     SDL->isOpened = false;
   }
-
+  printf("avant\n");
   if (is_clear)
   {
     ship_clear(SDL);
     SDL->status_bar->scores = TTF_OpenFont("assets/font/truelies.ttf", 30);
     is_clear = false;
   }
-
+  printf("apres\n");
+/*
   if (text_to_print != NULL)
   {
     if (end)
@@ -210,13 +214,13 @@ void                 end_game(t_SDL_objects *SDL, bool end)
     }
     else
     {
-     snprintf(text_to_print, 100, "Game Over. Score final : %d\n", SDL->level->score);
+      snprintf(text_to_print, 100, "Game Over. Score final : %d\n", SDL->level->score);
     }
     color_text.r = 255;
     color_text.g = 255;
     color_text.b = 255;
 
-    SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen); /* @todo: utiliser une variable "globale" à la place */
+    SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
 
     text = TTF_RenderText_Blended(SDL->status_bar->scores, text_to_print, color_text);
     texture = SDL_CreateTextureFromSurface(SDL->renderer, text);
@@ -233,5 +237,5 @@ void                 end_game(t_SDL_objects *SDL, bool end)
       exit(EXIT_FAILURE);
     }
     free(text_to_print);
-  }
+  }*/
 }
