@@ -114,6 +114,11 @@ void                game_loop(t_SDL_objects *SDL)
           enemy_add(&SDL->level->events[i]->enemies, SDL);
           eventTriggered = true;
           break;
+        case 'F':
+          SDL->level->completed = true;
+          eventTriggered = true;
+          break;
+
       }
       if (eventTriggered == true)
       {
@@ -146,7 +151,12 @@ void                main_loop(t_SDL_objects *SDL)
     if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND))
     {
       SDL_RenderClear(SDL->renderer);
-      game_loop(SDL);
+      /*game_loop(SDL);*/
+      if(SDL->level->completed)
+        end_game(SDL);
+      else
+        game_loop(SDL);
+
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
     }
@@ -154,5 +164,60 @@ void                main_loop(t_SDL_objects *SDL)
     {
       SDL_Delay(MAX_TIME_DIFF(FRAMES_PER_SECOND) - timeDiff);
     }
+  }
+}
+
+/**
+ * efface le Dracaufeu et affiche le score à l'écran
+ * Params :
+ *   - t_SDL_objects *SDL
+ */
+void                 end_game(t_SDL_objects *SDL)
+{
+  static bool       is_clear = true;
+  SDL_Surface       *text;
+  SDL_Color         color_text;
+  SDL_Rect          sourc;
+  SDL_Rect          dest;
+  SDL_Texture       *texture;
+  SDL_DisplayMode   screen;
+  char              *text_to_print;
+
+  text = NULL;
+  text_to_print = malloc(sizeof(char *));
+
+  printf("%d\n",SDL->level->score);
+  if (is_clear)
+  {
+    ship_clear(SDL);
+    SDL->status_bar->scores = TTF_OpenFont("assets/font/truelies.ttf", 30);
+    is_clear = false;
+  }
+
+  if (text_to_print != NULL)
+  {
+    snprintf(text_to_print, 100, "Score final : %d", SDL->level->score);
+
+    color_text.r = 255;
+    color_text.g = 255;
+    color_text.b = 255;
+
+    SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen); /* @todo: utiliser une variable "globale" à la place */
+
+    text = TTF_RenderText_Blended(SDL->status_bar->scores, text_to_print, color_text);
+    texture = SDL_CreateTextureFromSurface(SDL->renderer, text);
+    sourc.x = 0;
+    sourc.y = 0;
+    dest.x = 320;
+    dest.y = 100;
+    dest.w = text->w;
+    dest.h = text->h;
+
+    if (SDL_RenderCopy(SDL->renderer, texture, &sourc, &dest) < 0)
+    {
+      printf("text error: %s\n", SDL_GetError());
+      exit(EXIT_FAILURE);
+    }
+    free(text_to_print);
   }
 }
