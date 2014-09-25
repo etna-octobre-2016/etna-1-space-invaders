@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-24 23:21:00
+* @Last Modified time: 2014-09-25 02:45:26
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -18,6 +18,7 @@
 
   typedef                 struct s_shoot
   {
+    bool                  is_first;
     int                   x;
     int                   y;
     int                   height;

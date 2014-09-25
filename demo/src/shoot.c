@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-09-20 16:05:12
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-21 23:31:47
+* @Last Modified time: 2014-09-25 03:33:13
 */
 #include  "../headers/main.h"
 
@@ -13,7 +13,7 @@ bool          shoot_enemy_init(t_shoot *shoot, t_enemy *enemy)
     case 1:
       return shoot_enemy_level_1_init(shoot, enemy);
     default:
-      return shoot_enemy_level_1_init(shoot, enemy);
+      return false;
   }
 }
 
@@ -24,12 +24,13 @@ bool          shoot_enemy_draw(t_shoot *shoot, t_enemy *enemy, t_SDL_objects *SD
     case 1:
       return shoot_enemy_level_1_draw(shoot, SDL);
     default:
-      return shoot_enemy_level_1_draw(shoot, SDL);
+      return false;
   }
 }
 
 bool          shoot_enemy_level_1_init(t_shoot *shoot, t_enemy *enemy)
 {
+  shoot->is_first = false;
   shoot->x = enemy->x;
   shoot->y = enemy->y;
   shoot->height = 15;
@@ -55,7 +56,7 @@ bool          shoot_enemy_level_1_draw(t_shoot *shoot, t_SDL_objects *SDL)
   src.w = shoot->width;
   src.h = shoot->height;
 
-  dest.x = shoot->x - 15;
+  dest.x = shoot->x;
   dest.y = shoot->y;
   dest.w = shoot->width;
   dest.h = shoot->height;
@@ -71,6 +72,5 @@ bool          shoot_enemy_level_1_draw(t_shoot *shoot, t_SDL_objects *SDL)
     printf("shoot_enemy_level_1_draw error: %s\n", SDL_GetError());
     return false;
   }
-  shoot->x -= 15;
   return true;
 }

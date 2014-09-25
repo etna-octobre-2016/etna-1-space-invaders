@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 02:14:43
+* @Last Modified time: 2014-09-25 03:26:13
 *
 * @todo:
 *   - ajouter une fonction enemy_each pour parcourir tous les ennemis
@@ -75,6 +75,18 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
         return false;
       }
     }
+    enemy->image = IMG_Load("assets/images/lunatone.png");
+    enemy->shoot = malloc(sizeof(t_shoot));
+    if (enemy->image == NULL)
+    {
+      printf("enemy_add_level_1 error: %s\n", IMG_GetError());
+      return false;
+    }
+    if (enemy->shoot == NULL)
+    {
+      puts("enemy_add_level_1 error: shoot malloc failed");
+      return false;
+    }
     enemy->level = 1;
     enemy->next = NULL;
     enemy->width = 50;
@@ -83,13 +95,7 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
     enemy->y = RAND_RANGE(0, (screen.h - STATUS_BAR_HEIGHT - enemy->height));
     enemy->num_frame = 0;
     enemy->animation.nb_frames = 7;
-    enemy->image = IMG_Load("assets/images/lunatone.png");
-    enemy->shoot = NULL;
-    if (enemy->image == NULL)
-    {
-      printf("Enemy init error: %s\n", IMG_GetError());
-      return false;
-    }
+    enemy->shoot->is_first = true;
     if (!is_first)
     {
       current = SDL->enemy;
@@ -155,38 +161,42 @@ void              enemy_shoot_launch(t_SDL_objects *SDL)
   t_shoot         *enemy_shoot;
   t_shoot         *new_shoot;
 
-  new_shoot = malloc(sizeof(t_shoot));
-  if (new_shoot != NULL)
+  if (SDL->enemy->level == 0)
   {
-    enemy = SDL->enemy;
-    enemy_shoot = enemy->shoot;
-    while (enemy != NULL)
+    return;
+  }
+  enemy = SDL->enemy;
+  enemy_shoot = enemy->shoot;
+  while (enemy->next != NULL)
+  {
+    new_shoot = malloc(sizeof(t_shoot));
+    if (new_shoot != NULL)
     {
       if (shoot_enemy_init(new_shoot, enemy) == true)
       {
-        if (enemy_shoot != NULL)
+        if (enemy_shoot->is_first == false)
         {
-          while (enemy_shoot != NULL)
+          while (enemy_shoot->next != NULL)
           {
             enemy_shoot = enemy_shoot->next;
           }
-          enemy_shoot = new_shoot;
+          enemy_shoot->next = new_shoot;
         }
         else
         {
-          enemy_shoot = new_shoot;
+          enemy->shoot = new_shoot;
         }
-        enemy = enemy->next;
       }
       else
       {
         puts("enemy_shoot_launch error: new_shoot init failed");
       }
     }
-  }
-  else
-  {
-    puts("enemy_shoot_launch error: new_shoot malloc failed");
+    else
+    {
+      puts("enemy_shoot_launch error: new_shoot malloc failed");
+    }
+    enemy = enemy->next;
   }
 }
 
@@ -195,14 +205,22 @@ void              enemy_shoot_draw(t_SDL_objects *SDL)
   t_enemy         *enemy;
   t_shoot         *enemy_shoot;
 
+  if (SDL->enemy->level == 0)
+  {
+    return;
+  }
   enemy = SDL->enemy;
   enemy_shoot = enemy->shoot;
-  while (enemy != NULL)
+  while (enemy->next != NULL)
   {
-    while (enemy_shoot != NULL)
+    if (enemy_shoot->is_first == false)
     {
-      enemy_shoot = enemy_shoot->next;
+      while (enemy_shoot->next != NULL)
+      {
+        shoot_enemy_draw(enemy_shoot, enemy, SDL);
+        enemy_shoot = enemy_shoot->next;
+      }
     }
-    shoot_enemy_draw(enemy_shoot, enemy, SDL);
+    enemy = enemy->next;
   }
 }

@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 02:21:23
+* @Last Modified time: 2014-09-25 02:24:12
 */
 #include          "../headers/main.h"
 
@@ -194,7 +194,7 @@ bool              ship_is_crashed(t_SDL_objects *SDL)
  *   - t_SDL_objects *SDL
  *   - int number Quantité de vie à ajouter (Mettre un nombre négatif si l'on veut faire baisser la vie)
  */
-void           ship_update_life(t_SDL_objects *SDL, int number)
+void              ship_update_life(t_SDL_objects *SDL, int number)
 {
   SDL->ship->life += number;
 }
@@ -206,7 +206,7 @@ void           ship_update_life(t_SDL_objects *SDL, int number)
  *
  * Return bool
  */
-bool           ship_is_alive(t_SDL_objects *SDL)
+bool              ship_is_alive(t_SDL_objects *SDL)
 {
   if (SDL->ship->life > 0)
   {
@@ -220,7 +220,7 @@ bool           ship_is_alive(t_SDL_objects *SDL)
  * Params :
  *   - t_SDL_objects *SDL
  */
-void          ship_clear(t_SDL_objects *SDL)
+void              ship_clear(t_SDL_objects *SDL)
 {
   SDL_FreeSurface(SDL->ship->image);
   SDL_FreeSurface(SDL->ship->life_bar);
