@@ -186,6 +186,12 @@ void                 end_game(t_SDL_objects *SDL)
   text = NULL;
   text_to_print = malloc(sizeof(char *));
 
+  events_update();
+  if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
+  {
+    SDL->isOpened = false;
+  }
+
   printf("%d\n",SDL->level->score);
   if (is_clear)
   {
