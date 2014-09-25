@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
 * @Last Modified by:   BERTEAUX
-* @Last Modified time: 2014-09-25 21:15:11
+* @Last Modified time: 2014-09-25 21:43:03
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -53,6 +53,7 @@
     int                   height;
     int                   num_frame;
     int                   level;
+    int                   max_life;
     SDL_Surface           *image;
     t_animation           animation;
     t_shoot               *shoot;

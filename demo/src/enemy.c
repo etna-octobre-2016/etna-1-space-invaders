@@ -1,8 +1,8 @@
 /*
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
-* @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 20:45:37
+* @Last Modified by:   BERTEAUX
+* @Last Modified time: 2014-09-25 21:51:54
 *
 * @todo:
 *   - ajouter une fonction enemy_each pour parcourir tous les ennemis
@@ -95,6 +95,7 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
     enemy->y = RAND_RANGE(0, (screen.h - STATUS_BAR_HEIGHT - enemy->height));
     enemy->num_frame = 0;
     enemy->animation.nb_frames = 7;
+    enemy->max_life = 10;
     /*enemy->shoot->is_first = true;*/
     if (!is_first)
     {
