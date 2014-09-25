@@ -35,6 +35,8 @@ bool                init(t_SDL_objects *SDL)
     && init_ttf == 0
     && window_init(SDL) == true
     && renderer_init(SDL) == true
+    && background_init(SDL) == true
+    && audio_init(SDL) == true
     && animation_init(SDL) == true
     && ship_init(SDL) == true
     && level_init(1, SDL) == true
@@ -68,7 +70,12 @@ bool                init(t_SDL_objects *SDL)
   animation_clear(SDL);
   ship_clear(SDL);
   enemy_clear(SDL);
+<<<<<<< HEAD
   events_clear();
+=======
+  background_clear(SDL);
+  audio_clear(SDL);
+>>>>>>> background_music
   if (SDL->renderer != NULL)
   {
     SDL_DestroyRenderer(SDL->renderer);
@@ -121,9 +128,10 @@ void                game_loop(t_SDL_objects *SDL)
       }
     }
   }
+  ship_move(SDL);
+  background_draw(SDL);
   status_bar_update_life(SDL);
   status_bar_update_scores(SDL);
-  ship_move(SDL);
   ship_draw(SDL);
   ship_is_crashed(SDL);
   enemy_move(SDL);

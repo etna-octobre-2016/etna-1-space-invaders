@@ -1,8 +1,8 @@
 /*
 * @Author: BERTEAUX
 * @Date:   2014-07-16 17:42:16
-* @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 02:45:26
+* @Last Modified by:   BERTEAUX
+* @Last Modified time: 2014-09-25 21:15:11
 */
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
@@ -97,7 +97,15 @@
 
   typedef                 struct
   {
-    bool                  isOpened;
+    SDL_Surface           *image;
+    int                   width;
+    int                   height;
+    int                   x;
+    
+  }                       t_background;
+
+  typedef                 struct
+  {
     SDL_Window            *window;
     SDL_Renderer          *renderer;
     t_ship                *ship;
@@ -105,6 +113,9 @@
     t_level               *level;
     t_status_bar          *status_bar;
     t_animation           *animation;       /* Liste chainée des animations */
+    t_background          *background;
+    Mix_Music             *music;
+    bool                  isOpened;
 
   }                       t_SDL_objects;
 

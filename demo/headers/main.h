@@ -13,6 +13,8 @@
   #include  "status_bar.h"
   #include  "animation.h"
   #include  "shoot.h"
+  #include  "background.h"
+  #include  "audio.h"
 
   #define   FRAMES_PER_SECOND 14
   #define   MAX_TIME_DIFF(FRAMES_PER_SECOND) (1000 / FRAMES_PER_SECOND)
