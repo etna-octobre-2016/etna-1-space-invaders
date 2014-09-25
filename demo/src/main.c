@@ -100,11 +100,6 @@ void                game_loop(t_SDL_objects *SDL)
   {
     SDL->isOpened = false;
   }
-  if (!ship_is_alive(SDL))
-  {
-    /*SDL->isOpened = false;*/
-    end_game(SDL, false);
-  }
   for (i = 0; !eventTriggered && i < SDL->level->eventsCount; i++)
   {
     if (SDL->level->events[i]->triggered == false && timestamp > SDL->level->events[i]->timestamp)
@@ -153,9 +148,17 @@ void                main_loop(t_SDL_objects *SDL)
       SDL_RenderClear(SDL->renderer);
       /*game_loop(SDL);*/
       if(SDL->level->completed)
+      {
         end_game(SDL, true);
+      }
+      else if (!ship_is_alive(SDL))
+      {
+        end_game(SDL, false);
+      }
       else
+      {
         game_loop(SDL);
+      }
 
       SDL_RenderPresent(SDL->renderer);
       previousTime = currentTime;
@@ -172,7 +175,7 @@ void                main_loop(t_SDL_objects *SDL)
  * Params :
  *   - t_SDL_objects *SDL
  */
-void                 end_game(t_SDL_objects *SDL, bool fin)
+void                 end_game(t_SDL_objects *SDL, bool end)
 {
   static bool       is_clear = true;
   SDL_Surface       *text;
@@ -201,17 +204,14 @@ void                 end_game(t_SDL_objects *SDL, bool fin)
 
   if (text_to_print != NULL)
   {
-    printf("%d\n", fin);
-    if (fin)
+    if (end)
     {
-      printf("j'aime les plantes\n");
       snprintf(text_to_print, 100, "Score final : %d\n", SDL->level->score);
     }
     else
     {
-      snprintf(text_to_print, 100, "Game Over. Score final : %d\n", SDL->level->score);
+     snprintf(text_to_print, 100, "Game Over. Score final : %d\n", SDL->level->score);
     }
-
     color_text.r = 255;
     color_text.g = 255;
     color_text.b = 255;
