@@ -2,7 +2,7 @@
 * @Author: BERTEAUX
 * @Date:   2014-07-16 14:59:54
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 00:43:06
+* @Last Modified time: 2014-09-25 01:43:49
 */
 #include          "../headers/main.h"
 
@@ -162,10 +162,10 @@ bool              ship_is_crashed(t_SDL_objects *SDL)
   int             ship_x_max;
   int             ship_y_max;
 
-  enemy = SDL->enemy->next;
+  enemy = SDL->enemy;
   ship_x_max = SDL->ship->x + SDL->ship->width;
   ship_y_max = SDL->ship->y + SDL->ship->height;
-  while (enemy != NULL)
+  while (enemy->next != NULL)
   {
     if (enemy->x > SDL->ship->x && enemy->x < ship_x_max)
     {

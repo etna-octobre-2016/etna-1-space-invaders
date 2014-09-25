@@ -111,9 +111,9 @@ void                game_loop(t_SDL_objects *SDL)
       switch (SDL->level->events[i]->type)
       {
         case 'E':
-        enemy_add(&SDL->level->events[i]->enemies, SDL);
-        eventTriggered = true;
-        break;
+          enemy_add(&SDL->level->events[i]->enemies, SDL);
+          eventTriggered = true;
+          break;
       }
       if (eventTriggered == true)
       {
@@ -124,10 +124,12 @@ void                game_loop(t_SDL_objects *SDL)
   status_bar_update_life(SDL);
   status_bar_update_scores(SDL);
   ship_move(SDL);
-  ship_is_crashed(SDL);
   ship_draw(SDL);
+
   enemy_move(SDL);
-  /*enemy_shoot_launch(SDL);*/
+  /*ship_is_crashed(SDL);*/
+  /*enemy_shoot_launch(SDL);
+  enemy_shoot_draw(SDL);*/
 }
 
 void                main_loop(t_SDL_objects *SDL)

@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-21 22:27:24
+* @Last Modified time: 2014-09-25 02:14:43
 *
 * @todo:
 *   - ajouter une fonction enemy_each pour parcourir tous les ennemis
@@ -18,7 +18,7 @@ bool              enemy_init(t_SDL_objects *SDL)
   SDL->enemy = malloc(sizeof(t_enemy));
   if (SDL->enemy != NULL)
   {
-    SDL->enemy->next = NULL;
+    SDL->enemy->level = 0;
     return true;
   }
   else
@@ -52,33 +52,47 @@ bool              enemy_add(t_level_event_enemies *enemies, t_SDL_objects *SDL)
  */
 bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
 {
+  bool            is_first;
   int             i;
   t_enemy         *current;
   t_enemy         *enemy;
   SDL_DisplayMode screen;
 
-  current = SDL->enemy;
   SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
+  is_first = false;
   for (i = 0; i < count; i++)
   {
-    enemy = malloc(sizeof(t_enemy));
-    if (enemy != NULL)
+    if (SDL->enemy->level == 0)
     {
-      enemy->level = 1;
-      enemy->next = NULL;
-      enemy->width = 50;
-      enemy->height = 50;
-      enemy->x = screen.w + RAND_RANGE(0, 400);
-      enemy->y = RAND_RANGE(0, (screen.h - STATUS_BAR_HEIGHT - enemy->height));
-      enemy->num_frame = 0;
-      enemy->animation.nb_frames = 7;
-      enemy->image = IMG_Load("assets/images/lunatone.png");
-      enemy->shoot = NULL;
-      if (enemy->image == NULL)
+      enemy = SDL->enemy;
+      is_first = true;
+    }
+    else
+    {
+      enemy = malloc(sizeof(t_enemy));
+      if (enemy == NULL)
       {
-        printf("Enemy init error: %s\n", IMG_GetError());
         return false;
       }
+    }
+    enemy->level = 1;
+    enemy->next = NULL;
+    enemy->width = 50;
+    enemy->height = 50;
+    enemy->x = screen.w + RAND_RANGE(0, 400);
+    enemy->y = RAND_RANGE(0, (screen.h - STATUS_BAR_HEIGHT - enemy->height));
+    enemy->num_frame = 0;
+    enemy->animation.nb_frames = 7;
+    enemy->image = IMG_Load("assets/images/lunatone.png");
+    enemy->shoot = NULL;
+    if (enemy->image == NULL)
+    {
+      printf("Enemy init error: %s\n", IMG_GetError());
+      return false;
+    }
+    if (!is_first)
+    {
+      current = SDL->enemy;
       while (current->next != NULL)
       {
         current = current->next;
@@ -117,13 +131,15 @@ void              enemy_move(t_SDL_objects *SDL)
   t_enemy         *enemy;
 
   enemy = SDL->enemy;
-  while (enemy != NULL)
+  while (enemy->next != NULL)
   {
     switch (enemy->level)
     {
       case 1:
         move_enemy_straight(enemy, SDL);
         break;
+      default:
+        return;
     }
     enemy = enemy->next;
   }
@@ -171,5 +187,22 @@ void              enemy_shoot_launch(t_SDL_objects *SDL)
   else
   {
     puts("enemy_shoot_launch error: new_shoot malloc failed");
+  }
+}
+
+void              enemy_shoot_draw(t_SDL_objects *SDL)
+{
+  t_enemy         *enemy;
+  t_shoot         *enemy_shoot;
+
+  enemy = SDL->enemy;
+  enemy_shoot = enemy->shoot;
+  while (enemy != NULL)
+  {
+    while (enemy_shoot != NULL)
+    {
+      enemy_shoot = enemy_shoot->next;
+    }
+    shoot_enemy_draw(enemy_shoot, enemy, SDL);
   }
 }
