@@ -8,12 +8,12 @@ int                 main()
   if (init(&SDL) == true)
   {
     main_loop(&SDL);
-    clear(&SDL);
+    /*clear(&SDL);*/
     exit(EXIT_SUCCESS);
   }
   else
   {
-    clear(&SDL);
+    /*clear(&SDL);*/
     exit(EXIT_FAILURE);
   }
 }
@@ -62,7 +62,7 @@ bool                init(t_SDL_objects *SDL)
  * Fonction de nettoyage du programme
  * @param {t_SDL_objects}  SDL la structure principale du programme
  */
-void                clear(t_SDL_objects *SDL)
+/*void                clear(t_SDL_objects *SDL)
 {
   status_bar_clear_scores(SDL);
   animation_clear(SDL);
@@ -79,7 +79,7 @@ void                clear(t_SDL_objects *SDL)
   }
   TTF_Quit();
   SDL_Quit();
-}
+}*/
 
 /**
  * Fonction principale appellée à la fréquence de FRAMES_PER_SECOND images/seconde (cf. main.h)
@@ -91,22 +91,19 @@ void                game_loop(t_SDL_objects *SDL)
 {
   bool              eventTriggered;
   int               i;
-  SDL_Event         event;
   Uint32            timestamp;
 
   eventTriggered = false;
   timestamp = SDL_GetTicks();
-
-  events_update(&event);
+  events_update();
   if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
   {
     SDL->isOpened = false;
   }
-  if (!ship_is_in_life(SDL))
+  if (!ship_is_alive(SDL))
   {
     SDL->isOpened = false;
   }
-
   for (i = 0; !eventTriggered && i < SDL->level->eventsCount; i++)
   {
     if (SDL->level->events[i]->triggered == false && timestamp > SDL->level->events[i]->timestamp)
@@ -114,9 +111,9 @@ void                game_loop(t_SDL_objects *SDL)
       switch (SDL->level->events[i]->type)
       {
         case 'E':
-        enemy_add(&SDL->level->events[i]->enemies, SDL);
-        eventTriggered = true;
-        break;
+          enemy_add(&SDL->level->events[i]->enemies, SDL);
+          eventTriggered = true;
+          break;
       }
       if (eventTriggered == true)
       {
@@ -127,10 +124,11 @@ void                game_loop(t_SDL_objects *SDL)
   status_bar_update_life(SDL);
   status_bar_update_scores(SDL);
   ship_move(SDL);
-  ship_is_crashed(SDL);
   ship_draw(SDL);
+  ship_is_crashed(SDL);
   enemy_move(SDL);
-  enemy_shoot_launch(SDL);
+  /*enemy_shoot_launch(SDL);
+  enemy_shoot_draw(SDL);*/
 }
 
 void                main_loop(t_SDL_objects *SDL)
@@ -145,7 +143,7 @@ void                main_loop(t_SDL_objects *SDL)
   {
     currentTime = SDL_GetTicks();
     timeDiff = (currentTime - previousTime);
-    if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND)) /* Code exécuté à la fréquence de FRAMES_PER_SECOND */
+    if (timeDiff > MAX_TIME_DIFF(FRAMES_PER_SECOND))
     {
       SDL_RenderClear(SDL->renderer);
       game_loop(SDL);

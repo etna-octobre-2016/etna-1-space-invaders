@@ -1,8 +1,8 @@
 /*
 * @Author: Bernar_s
 * @Date:   2014-09-03 15:45:05
-* @Last Modified by:   Bernar_s
-* @Last Modified time: 2014-09-03 15:45:10
+* @Last Modified by:   ahemt_s
+* @Last Modified time: 2014-09-25 00:27:44
 */
 
 #include      "../headers/main.h"
@@ -52,17 +52,19 @@ void            events_clear()
   }
 }
 
-void            events_update(SDL_Event *event)
+void            events_update()
 {
-  while (SDL_PollEvent(event))
+  SDL_Event     event;
+
+  while (SDL_PollEvent(&event))
   {
-    switch (event->type)
+    switch (event.type)
     {
       case SDL_KEYDOWN:
-        events_add_key(event->key.keysym.sym, 1);
+        events_add_key(event.key.keysym.sym, 1);
         break;
       case SDL_KEYUP:
-        events_add_key(event->key.keysym.sym, 0);
+        events_add_key(event.key.keysym.sym, 0);
         break;
       default:
         break;

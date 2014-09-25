@@ -11,7 +11,7 @@
   void    ship_draw(t_SDL_objects *SDL);
   bool    ship_is_crashed(t_SDL_objects *SDL);
   void    ship_update_life(t_SDL_objects *SDL, int number);
-  bool    ship_is_in_life(t_SDL_objects *SDL);
+  bool    ship_is_alive(t_SDL_objects *SDL);
   void    ship_update_image(t_SDL_objects *SDL);
 
 #endif
