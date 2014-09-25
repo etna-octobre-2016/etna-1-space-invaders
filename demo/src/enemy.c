@@ -2,7 +2,7 @@
 * @Author: ahemt_s
 * @Date:   2014-07-20 23:24:05
 * @Last Modified by:   ahemt_s
-* @Last Modified time: 2014-09-25 03:26:13
+* @Last Modified time: 2014-09-25 20:45:37
 *
 * @todo:
 *   - ajouter une fonction enemy_each pour parcourir tous les ennemis
@@ -76,17 +76,17 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
       }
     }
     enemy->image = IMG_Load("assets/images/lunatone.png");
-    enemy->shoot = malloc(sizeof(t_shoot));
+    /*enemy->shoot = malloc(sizeof(t_shoot));*/
     if (enemy->image == NULL)
     {
       printf("enemy_add_level_1 error: %s\n", IMG_GetError());
       return false;
     }
-    if (enemy->shoot == NULL)
+    /*if (enemy->shoot == NULL)
     {
       puts("enemy_add_level_1 error: shoot malloc failed");
       return false;
-    }
+    }*/
     enemy->level = 1;
     enemy->next = NULL;
     enemy->width = 50;
@@ -95,7 +95,7 @@ bool              enemy_add_level_1(int count, t_SDL_objects *SDL)
     enemy->y = RAND_RANGE(0, (screen.h - STATUS_BAR_HEIGHT - enemy->height));
     enemy->num_frame = 0;
     enemy->animation.nb_frames = 7;
-    enemy->shoot->is_first = true;
+    /*enemy->shoot->is_first = true;*/
     if (!is_first)
     {
       current = SDL->enemy;
@@ -155,7 +155,7 @@ void              enemy_move(t_SDL_objects *SDL)
  * Lance un tir pour chaque ennemi
  * @param   {t_SDL_objects}   SDL   La structure principale du programme
  */
-void              enemy_shoot_launch(t_SDL_objects *SDL)
+/*void              enemy_shoot_launch(t_SDL_objects *SDL)
 {
   t_enemy         *enemy;
   t_shoot         *enemy_shoot;
@@ -223,4 +223,4 @@ void              enemy_shoot_draw(t_SDL_objects *SDL)
     }
     enemy = enemy->next;
   }
-}
+}*/
