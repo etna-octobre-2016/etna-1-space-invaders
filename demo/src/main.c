@@ -178,64 +178,61 @@ void                main_loop(t_SDL_objects *SDL)
 void                 end_game(t_SDL_objects *SDL, bool end)
 {
   static bool       is_clear = true;
- /* SDL_Surface       *text;
+  SDL_Surface       *text;
   SDL_Color         color_text;
   SDL_Rect          sourc;
   SDL_Rect          dest;
   SDL_Texture       *texture;
-  SDL_DisplayMode   screen;*/
-  char              *text_to_print;
+  SDL_DisplayMode   screen;
+  TTF_Font          *font;
+  char              text_to_print[100];
 
-if(!end)
-{
-  SDL->isOpened = false;
-}
-  text_to_print = malloc(sizeof(char *));
+ /*text_to_print = malloc(sizeof(char *));*/
 
   events_update();
   if (events_find_key(SDLK_ESCAPE) != NULL && events_find_key(SDLK_ESCAPE)->value == 1)
   {
     SDL->isOpened = false;
   }
-  printf("avant\n");
+  font = TTF_OpenFont("assets/font/truelies.ttf", 30);
   if (is_clear)
   {
     ship_clear(SDL);
-    SDL->status_bar->scores = TTF_OpenFont("assets/font/truelies.ttf", 30);
     is_clear = false;
   }
-  printf("apres\n");
-/*
-  if (text_to_print != NULL)
-  {
+
     if (end)
     {
-      snprintf(text_to_print, 100, "Score final : %d\n", SDL->level->score);
+      snprintf(text_to_print, sizeof(text_to_print), "Score final : %d\n", SDL->level->score);
     }
     else
     {
-      snprintf(text_to_print, 100, "Game Over. Score final : %d\n", SDL->level->score);
+      snprintf(text_to_print, sizeof(text_to_print), "Game Over. Score final : %d\n", SDL->level->score);
     }
     color_text.r = 255;
     color_text.g = 255;
     color_text.b = 255;
 
-    SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
 
-    text = TTF_RenderText_Blended(SDL->status_bar->scores, text_to_print, color_text);
-    texture = SDL_CreateTextureFromSurface(SDL->renderer, text);
-    sourc.x = 0;
-    sourc.y = 0;
-    dest.x = 320;
-    dest.y = 100;
-    dest.w = text->w;
-    dest.h = text->h;
 
-    if (SDL_RenderCopy(SDL->renderer, texture, &sourc, &dest) < 0)
+    if (font != NULL && text_to_print != NULL)
     {
-      printf("text error: %s\n", SDL_GetError());
-      exit(EXIT_FAILURE);
-    }
-    free(text_to_print);
-  }*/
+      SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(SDL->window) , &screen);
+      text = TTF_RenderText_Blended(font, text_to_print, color_text);
+      texture = SDL_CreateTextureFromSurface(SDL->renderer, text);
+      sourc.x = 0;
+      sourc.y = 0;
+      dest.x = 320;
+      dest.y = 100;
+      dest.w = text->w;
+      dest.h = text->h;
+
+      if (SDL_RenderCopy(SDL->renderer, texture, &sourc, &dest) < 0)
+      {
+        printf("text error: %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+      }
+  }
+
+    /*free(text_to_print);*/
 }
